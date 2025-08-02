@@ -196,18 +196,28 @@ const toggleMenu = () => {
   box-sizing: border-box;
 }
 
+html, body {
+  margin: 0;
+  padding: 0;
+  background: #000;
+  overflow-x: hidden;
+}
+
 .app {
   background: #000;
   color: #fff;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   line-height: 1.6;
   overflow-x: hidden;
+  min-height: 100vh;
+  width: 100%;
 }
 
 .container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 20px;
+  width: 100%;
 }
 
 /* Navigation */
@@ -390,6 +400,8 @@ const toggleMenu = () => {
 /* Sections */
 section {
   padding: 80px 0;
+  width: 100%;
+  margin: 0;
 }
 
 .section-title {
@@ -641,5 +653,14 @@ section {
   .container {
     padding: 0 15px;
   }
+}
+
+/* Suppression des bordures blanches */
+#app {
+  margin: 0;
+  padding: 0;
+  background: #000;
+  width: 100%;
+  min-height: 100vh;
 }
 </style>
