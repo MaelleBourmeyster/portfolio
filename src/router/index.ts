@@ -36,6 +36,26 @@ const router = createRouter({
       component: () => import('../views/Equestrian.vue')
     },
     {
+      path: '/art',
+      name: 'art',
+      component: () => import('../views/Art.vue')
+    },
+    {
+      path: '/drawing',
+      name: 'drawing',
+      component: () => import('../views/Drawing.vue')
+    },
+    {
+      path: '/wood-sculpture',
+      name: 'wood-sculpture',
+      component: () => import('../views/WoodSculpture.vue')
+    },
+    {
+      path: '/clay-sculpture',
+      name: 'clay-sculpture',
+      component: () => import('../views/ClaySculpture.vue')
+    },
+    {
       path: '/blog',
       name: 'blog',
       component: () => import('../views/Blog.vue')

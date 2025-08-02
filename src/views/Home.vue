@@ -8,14 +8,14 @@ const searchResults = ref([])
 const showResults = ref(false)
 
 const pages = [
+  { name: 'Art', path: '/art', description: 'Mes créations artistiques' },
+  { name: 'Dessin', path: '/drawing', description: 'Mes dessins et illustrations' },
+  { name: 'Sculpture Bois', path: '/wood-sculpture', description: 'Mes sculptures en bois' },
+  { name: 'Sculpture Terre', path: '/clay-sculpture', description: 'Mes sculptures en terre' },
   { name: 'Portfolio', path: '/portfolio', description: 'Mon portfolio professionnel' },
-  { name: 'Projets', path: '/projects', description: 'Mes projets de développement' },
   { name: 'À propos', path: '/about', description: 'En savoir plus sur moi' },
   { name: 'Contact', path: '/contact', description: 'Me contacter' },
-  { name: 'Équitation', path: '/equestrian', description: 'Ma passion pour l\'équitation' },
-  { name: 'Blog', path: '/blog', description: 'Mes articles et réflexions' },
-  { name: 'CV', path: '/cv', description: 'Mon curriculum vitae' },
-  { name: 'Services', path: '/services', description: 'Mes services de développement' }
+  { name: 'Équitation', path: '/equestrian', description: 'Ma passion pour l\'équitation' }
 ]
 
 const handleSearch = () => {
@@ -46,14 +46,14 @@ const handleKeyPress = (event: KeyboardEvent) => {
 // Fonction pour obtenir l'icône de la page
 const getPageIcon = (pageName: string): string => {
   const icons: { [key: string]: string } = {
+    'Art': '🎨',
+    'Dessin': '✏️',
+    'Sculpture Bois': '🪵',
+    'Sculpture Terre': '🏺',
     'Portfolio': '💼',
-    'Projets': '🚀',
     'À propos': '👤',
     'Contact': '📧',
-    'Équitation': '🐎',
-    'Blog': '📝',
-    'CV': '📄',
-    'Services': '⚙️'
+    'Équitation': '🐎'
   }
   return icons[pageName] || '📄'
 }
@@ -65,7 +65,7 @@ const getPageIcon = (pageName: string): string => {
     <header class="header">
       <div class="header-content">
         <h1 class="main-title">Maelle Bourmeyster</h1>
-        <p class="subtitle">Développeuse créative & Passionnée d'équitation</p>
+        <p class="subtitle">Artiste & Créatrice</p>
         
         <!-- Barre de recherche -->
         <div class="search-container">
@@ -123,20 +123,21 @@ const getPageIcon = (pageName: string): string => {
       <div class="container">
         <div class="presentation-content">
           <div class="presentation-text">
-            <h2>Bienvenue sur mon site</h2>
+            <h2>Bienvenue dans mon univers artistique</h2>
             <p>
-              Je suis Maelle Bourmeyster, développeuse web passionnée par la création 
-              d'expériences numériques exceptionnelles. Mon approche combine créativité 
-              technique et design moderne pour créer des solutions web innovantes.
+              Je suis Maelle Bourmeyster, artiste passionnée par l'expression créative 
+              sous toutes ses formes. Mon travail s'articule autour du dessin, de la 
+              sculpture en bois et en terre, créant un univers unique où la matière 
+              rencontre l'imagination.
             </p>
             <p>
-              En dehors du développement, je pratique l'équitation, une passion qui 
-              m'apporte équilibre et discipline. Cette combinaison unique enrichit 
-              ma perspective créative et ma capacité à résoudre des problèmes complexes.
+              Chaque création raconte une histoire, capture une émotion ou explore 
+              une nouvelle technique. L'équitation, ma passion parallèle, m'apporte 
+              équilibre et connexion avec la nature, enrichissant ma vision artistique.
             </p>
             <div class="presentation-buttons">
-              <button @click="navigateToPage('/portfolio')" class="btn btn-primary">
-                Voir mon portfolio
+              <button @click="navigateToPage('/art')" class="btn btn-primary">
+                Découvrir mes œuvres
               </button>
               <button @click="navigateToPage('/contact')" class="btn btn-secondary">
                 Me contacter
@@ -145,7 +146,7 @@ const getPageIcon = (pageName: string): string => {
           </div>
           <div class="presentation-image">
             <div class="image-placeholder">
-              <span>👩‍💻</span>
+              <span>🎨</span>
             </div>
           </div>
         </div>
