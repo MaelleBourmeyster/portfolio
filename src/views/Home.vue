@@ -70,7 +70,7 @@ const getPageIcon = (pageName: string): string => {
     <!-- Section d'accueil avec barre de recherche -->
     <section class="hero-section">
       <div class="hero-content">
-        <h1 class="main-title">Maelle Bourmeyster</h1>
+        <h1 class="main-title">Maëlle Bourmeyster</h1>
         <p class="subtitle">Artiste & Créatrice</p>
 
         <!-- Barre de recherche -->
@@ -133,7 +133,7 @@ const getPageIcon = (pageName: string): string => {
           <div class="presentation-text">
             <h2>Bienvenue dans mon univers artistique</h2>
             <p>
-              Je suis Maelle Bourmeyster, artiste passionnée par l'expression créative
+              Je suis Maëlle Bourmeyster, artiste passionnée par l'expression créative
               sous toutes ses formes. Mon travail s'articule autour du dessin, de la
               sculpture en bois et en terre, créant un univers unique où la matière
               rencontre l'imagination.

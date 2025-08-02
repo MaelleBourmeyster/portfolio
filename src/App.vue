@@ -258,7 +258,7 @@ onUnmounted(() => {
             @click="navigateTo('/')"
             src="/icons/logo.svg"
             alt="Logo"
-            style="cursor: pointer; height: 40px; width: auto; filter: brightness(0) invert(1);"
+            style="cursor: pointer; height: 30px; width: auto; filter: brightness(0) invert(1);"
           />
         </div>
 
