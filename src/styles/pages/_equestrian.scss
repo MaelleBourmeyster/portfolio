@@ -1,0 +1,8 @@
+@use '../variables' as *;
+@use '../mixins' as *;
+@use 'page-common' as *;
+
+// Page Équitation
+.equestrian-page {
+  @include page-simple;
+}

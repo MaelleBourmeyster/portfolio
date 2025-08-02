@@ -1,0 +1,19 @@
+@use '../variables' as *;
+@use '../mixins' as *;
+
+// Page À propos
+.about {
+  background: $color-background-light;
+
+  .about-text p {
+    font-size: $font-size-large;
+    margin-bottom: $spacing-md;
+    color: $color-text-secondary;
+  }
+
+  .skills h3 {
+    font-size: $font-size-xl;
+    margin-bottom: $spacing-sm;
+    color: $color-text;
+  }
+}

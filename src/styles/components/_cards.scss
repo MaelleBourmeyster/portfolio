@@ -1,0 +1,58 @@
+@use '../variables' as *;
+@use '../mixins' as *;
+
+// Cartes de projets
+.project-card {
+  @include card-base;
+  overflow: hidden;
+}
+
+.project-image {
+  height: 200px;
+  @include gradient-primary;
+  opacity: 0.3;
+}
+
+.project-content {
+  padding: $spacing-md;
+
+  h3 {
+    font-size: $font-size-large;
+    margin-bottom: $spacing-xs;
+    color: $color-text;
+  }
+
+  p {
+    color: $color-text-secondary;
+    margin-bottom: $spacing-sm;
+  }
+}
+
+.project-tags {
+  display: flex;
+  gap: $spacing-xs;
+}
+
+.project-tag {
+  background: $color-secondary;
+  color: $color-primary;
+  padding: 4px 12px;
+  border-radius: $border-radius-md;
+  font-size: $font-size-small;
+}
+
+// Cartes de compétences
+.skill-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-xs;
+}
+
+.skill-tag {
+  @include gradient-primary;
+  color: $color-background;
+  padding: 8px 16px;
+  border-radius: $border-radius-xl;
+  font-weight: 600;
+  font-size: $font-size-small;
+}

@@ -1,0 +1,120 @@
+@use '../variables' as *;
+@use '../mixins' as *;
+
+// Page d'accueil
+.home {
+  background: $color-background;
+  color: $color-text;
+  min-height: 100vh;
+  padding: 0; // Pas de padding pour la page d'accueil
+}
+
+// Section d'accueil (anciennement header)
+.hero-section {
+  @include first-section; // Utilise le mixin pour la première section
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  @include gradient-background;
+  position: relative;
+  overflow: hidden;
+  margin-top: 0; // Section complètement collée au header
+}
+
+.hero-content {
+  text-align: center;
+  z-index: 2;
+  position: relative;
+  max-width: 800px;
+  padding: 0; // Pas de padding du tout
+  margin-top: -50px; // Remonte le contenu un peu plus haut
+}
+
+.main-title {
+  font-size: $font-size-5xl;
+  font-weight: 800;
+  margin-bottom: $spacing-sm;
+  @include gradient-text;
+
+  @include mobile {
+    font-size: $font-size-3xl;
+  }
+
+  @include small-mobile {
+    font-size: $font-size-2xl;
+  }
+}
+
+.subtitle {
+  @include page-subtitle;
+  margin-bottom: $spacing-xl;
+
+  @include mobile {
+    font-size: $font-size-large;
+  }
+}
+
+// Section de navigation rapide
+.quick-nav {
+  @include section-base;
+  background: $color-background-light;
+
+  h2 {
+    @include section-title;
+  }
+}
+
+// Section de présentation
+.presentation {
+  @include section-base;
+  background: $color-background;
+
+  .presentation-text {
+    h2 {
+      font-size: $font-size-3xl;
+      margin-bottom: $spacing-md;
+      @include gradient-text;
+    }
+
+    p {
+      font-size: $font-size-large;
+      color: $color-text-secondary;
+      margin-bottom: $spacing-md;
+      line-height: 1.8;
+    }
+  }
+
+  .presentation-buttons {
+    display: flex;
+    gap: $spacing-sm;
+    margin-top: $spacing-lg;
+
+    @include mobile {
+      flex-direction: column;
+    }
+  }
+
+  .presentation-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .image-placeholder {
+      width: 300px;
+      height: 300px;
+      @include gradient-primary;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0.8;
+
+      img {
+        width: 120px;
+        height: 120px;
+        filter: invert(1);
+      }
+    }
+  }
+}

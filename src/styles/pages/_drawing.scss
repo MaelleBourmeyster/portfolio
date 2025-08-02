@@ -1,0 +1,53 @@
+@use '../variables' as *;
+@use '../mixins' as *;
+
+// Page Dessin
+.drawing-page {
+  @include page-base;
+}
+
+.drawing-header {
+  @include page-header;
+}
+
+.drawing-subtitle {
+  @include page-subtitle;
+}
+
+.drawing-intro {
+  @include intro-section;
+}
+
+.intro-content h2 {
+  font-size: $font-size-3xl;
+  margin-bottom: $spacing-lg;
+  @include gradient-text;
+}
+
+.intro-content p {
+  font-size: $font-size-large;
+  color: $color-text-secondary;
+  margin-bottom: $spacing-md;
+  line-height: 1.8;
+}
+
+.drawing-gallery h2 {
+  font-size: $font-size-3xl;
+  text-align: center;
+  margin-bottom: $spacing-xl;
+  @include gradient-text;
+}
+
+.gallery-grid {
+  @include gallery-grid;
+}
+
+.gallery-item {
+  @include card-base;
+  border-radius: $border-radius-lg;
+  overflow: hidden;
+}
+
+.artwork-placeholder {
+  @include artwork-placeholder;
+}

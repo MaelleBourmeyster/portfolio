@@ -1,0 +1,113 @@
+@use '../variables' as *;
+@use '../mixins' as *;
+
+// Formulaires
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-input,
+.form-textarea {
+  @include input-base;
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+// Barre de recherche
+.search-container {
+  position: relative;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.search-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-input {
+  width: 100%;
+  padding: 15px 50px 15px 20px;
+  border: 2px solid $color-secondary;
+  border-radius: $border-radius-full;
+  background: rgba(255, 255, 255, 0.1);
+  color: $color-text;
+  font-size: $font-size-large;
+  backdrop-filter: blur(10px);
+  transition: all $transition-fast;
+
+  &:focus {
+    outline: none;
+    border-color: $color-primary;
+    background: rgba(255, 255, 255, 0.15);
+  }
+
+  &::placeholder {
+    color: $color-text-placeholder;
+  }
+}
+
+.search-icon {
+  position: absolute;
+  right: 15px;
+  font-size: $font-size-xl;
+  color: $color-text-secondary;
+
+  img {
+    width: 20px;
+    height: 20px;
+    filter: invert(1);
+  }
+}
+
+.search-results {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.95);
+  border: 1px solid $color-secondary;
+  border-radius: 10px;
+  margin-top: 5px;
+  max-height: 300px;
+  overflow-y: auto;
+  z-index: $z-index-dropdown;
+}
+
+.search-result-item {
+  padding: 15px 20px;
+  cursor: pointer;
+  transition: background $transition-fast;
+  border-bottom: 1px solid $color-secondary;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &:hover {
+    background: rgba(0, 255, 136, 0.1);
+  }
+
+  h3 {
+    color: $color-text;
+    margin-bottom: 5px;
+    font-size: $font-size-base;
+  }
+
+  p {
+    color: $color-text-secondary;
+    font-size: $font-size-small;
+    margin: 0;
+  }
+}

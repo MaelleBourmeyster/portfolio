@@ -1,0 +1,307 @@
+@use 'variables' as *;
+
+// Mixins pour les media queries
+@mixin mobile {
+  @media (max-width: #{$breakpoint-md}) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (min-width: #{$breakpoint-md + 1px}) and (max-width: #{$breakpoint-lg}) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: #{$breakpoint-lg + 1px}) {
+    @content;
+  }
+}
+
+@mixin small-mobile {
+  @media (max-width: #{$breakpoint-sm}) {
+    @content;
+  }
+}
+
+// Mixin pour les gradients
+@mixin gradient-primary {
+  background: linear-gradient(45deg, $color-primary, $color-primary-dark);
+}
+
+@mixin gradient-text {
+  background: linear-gradient(45deg, $color-text, $color-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+@mixin gradient-background {
+  background: linear-gradient(135deg, $color-background 0%, $color-background-light 100%);
+}
+
+// Mixin pour les boutons
+@mixin button-base {
+  padding: 12px 24px;
+  border: none;
+  border-radius: $border-radius-sm;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all $transition-fast;
+  text-decoration: none;
+  display: inline-block;
+  font-family: $font-family-primary;
+}
+
+@mixin button-primary {
+  @include button-base;
+  @include gradient-primary;
+  color: $color-background;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0, 255, 136, 0.3);
+  }
+}
+
+@mixin button-secondary {
+  @include button-base;
+  background: transparent;
+  color: $color-text;
+  border: 2px solid $color-primary;
+
+  &:hover {
+    background: $color-primary;
+    color: $color-background;
+  }
+}
+
+// Mixin pour les cartes
+@mixin card-base {
+  background: $color-background-medium;
+  border-radius: $border-radius-md;
+  transition: transform $transition-fast;
+
+  &:hover {
+    transform: translateY(-5px);
+  }
+}
+
+// Mixin pour les inputs
+@mixin input-base {
+  padding: 12px;
+  border: 2px solid $color-secondary;
+  border-radius: $border-radius-sm;
+  background: $color-background-medium;
+  color: $color-text;
+  font-size: $font-size-base;
+  transition: border-color $transition-fast;
+  font-family: $font-family-primary;
+
+  &:focus {
+    outline: none;
+    border-color: $color-primary;
+  }
+}
+
+// Mixin pour les animations
+@mixin float-animation {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+// Mixin pour les conteneurs
+@mixin container {
+  max-width: $container-max-width;
+  margin: 0 auto;
+  padding: 0 $container-padding;
+  width: 100%;
+}
+
+// Mixin pour les sections
+@mixin section-base {
+  padding: 80px 0;
+  width: 100%;
+  margin: 0;
+}
+
+// Mixin pour les titres de section
+@mixin section-title {
+  font-size: $font-size-4xl;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: $spacing-xl;
+  @include gradient-text;
+
+  @include mobile {
+    font-size: $font-size-2xl;
+  }
+}
+
+// NOUVEAUX MIXINS POUR ÉLIMINER LES RÉPÉTITIONS
+
+// Mixin pour les pages de base
+@mixin page-base {
+  background: $color-background;
+  color: $color-text;
+  min-height: 100vh;
+  padding: 100px 0;
+}
+
+// Mixin pour la première section (sans padding supérieur)
+@mixin first-section {
+  padding: 0; // Pas de padding du tout
+  width: 100%;
+  margin: 0; // Pas de margin du tout
+  margin-top: 0; // Force l'absence d'espace avec le header
+}
+
+// Mixin pour les headers de page
+@mixin page-header {
+  text-align: center;
+  margin-bottom: $spacing-2xl;
+
+  h1 {
+    font-size: $font-size-4xl;
+    font-weight: 800;
+    margin-bottom: $spacing-sm;
+    @include gradient-text;
+
+    @include mobile {
+      font-size: $font-size-3xl;
+    }
+
+    @include small-mobile {
+      font-size: $font-size-2xl;
+    }
+  }
+}
+
+// Mixin pour les sous-titres de page
+@mixin page-subtitle {
+  font-size: $font-size-large;
+  color: $color-text-secondary;
+  margin-bottom: $spacing-lg;
+}
+
+// Mixin pour les sections d'introduction
+@mixin intro-section {
+  background: $color-background-light;
+  padding: $spacing-xl;
+  border-radius: $border-radius-lg;
+  margin-bottom: $spacing-2xl;
+
+  @include mobile {
+    padding: $spacing-lg;
+  }
+
+  h2 {
+    font-size: $font-size-3xl;
+    margin-bottom: $spacing-lg;
+    @include gradient-text;
+  }
+
+  p {
+    font-size: $font-size-large;
+    color: $color-text-secondary;
+    margin-bottom: $spacing-md;
+    line-height: 1.8;
+  }
+}
+
+// Mixin pour les grilles de galerie
+@mixin gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: $spacing-lg;
+  margin-bottom: $spacing-xl;
+
+  @include mobile {
+    grid-template-columns: 1fr;
+  }
+}
+
+// Mixin pour les placeholders d'œuvres d'art
+@mixin artwork-placeholder {
+  @include gradient-primary;
+  padding: $spacing-2xl $spacing-lg;
+  text-align: center;
+  opacity: 0.8;
+
+  img {
+    width: 64px;
+    height: 64px;
+    filter: invert(1);
+    display: block;
+    margin: 0 auto $spacing-sm auto;
+  }
+
+  p {
+    color: $color-background;
+    font-weight: 600;
+    font-size: $font-size-large;
+    margin: 0;
+  }
+}
+
+// Mixin pour les cartes de catégorie
+@mixin category-card {
+  @include card-base;
+  padding: $spacing-lg;
+  border-radius: $border-radius-lg;
+  text-align: center;
+  border: 1px solid $color-secondary;
+
+  &:hover {
+    border-color: $color-primary;
+    box-shadow: 0 10px 30px rgba(0, 255, 136, 0.2);
+  }
+
+  @include mobile {
+    padding: $spacing-md;
+  }
+}
+
+// Mixin pour les icônes de catégorie
+@mixin category-icon {
+  font-size: $font-size-5xl;
+  margin-bottom: $spacing-sm;
+
+  img {
+    width: 64px;
+    height: 64px;
+    filter: invert(1);
+  }
+}
+
+// Mixin pour les liens de retour
+@mixin back-link {
+  color: $color-primary;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: $font-size-large;
+  transition: color $transition-fast;
+  display: inline-block;
+  padding: 12px 24px;
+  border: 2px solid $color-primary;
+  border-radius: $border-radius-sm;
+
+  &:hover {
+    color: $color-background;
+    background: $color-primary;
+  }
+}
+
+// Mixin pour les conteneurs de liens de retour
+@mixin back-link-container {
+  text-align: center;
+}

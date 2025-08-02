@@ -1,183 +1,379 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted, onUnmounted, nextTick } from 'vue'
+import { useRouter } from 'vue-router'
 
-const isMenuOpen = ref(false)
+const router = useRouter()
 
-const toggleMenu = () => {
-  isMenuOpen.value = !isMenuOpen.value
+// Structure des menus par catégories
+const menuCategories = [
+  {
+    name: 'Portfolio',
+    items: [
+      { name: 'Accueil', path: '/' },
+      { name: 'À propos', path: '/about' },
+      { name: 'CV', path: '/cv' },
+      { name: 'Contact', path: '/contact' }
+    ]
+  },
+  {
+    name: 'Art',
+    items: [
+      { name: 'Galerie', path: '/art' },
+      { name: 'Dessin', path: '/drawing' },
+      { name: 'Sculpture Bois', path: '/wood-sculpture' },
+      { name: 'Sculpture Argile', path: '/clay-sculpture' }
+    ]
+  },
+  {
+    name: 'Projets',
+    items: [
+      { name: 'Mes Projets', path: '/projects' },
+      { name: 'Services', path: '/services' },
+      { name: 'Blog', path: '/blog' }
+    ]
+  },
+  {
+    name: 'Passions',
+    items: [
+      { name: 'Équitation', path: '/equestrian' }
+    ]
+  }
+]
+
+const activeDropdown = ref<string | null>(null)
+const isMobileMenuOpen = ref(false)
+const mobileOpenCategories = ref<Set<string>>(new Set())
+const dropdownTimeout = ref<number | null>(null)
+const isMouseInDropdown = ref(false)
+const focusedIndex = ref<number>(-1)
+const currentCategoryIndex = ref<number>(-1)
+
+// Gestion améliorée des menus déroulants
+const openDropdown = (categoryName: string) => {
+  if (activeDropdown.value !== categoryName) {
+    activeDropdown.value = categoryName
+    focusedIndex.value = -1
+    currentCategoryIndex.value = menuCategories.findIndex(cat => cat.name === categoryName)
+  }
 }
+
+const closeDropdown = () => {
+  if (!isMouseInDropdown.value) {
+    activeDropdown.value = null
+    focusedIndex.value = -1
+    currentCategoryIndex.value = -1
+  }
+}
+
+const handleMouseEnter = (categoryName: string) => {
+  if (dropdownTimeout.value) {
+    clearTimeout(dropdownTimeout.value)
+    dropdownTimeout.value = null
+  }
+  openDropdown(categoryName)
+}
+
+const handleMouseLeave = () => {
+  dropdownTimeout.value = window.setTimeout(() => {
+    closeDropdown()
+  }, 100) // Délai réduit pour une meilleure réactivité
+}
+
+const handleDropdownMouseEnter = () => {
+  isMouseInDropdown.value = true
+  if (dropdownTimeout.value) {
+    clearTimeout(dropdownTimeout.value)
+    dropdownTimeout.value = null
+  }
+}
+
+const handleDropdownMouseLeave = () => {
+  isMouseInDropdown.value = false
+  dropdownTimeout.value = window.setTimeout(() => {
+    closeDropdown()
+  }, 100)
+}
+
+// Gestion clavier améliorée
+const handleKeyDown = (event: KeyboardEvent, categoryName: string) => {
+  const categoryIndex = menuCategories.findIndex(cat => cat.name === categoryName)
+  const category = menuCategories[categoryIndex]
+
+  switch (event.key) {
+    case 'Enter':
+    case ' ':
+      event.preventDefault()
+      if (activeDropdown.value === categoryName) {
+        closeDropdown()
+      } else {
+        openDropdown(categoryName)
+        focusedIndex.value = 0
+      }
+      break
+    case 'ArrowDown':
+      event.preventDefault()
+      if (activeDropdown.value === categoryName) {
+        focusedIndex.value = Math.min(focusedIndex.value + 1, category.items.length - 1)
+      } else {
+        openDropdown(categoryName)
+        focusedIndex.value = 0
+      }
+      break
+    case 'ArrowUp':
+      event.preventDefault()
+      if (activeDropdown.value === categoryName) {
+        focusedIndex.value = Math.max(focusedIndex.value - 1, 0)
+      }
+      break
+    case 'Escape':
+      event.preventDefault()
+      closeDropdown()
+      break
+  }
+}
+
+const handleDropdownKeyDown = (event: KeyboardEvent, categoryName: string) => {
+  const categoryIndex = menuCategories.findIndex(cat => cat.name === categoryName)
+  const category = menuCategories[categoryIndex]
+
+  switch (event.key) {
+    case 'ArrowDown':
+      event.preventDefault()
+      focusedIndex.value = Math.min(focusedIndex.value + 1, category.items.length - 1)
+      break
+    case 'ArrowUp':
+      event.preventDefault()
+      focusedIndex.value = Math.max(focusedIndex.value - 1, 0)
+      break
+    case 'Enter':
+    case ' ':
+      event.preventDefault()
+      if (focusedIndex.value >= 0 && focusedIndex.value < category.items.length) {
+        navigateTo(category.items[focusedIndex.value].path)
+      }
+      break
+    case 'Escape':
+      event.preventDefault()
+      closeDropdown()
+      break
+  }
+}
+
+// Gestion mobile améliorée
+const toggleMobileCategory = (categoryName: string) => {
+  if (mobileOpenCategories.value.has(categoryName)) {
+    mobileOpenCategories.value.delete(categoryName)
+  } else {
+    mobileOpenCategories.value.add(categoryName)
+  }
+}
+
+const toggleMobileMenu = () => {
+  isMobileMenuOpen.value = !isMobileMenuOpen.value
+  if (!isMobileMenuOpen.value) {
+    mobileOpenCategories.value.clear()
+  }
+}
+
+const closeMobileMenu = () => {
+  isMobileMenuOpen.value = false
+  mobileOpenCategories.value.clear()
+}
+
+// Gestion améliorée des clics à l'extérieur
+const handleClickOutside = (event: Event) => {
+  const target = event.target as HTMLElement
+
+  // Vérifier si le clic est en dehors du header
+  if (!target.closest('.header')) {
+    closeDropdown()
+    if (isMobileMenuOpen.value) {
+      closeMobileMenu()
+    }
+  }
+}
+
+// Gestion du focus pour l'accessibilité
+const handleFocusIn = (event: FocusEvent) => {
+  const target = event.target as HTMLElement
+  if (target.closest('.nav-category')) {
+    const categoryName = target.closest('.nav-category')?.getAttribute('data-category')
+    if (categoryName) {
+      openDropdown(categoryName)
+    }
+  }
+}
+
+const handleFocusOut = (event: FocusEvent) => {
+  const target = event.target as HTMLElement
+  const relatedTarget = event.relatedTarget as HTMLElement
+
+  // Vérifier si le focus reste dans le même menu
+  if (!relatedTarget?.closest('.nav-category') ||
+      !target.closest('.nav-category')?.isSameNode(relatedTarget.closest('.nav-category'))) {
+    setTimeout(() => {
+      if (!document.activeElement?.closest('.nav-category')) {
+        closeDropdown()
+      }
+    }, 10)
+  }
+}
+
+const navigateTo = (route: string) => {
+  router.push(route)
+  closeDropdown()
+  closeMobileMenu()
+}
+
+// Nettoyage des timeouts
+const clearAllTimeouts = () => {
+  if (dropdownTimeout.value) {
+    clearTimeout(dropdownTimeout.value)
+    dropdownTimeout.value = null
+  }
+}
+
+// Lifecycle hooks
+onMounted(() => {
+  document.addEventListener('click', handleClickOutside)
+  document.addEventListener('focusin', handleFocusIn)
+  document.addEventListener('focusout', handleFocusOut)
+})
+
+onUnmounted(() => {
+  document.removeEventListener('click', handleClickOutside)
+  document.removeEventListener('focusin', handleFocusIn)
+  document.removeEventListener('focusout', handleFocusOut)
+  clearAllTimeouts()
+})
 </script>
 
 <template>
   <div class="app">
-    <!-- Navigation -->
-    <nav class="navbar">
+    <!-- Header avec Navigation intégrée -->
+    <header class="header">
       <div class="nav-container">
         <div class="nav-logo">
-          <h2>Maelle Bourmeyster</h2>
+          <img
+            @click="navigateTo('/')"
+            src="/icons/logo.svg"
+            alt="Logo"
+            style="cursor: pointer; height: 40px; width: auto; filter: brightness(0) invert(1);"
+          />
         </div>
-        <div class="nav-menu" :class="{ 'nav-menu-open': isMenuOpen }">
-          <a href="#home" class="nav-link">Accueil</a>
-          <a href="#about" class="nav-link">À propos</a>
-          <a href="#projects" class="nav-link">Projets</a>
-          <a href="#contact" class="nav-link">Contact</a>
-        </div>
-        <div class="nav-toggle" @click="toggleMenu">
+
+        <!-- Navigation Desktop -->
+        <nav class="nav-menu desktop-menu" role="navigation" aria-label="Navigation principale">
+          <div
+            v-for="(category, index) in menuCategories"
+            :key="category.name"
+            class="nav-category"
+            :data-category="category.name"
+            @mouseenter="handleMouseEnter(category.name)"
+            @mouseleave="handleMouseLeave"
+          >
+            <button
+              class="nav-category-btn"
+              :aria-expanded="activeDropdown === category.name"
+              :aria-haspopup="true"
+              :aria-controls="`dropdown-${category.name}`"
+              @keydown="handleKeyDown($event, category.name)"
+              @focus="openDropdown(category.name)"
+            >
+              {{ category.name }}
+            </button>
+
+            <div
+              v-if="activeDropdown === category.name"
+              :id="`dropdown-${category.name}`"
+              class="dropdown-menu"
+              role="menu"
+              @mouseenter="handleDropdownMouseEnter"
+              @mouseleave="handleDropdownMouseLeave"
+            >
+              <button
+                v-for="(item, itemIndex) in category.items"
+                :key="item.path"
+                :class="['dropdown-item', { 'focused': focusedIndex === itemIndex }]"
+                role="menuitem"
+                @click="navigateTo(item.path)"
+                @keydown="handleDropdownKeyDown($event, category.name)"
+                @focus="focusedIndex = itemIndex"
+              >
+                {{ item.name }}
+              </button>
+            </div>
+          </div>
+        </nav>
+
+        <!-- Bouton menu mobile -->
+        <button
+          class="nav-toggle"
+          @click="toggleMobileMenu"
+          :aria-expanded="isMobileMenuOpen"
+          :aria-controls="'mobile-menu'"
+          aria-label="Menu mobile"
+        >
           <span></span>
           <span></span>
           <span></span>
-        </div>
+        </button>
       </div>
-    </nav>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-      <div class="hero-content">
-        <h1 class="hero-title">Maelle Bourmeyster</h1>
-        <p class="hero-subtitle">Développeuse créative & Designer</p>
-        <div class="hero-buttons">
-          <button class="btn btn-primary">Voir mes projets</button>
-          <button class="btn btn-secondary">Me contacter</button>
-        </div>
-      </div>
-      <div class="hero-background">
-        <div class="floating-elements">
-          <div class="floating-element"></div>
-          <div class="floating-element"></div>
-          <div class="floating-element"></div>
-        </div>
-      </div>
-    </section>
+      <!-- Navigation Mobile -->
+      <nav
+        :id="'mobile-menu'"
+        class="nav-menu mobile-menu"
+        :class="{ 'nav-menu-open': isMobileMenuOpen }"
+        role="navigation"
+        aria-label="Menu mobile"
+      >
+        <div
+          v-for="category in menuCategories"
+          :key="category.name"
+          class="nav-category"
+        >
+          <button
+            class="nav-category-btn"
+            :aria-expanded="mobileOpenCategories.has(category.name)"
+            :aria-controls="`mobile-dropdown-${category.name}`"
+            @click="toggleMobileCategory(category.name)"
+          >
+            {{ category.name }}
+          </button>
 
-    <!-- About Section -->
-    <section id="about" class="about">
-      <div class="container">
-        <h2 class="section-title">À propos de moi</h2>
-        <div class="about-content">
-          <div class="about-text">
-            <p>
-              Passionnée par la création numérique et le développement web, 
-              je combine créativité et expertise technique pour créer des 
-              expériences utilisateur exceptionnelles.
-            </p>
-            <p>
-              Spécialisée dans les technologies modernes comme Vue.js, 
-              React, et les frameworks CSS, je m'efforce de créer des 
-              solutions élégantes et performantes.
-            </p>
-            <p>
-              En dehors du développement, je pratique l'équitation, 
-              une passion qui m'apporte équilibre, discipline et une 
-              connexion unique avec la nature.
-            </p>
-          </div>
-          <div class="skills">
-            <h3>Compétences</h3>
-            <div class="skill-tags">
-              <span class="skill-tag">Vue.js</span>
-              <span class="skill-tag">React</span>
-              <span class="skill-tag">TypeScript</span>
-              <span class="skill-tag">CSS3</span>
-              <span class="skill-tag">Node.js</span>
-              <span class="skill-tag">Git</span>
-              <span class="skill-tag">Équitation</span>
-            </div>
+          <div
+            :id="`mobile-dropdown-${category.name}`"
+            v-if="mobileOpenCategories.has(category.name)"
+            class="dropdown-menu show"
+            role="menu"
+          >
+            <button
+              v-for="item in category.items"
+              :key="item.path"
+              @click="navigateTo(item.path)"
+              class="dropdown-item"
+              role="menuitem"
+            >
+              {{ item.name }}
+            </button>
           </div>
         </div>
-      </div>
-    </section>
+      </nav>
+    </header>
 
-    <!-- Projects Section -->
-    <section id="projects" class="projects">
-      <div class="container">
-        <h2 class="section-title">Mes Projets</h2>
-        <div class="projects-grid">
-          <div class="project-card">
-            <div class="project-image"></div>
-            <div class="project-content">
-              <h3>Application E-commerce</h3>
-              <p>Une plateforme de vente en ligne moderne avec Vue.js et Node.js</p>
-              <div class="project-tags">
-                <span class="project-tag">Vue.js</span>
-                <span class="project-tag">Node.js</span>
-              </div>
-            </div>
-          </div>
-          <div class="project-card">
-            <div class="project-image"></div>
-            <div class="project-content">
-              <h3>Dashboard Analytics</h3>
-              <p>Interface de tableau de bord avec visualisations de données</p>
-              <div class="project-tags">
-                <span class="project-tag">React</span>
-                <span class="project-tag">D3.js</span>
-              </div>
-            </div>
-          </div>
-          <div class="project-card">
-            <div class="project-image"></div>
-            <div class="project-content">
-              <h3>Application Mobile</h3>
-              <p>Application mobile hybride pour la gestion de tâches</p>
-              <div class="project-tags">
-                <span class="project-tag">React Native</span>
-                <span class="project-tag">Firebase</span>
-              </div>
-            </div>
-          </div>
-          <div class="project-card">
-            <div class="project-image"></div>
-            <div class="project-content">
-              <h3>Site Web Équestre</h3>
-              <p>Site web moderne pour un centre équestre avec réservation en ligne</p>
-              <div class="project-tags">
-                <span class="project-tag">Vue.js</span>
-                <span class="project-tag">CSS3</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+    <!-- Overlay pour mobile -->
+    <div
+      v-if="isMobileMenuOpen"
+      class="mobile-overlay"
+      @click="closeMobileMenu"
+      aria-hidden="true"
+    ></div>
 
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
-      <div class="container">
-        <h2 class="section-title">Contact</h2>
-        <div class="contact-content">
-          <div class="contact-info">
-            <h3>Parlons de votre projet</h3>
-            <p>Je suis toujours ouvert aux nouvelles opportunités et collaborations intéressantes.</p>
-            <div class="contact-details">
-              <div class="contact-item">
-                <span class="contact-icon">📧</span>
-                <span>maelle.bourmeyster@email.com</span>
-              </div>
-              <div class="contact-item">
-                <span class="contact-icon">📱</span>
-                <span>+33 6 12 34 56 78</span>
-              </div>
-              <div class="contact-item">
-                <span class="contact-icon">📍</span>
-                <span>France</span>
-              </div>
-            </div>
-          </div>
-          <form class="contact-form">
-            <div class="form-group">
-              <input type="text" placeholder="Votre nom" class="form-input">
-            </div>
-            <div class="form-group">
-              <input type="email" placeholder="Votre email" class="form-input">
-            </div>
-            <div class="form-group">
-              <textarea placeholder="Votre message" rows="5" class="form-textarea"></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary">Envoyer le message</button>
-          </form>
-        </div>
-      </div>
-    </section>
+    <!-- Main Content -->
+    <main class="main-content">
+      <router-view />
+    </main>
 
     <!-- Footer -->
     <footer class="footer">
@@ -188,479 +384,6 @@ const toggleMenu = () => {
   </div>
 </template>
 
-<style scoped>
-/* Reset and base styles */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-html, body {
-  margin: 0;
-  padding: 0;
-  background: #000;
-  overflow-x: hidden;
-}
-
-.app {
-  background: #000;
-  color: #fff;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  line-height: 1.6;
-  overflow-x: hidden;
-  min-height: 100vh;
-  width: 100%;
-}
-
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
-  width: 100%;
-}
-
-/* Navigation */
-.navbar {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  background: rgba(0, 0, 0, 0.95);
-  backdrop-filter: blur(10px);
-  z-index: 1000;
-  padding: 1rem 0;
-}
-
-.nav-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.nav-logo h2 {
-  color: #fff;
-  font-size: 1.5rem;
-  font-weight: 700;
-}
-
-.nav-menu {
-  display: flex;
-  gap: 2rem;
-}
-
-.nav-link {
-  color: #fff;
-  text-decoration: none;
-  font-weight: 500;
-  transition: color 0.3s ease;
-}
-
-.nav-link:hover {
-  color: #00ff88;
-}
-
-.nav-toggle {
-  display: none;
-  flex-direction: column;
-  cursor: pointer;
-}
-
-.nav-toggle span {
-  width: 25px;
-  height: 3px;
-  background: #fff;
-  margin: 3px 0;
-  transition: 0.3s;
-}
-
-/* Hero Section */
-.hero {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  background: linear-gradient(135deg, #000 0%, #1a1a1a 100%);
-  overflow: hidden;
-}
-
-.hero-content {
-  text-align: center;
-  z-index: 2;
-  position: relative;
-}
-
-.hero-title {
-  font-size: 4rem;
-  font-weight: 800;
-  margin-bottom: 1rem;
-  background: linear-gradient(45deg, #fff, #00ff88);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.hero-subtitle {
-  font-size: 1.5rem;
-  color: #ccc;
-  margin-bottom: 2rem;
-}
-
-.hero-buttons {
-  display: flex;
-  gap: 1rem;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-.btn {
-  padding: 12px 24px;
-  border: none;
-  border-radius: 8px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  text-decoration: none;
-  display: inline-block;
-}
-
-.btn-primary {
-  background: linear-gradient(45deg, #00ff88, #00cc6a);
-  color: #000;
-}
-
-.btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 20px rgba(0, 255, 136, 0.3);
-}
-
-.btn-secondary {
-  background: transparent;
-  color: #fff;
-  border: 2px solid #00ff88;
-}
-
-.btn-secondary:hover {
-  background: #00ff88;
-  color: #000;
-}
-
-/* Floating elements */
-.hero-background {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-}
-
-.floating-elements {
-  position: relative;
-  width: 100%;
-  height: 100%;
-}
-
-.floating-element {
-  position: absolute;
-  width: 100px;
-  height: 100px;
-  background: linear-gradient(45deg, #00ff88, transparent);
-  border-radius: 50%;
-  opacity: 0.1;
-  animation: float 6s ease-in-out infinite;
-}
-
-.floating-element:nth-child(1) {
-  top: 20%;
-  left: 10%;
-  animation-delay: 0s;
-}
-
-.floating-element:nth-child(2) {
-  top: 60%;
-  right: 20%;
-  animation-delay: 2s;
-}
-
-.floating-element:nth-child(3) {
-  bottom: 20%;
-  left: 30%;
-  animation-delay: 4s;
-}
-
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-20px); }
-}
-
-/* Sections */
-section {
-  padding: 80px 0;
-  width: 100%;
-  margin: 0;
-}
-
-.section-title {
-  font-size: 3rem;
-  font-weight: 700;
-  text-align: center;
-  margin-bottom: 3rem;
-  background: linear-gradient(45deg, #fff, #00ff88);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-/* About Section */
-.about {
-  background: #0a0a0a;
-}
-
-.about-content {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4rem;
-  align-items: start;
-}
-
-.about-text p {
-  font-size: 1.1rem;
-  margin-bottom: 1.5rem;
-  color: #ccc;
-}
-
-.skills h3 {
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
-  color: #fff;
-}
-
-.skill-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
-
-.skill-tag {
-  background: linear-gradient(45deg, #00ff88, #00cc6a);
-  color: #000;
-  padding: 8px 16px;
-  border-radius: 20px;
-  font-weight: 600;
-  font-size: 0.9rem;
-}
-
-/* Projects Section */
-.projects {
-  background: #000;
-}
-
-.projects-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  gap: 2rem;
-}
-
-.project-card {
-  background: #1a1a1a;
-  border-radius: 12px;
-  overflow: hidden;
-  transition: transform 0.3s ease;
-}
-
-.project-card:hover {
-  transform: translateY(-5px);
-}
-
-.project-image {
-  height: 200px;
-  background: linear-gradient(45deg, #00ff88, #00cc6a);
-  opacity: 0.3;
-}
-
-.project-content {
-  padding: 1.5rem;
-}
-
-.project-content h3 {
-  font-size: 1.3rem;
-  margin-bottom: 0.5rem;
-  color: #fff;
-}
-
-.project-content p {
-  color: #ccc;
-  margin-bottom: 1rem;
-}
-
-.project-tags {
-  display: flex;
-  gap: 0.5rem;
-}
-
-.project-tag {
-  background: #333;
-  color: #00ff88;
-  padding: 4px 12px;
-  border-radius: 12px;
-  font-size: 0.8rem;
-}
-
-/* Contact Section */
-.contact {
-  background: #0a0a0a;
-}
-
-.contact-content {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4rem;
-}
-
-.contact-info h3 {
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
-  color: #fff;
-}
-
-.contact-info p {
-  color: #ccc;
-  margin-bottom: 2rem;
-}
-
-.contact-details {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.contact-item {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  color: #ccc;
-}
-
-.contact-icon {
-  font-size: 1.2rem;
-}
-
-.contact-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-}
-
-.form-input,
-.form-textarea {
-  padding: 12px;
-  border: 2px solid #333;
-  border-radius: 8px;
-  background: #1a1a1a;
-  color: #fff;
-  font-size: 1rem;
-  transition: border-color 0.3s ease;
-}
-
-.form-input:focus,
-.form-textarea:focus {
-  outline: none;
-  border-color: #00ff88;
-}
-
-.form-textarea {
-  resize: vertical;
-  min-height: 120px;
-}
-
-/* Footer */
-.footer {
-  background: #000;
-  padding: 2rem 0;
-  text-align: center;
-  border-top: 1px solid #333;
-}
-
-.footer p {
-  color: #666;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-  .nav-menu {
-    position: fixed;
-    top: 70px;
-    left: -100%;
-    width: 100%;
-    height: calc(100vh - 70px);
-    background: rgba(0, 0, 0, 0.95);
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    transition: left 0.3s ease;
-  }
-
-  .nav-menu-open {
-    left: 0;
-  }
-
-  .nav-toggle {
-    display: flex;
-  }
-
-  .hero-title {
-    font-size: 2.5rem;
-  }
-
-  .hero-subtitle {
-    font-size: 1.2rem;
-  }
-
-  .hero-buttons {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .about-content,
-  .contact-content {
-    grid-template-columns: 1fr;
-    gap: 2rem;
-  }
-
-  .projects-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .section-title {
-    font-size: 2rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .hero-title {
-    font-size: 2rem;
-  }
-
-  .container {
-    padding: 0 15px;
-  }
-}
-
-/* Suppression des bordures blanches */
-#app {
-  margin: 0;
-  padding: 0;
-  background: #000;
-  width: 100%;
-  min-height: 100vh;
-}
+<style>
+/* Les styles sont maintenant dans src/styles/main.scss */
 </style>

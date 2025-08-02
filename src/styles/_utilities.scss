@@ -1,0 +1,103 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+// Utilitaires et styles supplémentaires
+
+// Section Hero (depuis App.vue)
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  @include gradient-background;
+  overflow: hidden;
+}
+
+.hero-content {
+  text-align: center;
+  z-index: 2;
+  position: relative;
+}
+
+.hero-title {
+  font-size: $font-size-5xl;
+  font-weight: 800;
+  margin-bottom: $spacing-sm;
+  @include gradient-text;
+}
+
+.hero-subtitle {
+  @include page-subtitle;
+  margin-bottom: $spacing-lg;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: $spacing-sm;
+  justify-content: center;
+  flex-wrap: wrap;
+
+  @include mobile {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+// Éléments flottants
+.hero-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.floating-elements {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.floating-element {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  background: linear-gradient(45deg, $color-primary, transparent);
+  border-radius: 50%;
+  opacity: 0.1;
+  @include float-animation;
+
+  &:nth-child(1) {
+    top: 20%;
+    left: 10%;
+    animation-delay: 0s;
+  }
+
+  &:nth-child(2) {
+    top: 60%;
+    right: 20%;
+    animation-delay: 2s;
+  }
+
+  &:nth-child(3) {
+    bottom: 20%;
+    left: 30%;
+    animation-delay: 4s;
+  }
+}
+
+// Titres de section
+.section-title {
+  @include section-title;
+}
+
+// Liens de retour
+.back-link-container {
+  @include back-link-container;
+}
+
+.back-link {
+  @include back-link;
+}

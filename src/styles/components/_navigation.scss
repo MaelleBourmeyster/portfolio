@@ -1,0 +1,429 @@
+@use '../variables' as *;
+@use '../mixins' as *;
+
+// Navigation Desktop
+.nav-menu.desktop-menu {
+  display: flex;
+  gap: $spacing-lg;
+  align-items: center;
+}
+
+// Navigation Mobile
+.nav-menu.mobile-menu {
+  display: none;
+}
+
+// Overlay mobile
+.mobile-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: $z-index-navbar - 1;
+  animation: overlayFadeIn 0.3s ease-out;
+}
+
+@keyframes overlayFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+// Catégories de navigation
+.nav-category {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.nav-category-btn {
+  color: $color-text;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all $transition-fast;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: $font-size-base;
+  font-family: inherit;
+  padding: $spacing-xs $spacing-sm;
+  border-radius: $border-radius-sm;
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  outline: none; // Supprimé pour l'accessibilité
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: left 0.5s ease;
+  }
+
+  &:hover {
+    color: $color-primary;
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-1px);
+
+    &::before {
+      left: 100%;
+    }
+  }
+
+  // Focus visible pour l'accessibilité
+  &:focus-visible {
+    outline: 2px solid $color-primary;
+    outline-offset: 2px;
+    color: $color-primary;
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  // Indicateur visuel pour les menus ouverts
+  &[aria-expanded="true"] {
+    color: $color-primary;
+    background: rgba(255, 255, 255, 0.1);
+  }
+}
+
+// Menu déroulant
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 200px;
+  background: rgba(0, 0, 0, 0.95);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: $border-radius-md;
+  padding: $spacing-sm 0;
+  margin-top: $spacing-xs;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  z-index: $z-index-dropdown;
+  animation: dropdownFadeIn 0.2s ease-out;
+  outline: none; // Supprimé pour l'accessibilité
+
+  // Amélioration de la stabilité
+  transform-origin: top left;
+  will-change: transform, opacity;
+}
+
+.dropdown-item {
+  display: block;
+  width: 100%;
+  padding: $spacing-sm $spacing-md;
+  color: $color-text;
+  text-decoration: none;
+  font-weight: 400;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: $font-size-base;
+  font-family: inherit;
+  text-align: left;
+  transition: all $transition-fast;
+  position: relative;
+  overflow: hidden;
+  outline: none; // Supprimé pour l'accessibilité
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 3px;
+    height: 100%;
+    background: $color-primary;
+    transform: scaleY(0);
+    transition: transform $transition-fast;
+  }
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: $color-primary;
+    padding-left: $spacing-lg;
+
+    &::before {
+      transform: scaleY(1);
+    }
+  }
+
+  // Focus visible pour l'accessibilité
+  &:focus-visible {
+    outline: 2px solid $color-primary;
+    outline-offset: -2px;
+    background: rgba(255, 255, 255, 0.1);
+    color: $color-primary;
+    padding-left: $spacing-lg;
+
+    &::before {
+      transform: scaleY(1);
+    }
+  }
+
+  // État focused pour la navigation clavier
+  &.focused {
+    background: rgba(255, 255, 255, 0.1);
+    color: $color-primary;
+    padding-left: $spacing-lg;
+
+    &::before {
+      transform: scaleY(1);
+    }
+  }
+
+  &:first-child {
+    border-radius: $border-radius-md $border-radius-md 0 0;
+  }
+
+  &:last-child {
+    border-radius: 0 0 $border-radius-md $border-radius-md;
+  }
+}
+
+// Animation pour l'apparition du dropdown
+@keyframes dropdownFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+// Bouton toggle mobile
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  padding: $spacing-xs;
+  border-radius: $border-radius-sm;
+  transition: background $transition-fast;
+  background: none;
+  border: none;
+  outline: none;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  &:focus-visible {
+    outline: 2px solid $color-primary;
+    outline-offset: 2px;
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  span {
+    width: 25px;
+    height: 3px;
+    background: $color-text;
+    margin: 3px 0;
+    transition: $transition-fast;
+    border-radius: 2px;
+  }
+
+  &:hover span {
+    background: $color-primary;
+  }
+
+  // Animation du bouton hamburger
+  &[aria-expanded="true"] {
+    span {
+      &:first-child {
+        transform: rotate(45deg) translate(5px, 5px);
+      }
+
+      &:nth-child(2) {
+        opacity: 0;
+      }
+
+      &:last-child {
+        transform: rotate(-45deg) translate(7px, -6px);
+      }
+    }
+  }
+}
+
+// Responsive Navigation
+@include mobile {
+  .navbar {
+    padding: 1rem;
+  }
+
+  .nav-menu.desktop-menu {
+    display: none;
+  }
+
+  .nav-menu.mobile-menu {
+    position: fixed;
+    top: 70px;
+    left: -100%;
+    width: 100%;
+    height: calc(100vh - 70px);
+    background: rgba(0, 0, 0, 0.95);
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    padding: $spacing-lg;
+    transition: left $transition-fast;
+    overflow-y: auto;
+    gap: 0;
+    display: flex;
+    z-index: $z-index-navbar;
+    backdrop-filter: blur(10px);
+
+    &.nav-menu-open {
+      left: 0;
+    }
+
+    .nav-category {
+      width: 100%;
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .nav-category-btn {
+      width: 100%;
+      justify-content: space-between;
+      padding: $spacing-md;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 0;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.1);
+        transform: none;
+
+        &::before {
+          display: none;
+        }
+      }
+
+      &:focus-visible {
+        outline: 2px solid $color-primary;
+        outline-offset: -2px;
+      }
+    }
+
+    .dropdown-menu {
+      position: static;
+      background: rgba(255, 255, 255, 0.05);
+      border: none;
+      border-radius: 0;
+      margin-top: 0;
+      box-shadow: none;
+      animation: none;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height $transition-fast;
+      backdrop-filter: none;
+
+      &.show {
+        max-height: 300px;
+      }
+    }
+
+    .dropdown-item {
+      padding: $spacing-sm $spacing-lg;
+      border-radius: 0;
+
+      &:hover {
+        padding-left: $spacing-xl;
+      }
+
+      &:focus-visible {
+        outline: 2px solid $color-primary;
+        outline-offset: -2px;
+      }
+
+      &::before {
+        display: none;
+      }
+    }
+  }
+
+  .nav-toggle {
+    display: flex;
+  }
+}
+
+// Tablette
+@include tablet {
+  .navbar {
+    padding: 1rem 1.5rem;
+  }
+
+  .nav-menu.desktop-menu {
+    gap: $spacing-md;
+  }
+
+  .nav-category-btn {
+    padding: $spacing-xs $spacing-sm;
+    font-size: 0.9em;
+  }
+
+  .dropdown-menu {
+    min-width: 180px;
+  }
+}
+
+// Améliorations pour éviter les bugs visuels
+.nav-container {
+  position: relative;
+  z-index: $z-index-navbar;
+}
+
+// Prévention des débordements
+.dropdown-menu {
+  max-height: 80vh;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 3px;
+  }
+}
+
+// Amélioration de la stabilité des animations
+.nav-category {
+  will-change: transform;
+}
+
+// Prévention des clics accidentels
+.dropdown-menu {
+  pointer-events: auto;
+}
+
+// Amélioration de l'accessibilité pour les lecteurs d'écran
+.nav-category-btn[aria-expanded="true"]::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-bottom: 4px solid $color-primary;
+}
