@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted, nextTick } from 'vue'
 import { useRouter } from 'vue-router'
+import { getAssetPath } from '@/utils/assets'
 
 const router = useRouter()
 
@@ -12,8 +13,8 @@ const menuCategories = [
       { name: 'Accueil', path: '/' },
       { name: 'À propos', path: '/about' },
       { name: 'CV', path: '/cv' },
-      { name: 'Contact', path: '/contact' }
-    ]
+      { name: 'Contact', path: '/contact' },
+    ],
   },
   {
     name: 'Art',
@@ -21,23 +22,21 @@ const menuCategories = [
       { name: 'Galerie', path: '/art' },
       { name: 'Dessin', path: '/drawing' },
       { name: 'Sculpture Bois', path: '/wood-sculpture' },
-      { name: 'Sculpture Argile', path: '/clay-sculpture' }
-    ]
+      { name: 'Sculpture Argile', path: '/clay-sculpture' },
+    ],
   },
   {
     name: 'Projets',
     items: [
       { name: 'Mes Projets', path: '/projects' },
       { name: 'Services', path: '/services' },
-      { name: 'Blog', path: '/blog' }
-    ]
+      { name: 'Blog', path: '/blog' },
+    ],
   },
   {
     name: 'Passions',
-    items: [
-      { name: 'Équitation', path: '/equestrian' }
-    ]
-  }
+    items: [{ name: 'Équitation', path: '/equestrian' }],
+  },
 ]
 
 const activeDropdown = ref<string | null>(null)
@@ -53,7 +52,7 @@ const openDropdown = (categoryName: string) => {
   if (activeDropdown.value !== categoryName) {
     activeDropdown.value = categoryName
     focusedIndex.value = -1
-    currentCategoryIndex.value = menuCategories.findIndex(cat => cat.name === categoryName)
+    currentCategoryIndex.value = menuCategories.findIndex((cat) => cat.name === categoryName)
   }
 }
 
@@ -96,7 +95,7 @@ const handleDropdownMouseLeave = () => {
 
 // Gestion clavier améliorée
 const handleKeyDown = (event: KeyboardEvent, categoryName: string) => {
-  const categoryIndex = menuCategories.findIndex(cat => cat.name === categoryName)
+  const categoryIndex = menuCategories.findIndex((cat) => cat.name === categoryName)
   const category = menuCategories[categoryIndex]
 
   switch (event.key) {
@@ -133,7 +132,7 @@ const handleKeyDown = (event: KeyboardEvent, categoryName: string) => {
 }
 
 const handleDropdownKeyDown = (event: KeyboardEvent, categoryName: string) => {
-  const categoryIndex = menuCategories.findIndex(cat => cat.name === categoryName)
+  const categoryIndex = menuCategories.findIndex((cat) => cat.name === categoryName)
   const category = menuCategories[categoryIndex]
 
   switch (event.key) {
@@ -209,8 +208,10 @@ const handleFocusOut = (event: FocusEvent) => {
   const relatedTarget = event.relatedTarget as HTMLElement
 
   // Vérifier si le focus reste dans le même menu
-  if (!relatedTarget?.closest('.nav-category') ||
-      !target.closest('.nav-category')?.isSameNode(relatedTarget.closest('.nav-category'))) {
+  if (
+    !relatedTarget?.closest('.nav-category') ||
+    !target.closest('.nav-category')?.isSameNode(relatedTarget.closest('.nav-category'))
+  ) {
     setTimeout(() => {
       if (!document.activeElement?.closest('.nav-category')) {
         closeDropdown()
@@ -256,9 +257,9 @@ onUnmounted(() => {
         <div class="nav-logo">
           <img
             @click="navigateTo('/')"
-            src="/icons/logo.svg"
+            :src="getAssetPath('/icons/logo.svg')"
             alt="Logo"
-            style="cursor: pointer; height: 30px; width: auto; filter: brightness(0) invert(1);"
+            style="cursor: pointer; height: 30px; width: auto; filter: brightness(0) invert(1)"
           />
         </div>
 
@@ -294,7 +295,7 @@ onUnmounted(() => {
               <button
                 v-for="(item, itemIndex) in category.items"
                 :key="item.path"
-                :class="['dropdown-item', { 'focused': focusedIndex === itemIndex }]"
+                :class="['dropdown-item', { focused: focusedIndex === itemIndex }]"
                 role="menuitem"
                 @click="navigateTo(item.path)"
                 @keydown="handleDropdownKeyDown($event, category.name)"
@@ -328,11 +329,7 @@ onUnmounted(() => {
         role="navigation"
         aria-label="Menu mobile"
       >
-        <div
-          v-for="category in menuCategories"
-          :key="category.name"
-          class="nav-category"
-        >
+        <div v-for="category in menuCategories" :key="category.name" class="nav-category">
           <button
             class="nav-category-btn"
             :aria-expanded="mobileOpenCategories.has(category.name)"

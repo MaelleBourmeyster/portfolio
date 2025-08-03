@@ -1,3 +1,7 @@
+<script setup lang="ts">
+import { getAssetPath } from '@/utils/assets'
+</script>
+
 <template>
   <div class="drawing-page">
     <div class="container">
@@ -10,15 +14,14 @@
         <div class="intro-content">
           <h2>L'Art du Dessin</h2>
           <p>
-            Le dessin est pour moi un moyen d'expression spontané et direct.
-            Chaque trait raconte une histoire, chaque ligne capture une émotion.
-            Que ce soit au crayon, à l'encre ou au pastel, chaque technique
-            m'offre une nouvelle façon de voir et de représenter le monde.
+            Le dessin est pour moi un moyen d'expression spontané et direct. Chaque trait raconte
+            une histoire, chaque ligne capture une émotion. Que ce soit au crayon, à l'encre ou au
+            pastel, chaque technique m'offre une nouvelle façon de voir et de représenter le monde.
           </p>
           <p>
-            Mes dessins explorent différents thèmes : portraits, paysages,
-            compositions abstraites ou illustrations narratives. Chaque œuvre
-            est le fruit d'un moment unique, d'une inspiration particulière.
+            Mes dessins explorent différents thèmes : portraits, paysages, compositions abstraites
+            ou illustrations narratives. Chaque œuvre est le fruit d'un moment unique, d'une
+            inspiration particulière.
           </p>
         </div>
       </section>
@@ -28,19 +31,19 @@
         <div class="gallery-grid">
           <div class="gallery-item">
             <div class="artwork-placeholder">
-              <img src="/icons/drawing.svg" alt="Dessin" />
+              <img :src="getAssetPath('/icons/drawing.svg')" alt="Dessin" />
               <p>Œuvre en cours</p>
             </div>
           </div>
           <div class="gallery-item">
             <div class="artwork-placeholder">
-              <img src="/icons/art.svg" alt="Art" />
+              <img :src="getAssetPath('/icons/art.svg')" alt="Art" />
               <p>Œuvre en cours</p>
             </div>
           </div>
           <div class="gallery-item">
             <div class="artwork-placeholder">
-              <img src="/icons/gallery.svg" alt="Galerie" />
+              <img :src="getAssetPath('/icons/gallery.svg')" alt="Galerie" />
               <p>Œuvre en cours</p>
             </div>
           </div>

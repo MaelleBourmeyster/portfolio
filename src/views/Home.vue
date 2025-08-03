@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { getAssetPath } from '@/utils/assets'
 
 const router = useRouter()
 const searchQuery = ref('')
@@ -21,14 +22,15 @@ const pages = [
   { name: 'Portfolio', path: '/portfolio', description: 'Mon portfolio professionnel' },
   { name: 'À propos', path: '/about', description: 'En savoir plus sur moi' },
   { name: 'Contact', path: '/contact', description: 'Me contacter' },
-  { name: 'Équitation', path: '/equestrian', description: 'Ma passion pour l\'équitation' }
+  { name: 'Équitation', path: '/equestrian', description: "Ma passion pour l'équitation" },
 ]
 
 const handleSearch = () => {
   if (searchQuery.value.trim()) {
-    searchResults.value = pages.filter(page =>
-      page.name.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
-      page.description.toLowerCase().includes(searchQuery.value.toLowerCase())
+    searchResults.value = pages.filter(
+      (page) =>
+        page.name.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
+        page.description.toLowerCase().includes(searchQuery.value.toLowerCase()),
     )
     showResults.value = true
   } else {
@@ -52,16 +54,16 @@ const handleKeyPress = (event: KeyboardEvent) => {
 // Fonction pour obtenir l'icône de la page
 const getPageIcon = (pageName: string): string => {
   const icons: { [key: string]: string } = {
-    'Art': '/icons/art.svg',
-    'Dessin': '/icons/drawing.svg',
-    'Sculpture Bois': '/icons/wood.svg',
-    'Sculpture Terre': '/icons/clay.svg',
-    'Portfolio': '/icons/portfolio.svg',
-    'À propos': '/icons/about.svg',
-    'Contact': '/icons/contact.svg',
-    'Équitation': '/icons/equestrian.svg'
+    Art: getAssetPath('/icons/art.svg'),
+    Dessin: getAssetPath('/icons/drawing.svg'),
+    'Sculpture Bois': getAssetPath('/icons/wood.svg'),
+    'Sculpture Terre': getAssetPath('/icons/clay.svg'),
+    Portfolio: getAssetPath('/icons/portfolio.svg'),
+    'À propos': getAssetPath('/icons/about.svg'),
+    Contact: getAssetPath('/icons/contact.svg'),
+    Équitation: getAssetPath('/icons/equestrian.svg'),
   }
-  return icons[pageName] || '/icons/portfolio.svg'
+  return icons[pageName] || getAssetPath('/icons/portfolio.svg')
 }
 </script>
 
@@ -85,7 +87,7 @@ const getPageIcon = (pageName: string): string => {
               class="search-input"
             />
             <div class="search-icon">
-              <img src="/icons/search.svg" alt="Rechercher" />
+              <img :src="getAssetPath('/icons/search.svg')" alt="Rechercher" />
             </div>
           </div>
 
@@ -133,15 +135,14 @@ const getPageIcon = (pageName: string): string => {
           <div class="presentation-text">
             <h2>Bienvenue dans mon univers artistique</h2>
             <p>
-              Je suis Maëlle Bourmeyster, artiste passionnée par l'expression créative
-              sous toutes ses formes. Mon travail s'articule autour du dessin, de la
-              sculpture en bois et en terre, créant un univers unique où la matière
-              rencontre l'imagination.
+              Je suis Maëlle Bourmeyster, artiste passionnée par l'expression créative sous toutes
+              ses formes. Mon travail s'articule autour du dessin, de la sculpture en bois et en
+              terre, créant un univers unique où la matière rencontre l'imagination.
             </p>
             <p>
-              Chaque création raconte une histoire, capture une émotion ou explore
-              une nouvelle technique. L'équitation, ma passion parallèle, m'apporte
-              équilibre et connexion avec la nature, enrichissant ma vision artistique.
+              Chaque création raconte une histoire, capture une émotion ou explore une nouvelle
+              technique. L'équitation, ma passion parallèle, m'apporte équilibre et connexion avec
+              la nature, enrichissant ma vision artistique.
             </p>
             <div class="presentation-buttons">
               <button @click="navigateToPage('/art')" class="btn btn-primary">
@@ -166,4 +167,3 @@ const getPageIcon = (pageName: string): string => {
 <style>
 /* Les styles sont maintenant dans src/styles/main.scss */
 </style>
-

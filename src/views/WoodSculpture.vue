@@ -1,3 +1,7 @@
+<script setup lang="ts">
+import { getAssetPath } from '@/utils/assets'
+</script>
+
 <template>
   <div class="wood-sculpture-page">
     <div class="container">
@@ -10,16 +14,14 @@
         <div class="intro-content">
           <h2>L'Art de la Sculpture sur Bois</h2>
           <p>
-            La sculpture sur bois est pour moi une rencontre entre la matière
-            et l'imagination. Chaque pièce de bois a sa propre histoire,
-            ses veines, ses imperfections qui deviennent des atouts dans
-            la création finale.
+            La sculpture sur bois est pour moi une rencontre entre la matière et l'imagination.
+            Chaque pièce de bois a sa propre histoire, ses veines, ses imperfections qui deviennent
+            des atouts dans la création finale.
           </p>
           <p>
-            J'explore différentes essences de bois, chacune apportant sa
-            texture, sa couleur et son caractère unique. Du chêne au noyer,
-            en passant par le cerisier, chaque bois m'inspire des formes
-            et des créations différentes.
+            J'explore différentes essences de bois, chacune apportant sa texture, sa couleur et son
+            caractère unique. Du chêne au noyer, en passant par le cerisier, chaque bois m'inspire
+            des formes et des créations différentes.
           </p>
         </div>
       </section>
@@ -29,19 +31,19 @@
         <div class="gallery-grid">
           <div class="gallery-item">
             <div class="artwork-placeholder">
-              <img src="/icons/wood.svg" alt="Bois" />
+              <img :src="getAssetPath('/icons/wood.svg')" alt="Bois" />
               <p>Œuvre en cours</p>
             </div>
           </div>
           <div class="gallery-item">
             <div class="artwork-placeholder">
-              <img src="/icons/art.svg" alt="Art" />
+              <img :src="getAssetPath('/icons/art.svg')" alt="Art" />
               <p>Œuvre en cours</p>
             </div>
           </div>
           <div class="gallery-item">
             <div class="artwork-placeholder">
-              <img src="/icons/gallery.svg" alt="Galerie" />
+              <img :src="getAssetPath('/icons/gallery.svg')" alt="Galerie" />
               <p>Œuvre en cours</p>
             </div>
           </div>
