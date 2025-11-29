@@ -2,6 +2,11 @@
   // About page
 </script>
 
+<svelte:head>
+  <title>About - Maëlle Bourmeyster</title>
+  <meta name="description" content="Learn more about Maëlle Bourmeyster, a multidisciplinary artist and creator based in Lyon, France." />
+</svelte:head>
+
 <div>
   <div class="px-6 py-12 border-b-2 border-black bg-white">
     <h1 class="text-6xl font-bold uppercase tracking-tighter text-center">About Me</h1>

@@ -5,35 +5,40 @@
     {
       title: 'Wood',
       projects: [
-        { title: 'Wood Sculpture 1', category: 'Wood', year: '2024', image: '/project1.png' }
+        { title: 'Wood Sculpture 1', category: 'Wood', year: '2024', image: '/images/sculpture/bois/coupeapexlegend/coupeface.png' }
       ]
     },
     {
       title: 'Clay',
       projects: [
-        { title: 'Modeling 1', category: 'Clay', year: '2023', image: '/project1.png' }
+        { title: 'Modeling 1', category: 'Clay', year: '2023', image: '/images/sculpture/argile/andrea_cavalcanti 2.png' }
       ]
     },
     {
       title: 'Plastiline',
       projects: [
-        { title: 'Plastiline Study', category: 'Plastiline', year: '2023', image: '/project1.png' }
+        { title: 'Plastiline Study', category: 'Plastiline', year: '2023', image: '/images/sculpture/plastiline/cheval_11_25.png' }
       ]
     },
     {
       title: 'Bronze',
       projects: [
-        { title: 'Cast Bronze', category: 'Bronze', year: '2022', image: '/project1.png' }
+        { title: 'Cast Bronze', category: 'Bronze', year: '2022', image: '/images/sculpture/bronze/horse_head/bronzetêtecheval1125.png' }
       ]
     },
     {
       title: 'Plaster',
       projects: [
-        { title: 'Plaster Cast', category: 'Plaster', year: '2024', image: '/project1.png' }
+        { title: 'Plaster Cast', category: 'Plaster', year: '2024', image: '/images/sculpture/plâtre/rhino.png' }
       ]
     }
   ];
 </script>
+
+<svelte:head>
+  <title>Sculpture - Maëlle Bourmeyster</title>
+  <meta name="description" content="Discover Maëlle Bourmeyster's sculpture works in wood, clay, plastiline, bronze, and plaster." />
+</svelte:head>
 
 <div>
   <div class="px-6 py-12 border-b-2 border-black bg-white">

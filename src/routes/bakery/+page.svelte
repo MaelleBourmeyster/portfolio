@@ -2,10 +2,15 @@
   import ProjectCard from '$lib/components/ProjectCard.svelte';
   
   const projects = [
-    { title: 'Sourdough Bread', category: 'Bakery', year: '2024', image: '/project1.png' },
-    { title: 'Croissants', category: 'Pastry', year: '2024', image: '/project1.png' }
+    { title: 'Sourdough Bread', category: 'Bakery', year: '2024', image: '/images/sculpture/bois/ustensiles de cusine/couteauàbeurre.png' },
+    { title: 'Croissants', category: 'Pastry', year: '2024', image: '/images/sculpture/bois/ustensiles de cusine/cuillère1.png' }
   ];
 </script>
+
+<svelte:head>
+  <title>Bakery - Maëlle Bourmeyster</title>
+  <meta name="description" content="Taste the creations of Maëlle Bourmeyster, from sourdough bread to delicate pastries." />
+</svelte:head>
 
 <div>
   <div class="px-6 py-12 border-b-2 border-black bg-white">

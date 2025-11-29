@@ -2,6 +2,11 @@
   // Contact page
 </script>
 
+<svelte:head>
+  <title>Contact - Maëlle Bourmeyster</title>
+  <meta name="description" content="Get in touch with Maëlle Bourmeyster for collaborations, inquiries, or just to say hello." />
+</svelte:head>
+
 <div>
   <div class="px-6 py-12 border-b-2 border-black bg-white">
     <h1 class="text-6xl font-bold uppercase tracking-tighter text-center">Get in Touch</h1>

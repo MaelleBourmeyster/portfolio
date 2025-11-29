@@ -5,30 +5,35 @@
     {
       title: 'Painting',
       projects: [
-        { title: 'Artwork 1', category: 'Painting', year: '2024', image: '/project1.png' },
-        { title: 'Artwork 2', category: 'Painting', year: '2024', image: '/project1.png' }
+        { title: 'Artwork 1', category: 'Painting', year: '2024', image: '/images/sculpture/argile/andrea_cavalcanti 2.png' },
+        { title: 'Artwork 2', category: 'Painting', year: '2024', image: '/images/sculpture/argile/andrea_cavalcanti 2.png' }
       ]
     },
     {
       title: 'Manga',
       projects: [
-        { title: 'Panel 1', category: 'Manga', year: '2023', image: '/project1.png' }
+        { title: 'Panel 1', category: 'Manga', year: '2023', image: '/images/sculpture/bois/fictionnalcharacters/totoro.png' }
       ]
     },
     {
       title: 'Pencils & Markers',
       projects: [
-        { title: 'Illustration', category: 'Pencils', year: '2023', image: '/project1.png' }
+        { title: 'Illustration', category: 'Pencils', year: '2023', image: '/images/sculpture/bois/fictionnalcharacters/stitch.png' }
       ]
     },
     {
       title: 'Sketches',
       projects: [
-        { title: 'Study', category: 'Sketch', year: '2024', image: '/project1.png' }
+        { title: 'Study', category: 'Sketch', year: '2024', image: '/images/sculpture/bois/coupeapexlegend/coupeprofil-2.png' }
       ]
     }
   ];
 </script>
+
+<svelte:head>
+  <title>Drawing - Maëlle Bourmeyster</title>
+  <meta name="description" content="Explore Maëlle Bourmeyster's drawings, including paintings, manga, pencil sketches, and markers." />
+</svelte:head>
 
 <div>
   <div class="px-6 py-12 border-b-2 border-black bg-white">

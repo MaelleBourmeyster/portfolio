@@ -5,23 +5,28 @@
     {
       title: 'Digital Painting',
       projects: [
-        { title: 'Digital Painting', category: '2D', year: '2024', image: '/project1.png' }
+        { title: 'Digital Painting', category: '2D', year: '2024', image: '/images/sculpture/bois/fictionnalcharacters/lutins.png' }
       ]
     },
     {
       title: '2D Animation',
       projects: [
-        { title: 'Short Film', category: 'Animation', year: '2023', image: '/project1.png' }
+        { title: 'Short Film', category: 'Animation', year: '2023', image: '/images/sculpture/bois/fictionnalcharacters/stitch.png' }
       ]
     },
     {
       title: '3D Modeling',
       projects: [
-        { title: 'Character Model', category: '3D', year: '2024', image: '/project1.png' }
+        { title: 'Character Model', category: '3D', year: '2024', image: '/images/sculpture/plâtre/rhino.png' }
       ]
     }
   ];
 </script>
+
+<svelte:head>
+  <title>Digital Art - Maëlle Bourmeyster</title>
+  <meta name="description" content="View Maëlle Bourmeyster's digital art portfolio, featuring digital painting, 2D animation, and 3D modeling." />
+</svelte:head>
 
 <div>
   <div class="px-6 py-12 border-b-2 border-black bg-white">

@@ -10,39 +10,44 @@
       title: 'Drawing',
       category: 'Gallery',
       year: '2025',
-      image: `${base}/project1.png`,
+      image: `${base}/images/sculpture/argile/andrea_cavalcanti 2.png`,
       href: `${base}/drawing`
     },
     {
       title: 'Sculpture',
       category: 'Gallery',
       year: '2025',
-      image: `${base}/project1.png`,
+      image: `${base}/images/sculpture/bois/coupeapexlegend/coupeface.png`,
       href: `${base}/sculpture`
     },
     {
       title: 'Digital',
       category: 'Gallery',
       year: '2025',
-      image: `${base}/project1.png`,
+      image: `${base}/images/sculpture/bois/fictionnalcharacters/stitch.png`,
       href: `${base}/digital`
     },
     {
       title: 'Bakery',
       category: 'Gallery',
       year: '2025',
-      image: `${base}/project1.png`,
+      image: `${base}/images/sculpture/bois/ustensiles de cusine/cuillère1.png`,
       href: `${base}/bakery`
     },
     {
       title: 'Horse Riding',
       category: 'Gallery',
       year: '2025',
-      image: `${base}/project1.png`,
+      image: `${base}/images/sculpture/bronze/horse_head/bronzetêtecheval1125.png`,
       href: `${base}/horse-riding`
     }
   ];
 </script>
+
+<svelte:head>
+  <title>Maëlle Bourmeyster - Portfolio 2025</title>
+  <meta name="description" content="Explore the multidisciplinary portfolio of Maëlle Bourmeyster, featuring Fine Arts, Digital Creation, and Craftsmanship." />
+</svelte:head>
 
 <div class="min-h-screen flex flex-col">
   
