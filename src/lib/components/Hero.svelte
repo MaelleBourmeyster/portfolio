@@ -17,14 +17,14 @@
     </h1>
     
     <p class="mx-auto max-w-2xl text-xl md:text-2xl text-gray-600 font-medium">
-      Explorations in visual design, creative coding, and interactive experiences.
+      A multidisciplinary journey through Fine Arts, Digital Creation, and Craftsmanship.
     </p>
     
     <div class="flex flex-col items-center justify-center gap-4 md:flex-row pt-8">
       <a href="#work" class="pk-btn !bg-blue-600 text-white hover:!bg-blue-700">
         View Projects
       </a>
-      <a href="#contact" class="pk-btn">
+      <a href="/contact" class="pk-btn">
         Get in Touch
       </a>
     </div>

@@ -35,7 +35,7 @@
   ];
 </script>
 
-<div class="pt-20">
+<div>
   <div class="px-6 py-12 border-b-2 border-black bg-white">
     <h1 class="text-6xl font-bold uppercase tracking-tighter text-center">Sculpture</h1>
   </div>
