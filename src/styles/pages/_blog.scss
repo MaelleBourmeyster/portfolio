@@ -1,8 +1,0 @@
-@use '../variables' as *;
-@use '../mixins' as *;
-@use 'page-common' as *;
-
-// Page Blog
-.blog {
-  @include page-simple;
-}

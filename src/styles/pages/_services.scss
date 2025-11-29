@@ -1,8 +1,0 @@
-@use '../variables' as *;
-@use '../mixins' as *;
-@use 'page-common' as *;
-
-// Page Services
-.services-page {
-  @include page-simple;
-}
