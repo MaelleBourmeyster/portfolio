@@ -8,7 +8,7 @@
       © 2025 MAELLE BOURMEYSTER.
     </p>
     <a href="{base}/legal" class="font-mono text-sm text-gray-500 hover:text-black hover:underline">
-      Mentions Légales
+      Legal Notice
     </a>
   </div>
 </footer>
