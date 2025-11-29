@@ -2,7 +2,7 @@
   // No props needed for now
 </script>
 
-<section class="relative flex min-h-[80vh] flex-col items-center justify-center px-6 py-20 text-center overflow-hidden">
+<section class="relative flex min-h-[calc(100vh-70px)] flex-col items-center justify-center px-6 py-20 text-center overflow-hidden">
   <!-- Decorative elements -->
   <!-- Decorative elements removed -->
   
@@ -11,7 +11,7 @@
       Portfolio 2025
     </div>
     
-    <h1 class="text-6xl font-bold leading-tight md:text-8xl tracking-tighter">
+    <h1 class="text-6xl font-bold leading-[1.1] md:text-8xl tracking-tighter">
       MAËLLE <br />
       <span class="text-blue-600">BOURMEYSTER</span>
     </h1>
