@@ -1,3 +1,63 @@
 @import 'tailwindcss';
 @plugin '@tailwindcss/forms';
 @plugin '@tailwindcss/typography';
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+  --pk-bg: #fdfbf7;
+  --pk-ink: #1a1a1a;
+  --pk-accent: #2563eb; /* Blueprint blue */
+  --pk-grid: #e5e5e5;
+  --font-mono: 'Space Mono', monospace;
+}
+
+body {
+  background-color: var(--pk-bg);
+  color: var(--pk-ink);
+  font-family: var(--font-mono);
+  background-image: 
+    linear-gradient(var(--pk-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--pk-grid) 1px, transparent 1px);
+  background-size: 40px 40px;
+  min-height: 100vh;
+}
+
+/* Paperkit Utilities */
+.pk-border {
+  border: 2px solid var(--pk-ink);
+}
+
+.pk-shadow {
+  box-shadow: 4px 4px 0px var(--pk-ink);
+}
+
+.pk-shadow-sm {
+  box-shadow: 2px 2px 0px var(--pk-ink);
+}
+
+.pk-shadow-hover:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0px var(--pk-ink);
+  transition: all 0.2s ease;
+}
+
+.pk-btn {
+  @apply px-6 py-3 font-bold uppercase tracking-wider bg-white border-2 border-black transition-all duration-200;
+  box-shadow: 4px 4px 0px #000;
+}
+
+.pk-btn:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0px #000;
+}
+
+.pk-btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0px #000;
+}
+
+.pk-card {
+  @apply bg-white border-2 border-black p-6;
+  box-shadow: 8px 8px 0px rgba(0,0,0,0.1);
+}
