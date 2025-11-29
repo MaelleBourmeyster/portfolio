@@ -140,10 +140,7 @@ export const translations = {
             heroSubtitle: 'BOURMEYSTER',
             heroDesc: 'Un voyage multidisciplinaire à travers les Beaux-Arts, la Création Numérique et l\'Artisanat.',
             viewProjects: 'Voir les Projets',
-            getInTouch: 'Me Contacter',
-            explore: 'Explorer',
-            subtitle: 'Découvrez les différentes facettes de ma créativité.',
-            categories: 'CATÉGORIES'
+            getInTouch: 'Me Contacter'
         },
         footer: {
             legal: 'Mentions Légales',

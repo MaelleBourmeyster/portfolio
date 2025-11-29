@@ -36,10 +36,7 @@
               </a>
             </div>
 
-            <div class="p-6 border-2 border-black bg-white shadow-[4px_4px_0px_#000]">
-              <h3 class="font-bold uppercase mb-2">{t.contact.social}</h3>
-              <p class="text-gray-600">@maellebourmeyster</p>
-            </div>
+
 
             <div class="p-6 border-2 border-black bg-white shadow-[4px_4px_0px_#000]">
               <h3 class="font-bold uppercase mb-2">{t.contact.location}</h3>

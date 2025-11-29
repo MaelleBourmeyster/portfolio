@@ -35,12 +35,12 @@
     <!-- Desktop Menu (Left Aligned) -->
     <div class="hidden md:flex gap-8 items-center">
       <!-- Home Link -->
-      <a href="{base}/" class="text-lg font-bold hover:underline decoration-2 underline-offset-4 decoration-blue-600 uppercase">
+      <a href="{base}/" class="text-lg font-bold hover:text-blue-600 hover:underline decoration-2 underline-offset-4 decoration-blue-600 uppercase">
         {t.nav.home}
       </a>
 
       <!-- About Link -->
-      <a href="{base}/about" class="text-lg font-bold hover:underline decoration-2 underline-offset-4 decoration-blue-600 uppercase">
+      <a href="{base}/about" class="text-lg font-bold hover:text-blue-600 hover:underline decoration-2 underline-offset-4 decoration-blue-600 uppercase">
         {t.nav.about}
       </a>
       
@@ -51,7 +51,7 @@
         onmouseleave={() => isVisualArtsOpen = false}
         role="group"
       >
-        <button class="text-lg font-bold hover:text-blue-600 flex items-center gap-1 uppercase">
+        <button class="text-lg font-bold hover:text-blue-600 hover:underline decoration-2 underline-offset-4 decoration-blue-600 flex items-center gap-1 uppercase">
           {t.nav.visualArts}
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
             <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
@@ -76,7 +76,7 @@
         onmouseleave={() => isLivingArtsOpen = false}
         role="group"
       >
-        <button class="text-lg font-bold hover:text-blue-600 flex items-center gap-1 uppercase">
+        <button class="text-lg font-bold hover:text-blue-600 hover:underline decoration-2 underline-offset-4 decoration-blue-600 flex items-center gap-1 uppercase">
           {t.nav.livingArts}
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
             <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
@@ -95,7 +95,7 @@
       </div>
 
       <!-- Contact Link -->
-      <a href="{base}/contact" class="text-lg font-bold hover:underline decoration-2 underline-offset-4 decoration-blue-600 uppercase">
+      <a href="{base}/contact" class="text-lg font-bold hover:text-blue-600 hover:underline decoration-2 underline-offset-4 decoration-blue-600 uppercase">
         {t.nav.contact}
       </a>
     </div>

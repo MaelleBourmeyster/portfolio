@@ -46,6 +46,11 @@
   ]);
 </script>
 
+<svelte:head>
+  <title>Maëlle Bourmeyster</title>
+  <meta name="description" content={t.home.heroDesc} />
+</svelte:head>
+
 <Hero />
 
 <section id="work" class="py-20 px-6 border-t-2 border-black bg-white">

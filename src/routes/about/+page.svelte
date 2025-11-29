@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { base } from '$app/paths';
   import { language } from '$lib/stores/language';
   import { translations } from '$lib/data/translations';
 
@@ -34,7 +35,7 @@
         <div class="border-2 border-black p-4 shadow-[8px_8px_0px_#000] bg-white">
           <div class="aspect-square bg-gray-200 border-2 border-black overflow-hidden">
              <!-- Profile Image -->
-             <img src="https://github.com/MaelleBourmeyster/portfolio/blob/main/static/images/maelle.png?raw=true" alt="Maëlle Bourmeyster" class="w-full h-full object-cover" />
+             <img src="{base}/images/maelle/maelle_1.png" alt="Maëlle Bourmeyster" class="w-full h-full object-cover" />
           </div>
         </div>
         
