@@ -3,24 +3,41 @@
   import ProjectCard from '$lib/components/ProjectCard.svelte';
   import Contact from '$lib/components/Contact.svelte';
 
-  const projects = [
+  const categories = [
     {
-      title: 'Neural Architecture',
-      category: 'Generative Art',
-      year: '2024',
-      image: '/project1.png'
+      title: 'Drawing',
+      category: 'Gallery',
+      year: '2025',
+      image: '/project1.png',
+      href: '/dessin'
     },
     {
-      title: 'Void Structure',
-      category: '3D Modeling',
-      year: '2023',
-      image: '/project1.png' // Reusing for demo
+      title: 'Sculpture',
+      category: 'Gallery',
+      year: '2025',
+      image: '/project1.png',
+      href: '/sculpture'
     },
     {
-      title: 'Binary Flow',
-      category: 'Interactive Installation',
-      year: '2023',
-      image: '/project1.png' // Reusing for demo
+      title: 'Digital',
+      category: 'Gallery',
+      year: '2025',
+      image: '/project1.png',
+      href: '/numerique'
+    },
+    {
+      title: 'Bakery',
+      category: 'Gallery',
+      year: '2025',
+      image: '/project1.png',
+      href: '/boulangerie'
+    },
+    {
+      title: 'Horse Riding',
+      category: 'Gallery',
+      year: '2025',
+      image: '/project1.png',
+      href: '/equitation'
     }
   ];
 </script>
@@ -34,37 +51,24 @@
       <div class="mx-auto max-w-7xl">
         <div class="flex items-end justify-between mb-12">
           <div>
-            <h2 class="text-4xl font-bold uppercase tracking-tighter">Selected Works</h2>
-            <p class="text-gray-500 font-mono mt-2">A curation of digital experiments.</p>
+            <h2 class="text-4xl font-bold uppercase tracking-tighter">Explore Work</h2>
+            <p class="text-gray-500 font-mono mt-2">Discover the different facets of my creativity.</p>
           </div>
           <div class="hidden md:block text-right font-mono text-sm">
-            INDEX: 01 - 0{projects.length}
+            CATEGORIES: 01 - 0{categories.length}
           </div>
         </div>
         
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {#each projects as project}
-            <ProjectCard {...project} />
+          {#each categories as cat}
+            <a href={cat.href} class="block">
+              <ProjectCard title={cat.title} category={cat.category} year={cat.year} image={cat.image} />
+            </a>
           {/each}
         </div>
       </div>
     </section>
 
-    <section id="about" class="py-20 px-6 border-t-2 border-black bg-[#fdfbf7]">
-      <div class="mx-auto max-w-4xl text-center space-y-8">
-        <h2 class="text-4xl font-bold uppercase tracking-tighter">About The Process</h2>
-        <p class="text-xl leading-relaxed font-medium text-gray-800">
-          "I believe in the intersection of <span class="bg-blue-600 text-white px-1">logic</span> and <span class="bg-black text-white px-1">emotion</span>. 
-          My work explores how rigid structures can give rise to organic chaos, using code as a medium for expression."
-        </p>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 pt-8">
-          <div class="p-4 border-2 border-black bg-white text-sm font-bold uppercase">Creative Coding</div>
-          <div class="p-4 border-2 border-black bg-white text-sm font-bold uppercase">Web Design</div>
-          <div class="p-4 border-2 border-black bg-white text-sm font-bold uppercase">3D Motion</div>
-          <div class="p-4 border-2 border-black bg-white text-sm font-bold uppercase">Interaction</div>
-        </div>
-      </div>
-    </section>
 
     <Contact />
   </main>
