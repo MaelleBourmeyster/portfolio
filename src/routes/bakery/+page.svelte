@@ -1,11 +1,9 @@
 <script lang="ts">
   import ProjectCard from '$lib/components/ProjectCard.svelte';
   import { base } from '$app/paths';
+  import { projects } from '$lib/data/projects';
   
-  const projects = [
-    { title: 'Sourdough Bread', category: 'Bakery', year: '2024', image: `${base}/images/sculpture/bois/ustensiles%20de%20cusine/couteauàbeurre.png` },
-    { title: 'Croissants', category: 'Pastry', year: '2024', image: `${base}/images/sculpture/bois/ustensiles%20de%20cusine/cuillère1.png` }
-  ];
+  const bakeryProjects = projects.filter(p => p.group === 'Bakery');
 </script>
 
 <svelte:head>
@@ -21,8 +19,10 @@
   <section class="py-16 px-6">
     <div class="mx-auto max-w-7xl">
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {#each projects as project}
-          <ProjectCard {...project} />
+        {#each bakeryProjects as project}
+          <a href="{base}/project/{project.slug}" class="block">
+            <ProjectCard {...project} />
+          </a>
         {/each}
       </div>
     </div>

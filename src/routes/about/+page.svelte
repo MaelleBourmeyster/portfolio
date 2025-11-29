@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { base } from '$app/paths';
   // About page
 </script>
 
@@ -16,13 +17,27 @@
     <div class="mx-auto max-w-4xl space-y-12">
       
       <!-- Intro -->
-      <div class="text-xl md:text-2xl leading-relaxed font-medium">
-        <p>
-          Hello! I'm <span class="bg-blue-600 text-white px-2">Maëlle Bourmeyster</span>, a multidisciplinary artist based in Lyon, France.
-        </p>
-        <p class="mt-6 text-gray-600">
-          My creative journey is driven by curiosity and a passion for mastering diverse mediums. From the tactile precision of sculpture to the digital infinite of 3D modeling, I explore how different forms of expression can intersect and inform one another.
-        </p>
+      <!-- Intro -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-12 items-start">
+        <div class="md:col-span-1">
+          <div class="relative">
+            <div class="absolute inset-0 bg-black translate-x-2 translate-y-2"></div>
+            <img 
+              src="{base}/images/me/maelle.png" 
+              alt="Maëlle Bourmeyster" 
+              class="relative z-10 w-full border-2 border-black bg-white object-cover aspect-[3/4]" 
+            />
+          </div>
+        </div>
+        
+        <div class="md:col-span-2 text-xl md:text-2xl leading-relaxed font-medium">
+          <p>
+            Hello! I'm <span class="bg-blue-600 text-white px-2">Maëlle Bourmeyster</span>, a multidisciplinary artist based in Lyon, France.
+          </p>
+          <p class="mt-6 text-gray-600">
+            My creative journey is driven by curiosity and a passion for mastering diverse mediums. From the tactile precision of sculpture to the digital infinite of 3D modeling, I explore how different forms of expression can intersect and inform one another.
+          </p>
+        </div>
       </div>
 
       <!-- Philosophy / Approach -->
