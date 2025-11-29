@@ -1,23 +1,24 @@
 <script lang="ts">
   import ProjectCard from '$lib/components/ProjectCard.svelte';
+  import { base } from '$app/paths';
   
   const categories = [
     {
       title: 'Digital Painting',
       projects: [
-        { title: 'Digital Painting', category: '2D', year: '2024', image: '/images/sculpture/bois/fictionnalcharacters/lutins.png' }
+        { title: 'Digital Painting', category: '2D', year: '2024', image: `${base}/images/sculpture/bois/fictionnalcharacters/lutins.png` }
       ]
     },
     {
       title: '2D Animation',
       projects: [
-        { title: 'Short Film', category: 'Animation', year: '2023', image: '/images/sculpture/bois/fictionnalcharacters/stitch.png' }
+        { title: 'Short Film', category: 'Animation', year: '2023', image: `${base}/images/sculpture/bois/fictionnalcharacters/stitch.png` }
       ]
     },
     {
       title: '3D Modeling',
       projects: [
-        { title: 'Character Model', category: '3D', year: '2024', image: '/images/sculpture/plâtre/rhino.png' }
+        { title: 'Character Model', category: '3D', year: '2024', image: `${base}/images/sculpture/plâtre/rhino.png` }
       ]
     }
   ];

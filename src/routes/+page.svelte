@@ -10,7 +10,7 @@
       title: 'Drawing',
       category: 'Gallery',
       year: '2025',
-      image: `${base}/images/sculpture/argile/andrea_cavalcanti 2.png`,
+      image: `${base}/images/sculpture/argile/andrea_cavalcanti%202.png`,
       href: `${base}/drawing`
     },
     {
@@ -31,7 +31,7 @@
       title: 'Bakery',
       category: 'Gallery',
       year: '2025',
-      image: `${base}/images/sculpture/bois/ustensiles de cusine/cuillère1.png`,
+      image: `${base}/images/sculpture/bois/ustensiles%20de%20cusine/cuillère1.png`,
       href: `${base}/bakery`
     },
     {

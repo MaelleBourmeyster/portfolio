@@ -1,9 +1,10 @@
 <script lang="ts">
   import ProjectCard from '$lib/components/ProjectCard.svelte';
+  import { base } from '$app/paths';
   
   const projects = [
-    { title: 'Sourdough Bread', category: 'Bakery', year: '2024', image: '/images/sculpture/bois/ustensiles de cusine/couteauàbeurre.png' },
-    { title: 'Croissants', category: 'Pastry', year: '2024', image: '/images/sculpture/bois/ustensiles de cusine/cuillère1.png' }
+    { title: 'Sourdough Bread', category: 'Bakery', year: '2024', image: `${base}/images/sculpture/bois/ustensiles%20de%20cusine/couteauàbeurre.png` },
+    { title: 'Croissants', category: 'Pastry', year: '2024', image: `${base}/images/sculpture/bois/ustensiles%20de%20cusine/cuillère1.png` }
   ];
 </script>
 

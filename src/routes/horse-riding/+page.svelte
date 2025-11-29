@@ -1,9 +1,10 @@
 <script lang="ts">
   import ProjectCard from '$lib/components/ProjectCard.svelte';
+  import { base } from '$app/paths';
   
   const projects = [
-    { title: 'Show Jumping', category: 'Competition', year: '2024', image: '/images/sculpture/bronze/horse_head/bronzetêtecheval1125.png' },
-    { title: 'Trail Riding', category: 'Leisure', year: '2023', image: '/images/sculpture/plastiline/cheval_11_25.png' }
+    { title: 'Show Jumping', category: 'Competition', year: '2024', image: `${base}/images/sculpture/bronze/horse_head/bronzetêtecheval1125.png` },
+    { title: 'Trail Riding', category: 'Leisure', year: '2023', image: `${base}/images/sculpture/plastiline/cheval_11_25.png` }
   ];
 </script>
 

@@ -1,35 +1,36 @@
 <script lang="ts">
   import ProjectCard from '$lib/components/ProjectCard.svelte';
+  import { base } from '$app/paths';
   
   const categories = [
     {
       title: 'Wood',
       projects: [
-        { title: 'Wood Sculpture 1', category: 'Wood', year: '2024', image: '/images/sculpture/bois/coupeapexlegend/coupeface.png' }
+        { title: 'Wood Sculpture 1', category: 'Wood', year: '2024', image: `${base}/images/sculpture/bois/coupeapexlegend/coupeface.png` }
       ]
     },
     {
       title: 'Clay',
       projects: [
-        { title: 'Modeling 1', category: 'Clay', year: '2023', image: '/images/sculpture/argile/andrea_cavalcanti 2.png' }
+        { title: 'Modeling 1', category: 'Clay', year: '2023', image: `${base}/images/sculpture/argile/andrea_cavalcanti%202.png` }
       ]
     },
     {
       title: 'Plastiline',
       projects: [
-        { title: 'Plastiline Study', category: 'Plastiline', year: '2023', image: '/images/sculpture/plastiline/cheval_11_25.png' }
+        { title: 'Plastiline Study', category: 'Plastiline', year: '2023', image: `${base}/images/sculpture/plastiline/cheval_11_25.png` }
       ]
     },
     {
       title: 'Bronze',
       projects: [
-        { title: 'Cast Bronze', category: 'Bronze', year: '2022', image: '/images/sculpture/bronze/horse_head/bronzetêtecheval1125.png' }
+        { title: 'Cast Bronze', category: 'Bronze', year: '2022', image: `${base}/images/sculpture/bronze/horse_head/bronzetêtecheval1125.png` }
       ]
     },
     {
       title: 'Plaster',
       projects: [
-        { title: 'Plaster Cast', category: 'Plaster', year: '2024', image: '/images/sculpture/plâtre/rhino.png' }
+        { title: 'Plaster Cast', category: 'Plaster', year: '2024', image: `${base}/images/sculpture/plâtre/rhino.png` }
       ]
     }
   ];
