@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { base } from '$app/paths';
   // No props needed for now
 </script>
 
@@ -21,10 +22,10 @@
     </p>
     
     <div class="flex flex-col items-center justify-center gap-4 md:flex-row pt-8">
-      <a href="#work" class="pk-btn !bg-blue-600 text-white hover:!bg-blue-700">
+      <a href="{base}/#work" class="pk-btn !bg-blue-600 text-white hover:!bg-blue-700">
         View Projects
       </a>
-      <a href="/contact" class="pk-btn">
+      <a href="{base}/contact" class="pk-btn">
         Get in Touch
       </a>
     </div>

@@ -10,35 +10,35 @@
       title: 'Drawing',
       category: 'Gallery',
       year: '2025',
-      image: '/project1.png',
+      image: `${base}/project1.png`,
       href: `${base}/drawing`
     },
     {
       title: 'Sculpture',
       category: 'Gallery',
       year: '2025',
-      image: '/project1.png',
+      image: `${base}/project1.png`,
       href: `${base}/sculpture`
     },
     {
       title: 'Digital',
       category: 'Gallery',
       year: '2025',
-      image: '/project1.png',
+      image: `${base}/project1.png`,
       href: `${base}/digital`
     },
     {
       title: 'Bakery',
       category: 'Gallery',
       year: '2025',
-      image: '/project1.png',
+      image: `${base}/project1.png`,
       href: `${base}/bakery`
     },
     {
       title: 'Horse Riding',
       category: 'Gallery',
       year: '2025',
-      image: '/project1.png',
+      image: `${base}/project1.png`,
       href: `${base}/horse-riding`
     }
   ];

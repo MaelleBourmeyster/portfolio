@@ -1,20 +1,21 @@
 <script lang="ts">
   import homeIcon from '$lib/assets/home.svg';
+  import { base } from '$app/paths';
 
   let visualArtsLinks = [
-    { name: 'Drawing', href: '/drawing' },
-    { name: 'Sculpture', href: '/sculpture' },
-    { name: 'Digital', href: '/digital' }
+    { name: 'Drawing', href: `${base}/drawing` },
+    { name: 'Sculpture', href: `${base}/sculpture` },
+    { name: 'Digital', href: `${base}/digital` }
   ];
 
   let livingArtsLinks = [
-    { name: 'Bakery', href: '/bakery' },
-    { name: 'Horse Riding', href: '/horse-riding' }
+    { name: 'Bakery', href: `${base}/bakery` },
+    { name: 'Horse Riding', href: `${base}/horse-riding` }
   ];
 
   let otherLinks = [
-    { name: 'About', href: '/about' },
-    { name: 'Contact', href: '/contact' }
+    { name: 'About', href: `${base}/about` },
+    { name: 'Contact', href: `${base}/contact` }
   ];
 
   let isMenuOpen = $state(false);
@@ -28,7 +29,7 @@
 
 <nav class="sticky top-0 z-50 w-full border-b-2 border-black bg-[#fdfbf7] px-6 py-4">
   <div class="mx-auto flex max-w-7xl items-center justify-between">
-    <a href="/" class="hover:opacity-70 transition-opacity" onclick={() => isMenuOpen = false} aria-label="Home">
+    <a href="{base}/" class="hover:opacity-70 transition-opacity" onclick={() => isMenuOpen = false} aria-label="Home">
       <img src={homeIcon} alt="Home" class="w-8 h-8" />
     </a>
     
