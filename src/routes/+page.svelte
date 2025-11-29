@@ -9,7 +9,7 @@
       category: 'Gallery',
       year: '2025',
       image: '/project1.png',
-      href: '/dessin'
+      href: '/drawing'
     },
     {
       title: 'Sculpture',
@@ -23,21 +23,21 @@
       category: 'Gallery',
       year: '2025',
       image: '/project1.png',
-      href: '/numerique'
+      href: '/digital'
     },
     {
       title: 'Bakery',
       category: 'Gallery',
       year: '2025',
       image: '/project1.png',
-      href: '/boulangerie'
+      href: '/bakery'
     },
     {
       title: 'Horse Riding',
       category: 'Gallery',
       year: '2025',
       image: '/project1.png',
-      href: '/equitation'
+      href: '/horse-riding'
     }
   ];
 </script>
@@ -70,7 +70,6 @@
     </section>
 
 
-    <Contact />
   </main>
 
   <footer class="border-t-2 border-black bg-white py-8 px-6 text-center">
