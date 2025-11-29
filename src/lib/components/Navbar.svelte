@@ -108,23 +108,18 @@
       {$language}
     </button>
 
-    <!-- Mobile Header (Home + Controls) -->
+    <!-- Mobile Header (Controls) -->
     <div class="flex md:hidden w-full justify-between items-center">
-      <a href="{base}/" class="text-lg font-bold uppercase" onclick={() => isMenuOpen = false}>
-        MAËLLE B.
-      </a>
+      <button 
+        onclick={toggleLanguage}
+        class="font-mono text-sm font-bold border-2 border-black px-2 py-1 hover:bg-black hover:text-white transition-colors uppercase"
+      >
+        {$language}
+      </button>
       
-      <div class="flex items-center gap-4">
-        <button 
-          onclick={toggleLanguage}
-          class="font-mono text-sm font-bold border-2 border-black px-2 py-1 hover:bg-black hover:text-white transition-colors uppercase"
-        >
-          {$language}
-        </button>
-        <button class="pk-btn !px-3 !py-1" onclick={toggleMenu}>
-          {isMenuOpen ? t.nav.close : t.nav.menu}
-        </button>
-      </div>
+      <button class="pk-btn !px-3 !py-1" onclick={toggleMenu}>
+        {isMenuOpen ? t.nav.close : t.nav.menu}
+      </button>
     </div>
   </div>
 

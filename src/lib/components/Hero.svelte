@@ -15,7 +15,7 @@
       Portfolio 2025
     </div>
     
-    <h1 class="text-6xl font-bold leading-[1.1] md:text-8xl tracking-tighter">
+    <h1 class="text-5xl font-bold leading-[1.1] md:text-8xl tracking-tighter px-4">
       {t.home.heroTitle} <br />
       <span class="text-blue-600">{t.home.heroSubtitle}</span>
     </h1>
