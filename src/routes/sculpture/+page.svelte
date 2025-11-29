@@ -3,33 +3,33 @@
   
   const categories = [
     {
-      title: 'Bois',
+      title: 'Wood',
       projects: [
-        { title: 'Sculpture Bois 1', category: 'Bois', year: '2024', image: '/project1.png' }
+        { title: 'Wood Sculpture 1', category: 'Wood', year: '2024', image: '/project1.png' }
       ]
     },
     {
-      title: 'Argile',
+      title: 'Clay',
       projects: [
-        { title: 'Modelage 1', category: 'Argile', year: '2023', image: '/project1.png' }
+        { title: 'Modeling 1', category: 'Clay', year: '2023', image: '/project1.png' }
       ]
     },
     {
       title: 'Plastiline',
       projects: [
-        { title: 'Etude Plastiline', category: 'Plastiline', year: '2023', image: '/project1.png' }
+        { title: 'Plastiline Study', category: 'Plastiline', year: '2023', image: '/project1.png' }
       ]
     },
     {
       title: 'Bronze',
       projects: [
-        { title: 'Bronze Coulé', category: 'Bronze', year: '2022', image: '/project1.png' }
+        { title: 'Cast Bronze', category: 'Bronze', year: '2022', image: '/project1.png' }
       ]
     },
     {
-      title: 'Plâtre',
+      title: 'Plaster',
       projects: [
-        { title: 'Moulage Plâtre', category: 'Plâtre', year: '2024', image: '/project1.png' }
+        { title: 'Plaster Cast', category: 'Plaster', year: '2024', image: '/project1.png' }
       ]
     }
   ];

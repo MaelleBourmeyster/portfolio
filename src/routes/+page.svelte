@@ -1,5 +1,4 @@
 <script lang="ts">
-  import Navbar from '$lib/components/Navbar.svelte';
   import Hero from '$lib/components/Hero.svelte';
   import ProjectCard from '$lib/components/ProjectCard.svelte';
   import Contact from '$lib/components/Contact.svelte';
@@ -27,7 +26,6 @@
 </script>
 
 <div class="min-h-screen flex flex-col">
-  <Navbar />
   
   <main class="flex-grow">
     <Hero />

@@ -2,14 +2,14 @@
   import ProjectCard from '$lib/components/ProjectCard.svelte';
   
   const projects = [
-    { title: 'Concours CSO', category: 'Compétition', year: '2024', image: '/project1.png' },
-    { title: 'Randonnée', category: 'Loisir', year: '2023', image: '/project1.png' }
+    { title: 'Show Jumping', category: 'Competition', year: '2024', image: '/project1.png' },
+    { title: 'Trail Riding', category: 'Leisure', year: '2023', image: '/project1.png' }
   ];
 </script>
 
 <div class="pt-20">
   <div class="px-6 py-12 border-b-2 border-black bg-white">
-    <h1 class="text-6xl font-bold uppercase tracking-tighter text-center">Équitation</h1>
+    <h1 class="text-6xl font-bold uppercase tracking-tighter text-center">Horse Riding</h1>
   </div>
 
   <section class="py-16 px-6">

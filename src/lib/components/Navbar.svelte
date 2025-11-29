@@ -1,10 +1,10 @@
 <script lang="ts">
   let links = [
-    { name: 'Dessin', href: '/dessin' },
+    { name: 'Drawing', href: '/dessin' },
     { name: 'Sculpture', href: '/sculpture' },
-    { name: 'Numérique', href: '/numerique' },
-    { name: 'Boulangerie', href: '/boulangerie' },
-    { name: 'Équitation', href: '/equitation' },
+    { name: 'Digital', href: '/numerique' },
+    { name: 'Bakery', href: '/boulangerie' },
+    { name: 'Horse Riding', href: '/equitation' },
     { name: 'Contact', href: '#contact' }
   ];
 </script>

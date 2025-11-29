@@ -3,19 +3,19 @@
   
   const categories = [
     {
-      title: 'Dessin Numérique',
+      title: 'Digital Painting',
       projects: [
         { title: 'Digital Painting', category: '2D', year: '2024', image: '/project1.png' }
       ]
     },
     {
-      title: 'Animation 2D',
+      title: '2D Animation',
       projects: [
         { title: 'Short Film', category: 'Animation', year: '2023', image: '/project1.png' }
       ]
     },
     {
-      title: 'Modélisation 3D',
+      title: '3D Modeling',
       projects: [
         { title: 'Character Model', category: '3D', year: '2024', image: '/project1.png' }
       ]
@@ -25,7 +25,7 @@
 
 <div class="pt-20">
   <div class="px-6 py-12 border-b-2 border-black bg-white">
-    <h1 class="text-6xl font-bold uppercase tracking-tighter text-center">Numérique</h1>
+    <h1 class="text-6xl font-bold uppercase tracking-tighter text-center">Digital</h1>
   </div>
 
   {#each categories as category}

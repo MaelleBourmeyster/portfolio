@@ -3,28 +3,28 @@
   
   const categories = [
     {
-      title: 'Peinture',
+      title: 'Painting',
       projects: [
-        { title: 'Oeuvre 1', category: 'Peinture', year: '2024', image: '/project1.png' },
-        { title: 'Oeuvre 2', category: 'Peinture', year: '2024', image: '/project1.png' }
+        { title: 'Artwork 1', category: 'Painting', year: '2024', image: '/project1.png' },
+        { title: 'Artwork 2', category: 'Painting', year: '2024', image: '/project1.png' }
       ]
     },
     {
       title: 'Manga',
       projects: [
-        { title: 'Planche 1', category: 'Manga', year: '2023', image: '/project1.png' }
+        { title: 'Panel 1', category: 'Manga', year: '2023', image: '/project1.png' }
       ]
     },
     {
-      title: 'Crayons & Feutres',
+      title: 'Pencils & Markers',
       projects: [
-        { title: 'Illustration', category: 'Crayons', year: '2023', image: '/project1.png' }
+        { title: 'Illustration', category: 'Pencils', year: '2023', image: '/project1.png' }
       ]
     },
     {
-      title: 'Croquis',
+      title: 'Sketches',
       projects: [
-        { title: 'Etude', category: 'Croquis', year: '2024', image: '/project1.png' }
+        { title: 'Study', category: 'Sketch', year: '2024', image: '/project1.png' }
       ]
     }
   ];
@@ -32,7 +32,7 @@
 
 <div class="pt-20">
   <div class="px-6 py-12 border-b-2 border-black bg-white">
-    <h1 class="text-6xl font-bold uppercase tracking-tighter text-center">Dessin</h1>
+    <h1 class="text-6xl font-bold uppercase tracking-tighter text-center">Drawing</h1>
   </div>
 
   {#each categories as category}
