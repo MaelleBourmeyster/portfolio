@@ -3,41 +3,43 @@
   import ProjectCard from '$lib/components/ProjectCard.svelte';
   import Contact from '$lib/components/Contact.svelte';
 
+  import { base } from '$app/paths';
+
   const categories = [
     {
       title: 'Drawing',
       category: 'Gallery',
       year: '2025',
       image: '/project1.png',
-      href: '/drawing'
+      href: `${base}/drawing`
     },
     {
       title: 'Sculpture',
       category: 'Gallery',
       year: '2025',
       image: '/project1.png',
-      href: '/sculpture'
+      href: `${base}/sculpture`
     },
     {
       title: 'Digital',
       category: 'Gallery',
       year: '2025',
       image: '/project1.png',
-      href: '/digital'
+      href: `${base}/digital`
     },
     {
       title: 'Bakery',
       category: 'Gallery',
       year: '2025',
       image: '/project1.png',
-      href: '/bakery'
+      href: `${base}/bakery`
     },
     {
       title: 'Horse Riding',
       category: 'Gallery',
       year: '2025',
       image: '/project1.png',
-      href: '/horse-riding'
+      href: `${base}/horse-riding`
     }
   ];
 </script>
