@@ -1,6 +1,9 @@
 <script lang="ts">
   import { base } from '$app/paths';
-  // No props needed for now
+  import { language } from '$lib/stores/language';
+  import { translations } from '$lib/data/translations';
+
+  let t = $derived(translations[$language]);
 </script>
 
 <section class="relative flex min-h-[calc(100vh-70px)] flex-col items-center justify-center px-6 py-20 text-center overflow-hidden">
@@ -13,20 +16,20 @@
     </div>
     
     <h1 class="text-6xl font-bold leading-[1.1] md:text-8xl tracking-tighter">
-      MAËLLE <br />
-      <span class="text-blue-600">BOURMEYSTER</span>
+      {t.home.heroTitle} <br />
+      <span class="text-blue-600">{t.home.heroSubtitle}</span>
     </h1>
     
     <p class="mx-auto max-w-2xl text-xl md:text-2xl text-gray-600 font-medium">
-      A multidisciplinary journey through Fine Arts, Digital Creation, and Craftsmanship.
+      {t.home.heroDesc}
     </p>
     
     <div class="flex flex-col items-center justify-center gap-4 md:flex-row pt-8">
       <a href="{base}/#work" class="pk-btn !bg-blue-600 text-white hover:!bg-blue-700">
-        View Projects
+        {t.home.viewProjects}
       </a>
       <a href="{base}/contact" class="pk-btn">
-        Get in Touch
+        {t.home.getInTouch}
       </a>
     </div>
   </div>

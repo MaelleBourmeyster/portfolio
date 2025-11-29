@@ -2,22 +2,26 @@
   import ProjectCard from '$lib/components/ProjectCard.svelte';
   import { base } from '$app/paths';
   import { projects } from '$lib/data/projects';
+  import { language } from '$lib/stores/language';
+  import { translations } from '$lib/data/translations';
+
+  let t = $derived(translations[$language]);
   
-  const categories = [
-    { title: 'Digital Painting', projects: projects.filter(p => p.group === 'Digital Painting') },
-    { title: '2D Animation', projects: projects.filter(p => p.group === '2D Animation') },
-    { title: '3D Modeling', projects: projects.filter(p => p.group === '3D Modeling') }
-  ];
+  let categories = $derived([
+    { title: t.categories.digitalPainting, projects: projects.filter(p => p.group === 'Digital Painting') },
+    { title: t.categories.animation, projects: projects.filter(p => p.group === '2D Animation') },
+    { title: t.categories.modeling, projects: projects.filter(p => p.group === '3D Modeling') }
+  ]);
 </script>
 
 <svelte:head>
-  <title>Digital Art - Maëlle Bourmeyster</title>
+  <title>{t.nav.digital} - Maëlle Bourmeyster</title>
   <meta name="description" content="View Maëlle Bourmeyster's digital art portfolio, featuring digital painting, 2D animation, and 3D modeling." />
 </svelte:head>
 
 <div>
   <div class="px-6 py-12 border-b-2 border-black bg-white">
-    <h1 class="text-6xl font-bold uppercase tracking-tighter text-center">Digital</h1>
+    <h1 class="text-6xl font-bold uppercase tracking-tighter text-center">{t.nav.digital}</h1>
   </div>
 
   {#each categories as category}

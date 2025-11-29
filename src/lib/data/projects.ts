@@ -2,175 +2,226 @@ import { base } from '$app/paths';
 
 export interface Project {
     slug: string;
-    title: string;
-    category: string;
+    title: { en: string; fr: string };
+    category: { en: string; fr: string };
     year: string;
     image: string;
-    description?: string;
-    group?: string; // For grouping in pages like Sculpture (Wood, Clay, etc.)
+    description: { en: string; fr: string };
+    group: string; // Internal grouping identifier
 }
 
 export const projects: Project[] = [
     // Sculpture
     {
         slug: 'wood-sculpture-1',
-        title: 'Wood Sculpture 1',
-        category: 'Wood',
+        title: { en: 'Wood Sculpture 1', fr: 'Sculpture sur Bois 1' },
+        category: { en: 'Wood', fr: 'Bois' },
         year: '2024',
         image: `${base}/images/sculpture/wood/apex-legend-cup/cup-front.png`,
         group: 'Wood',
-        description: 'A detailed wood sculpture exploring organic forms and textures.'
+        description: {
+            en: 'A detailed wood sculpture exploring organic forms and textures.',
+            fr: 'Une sculpture sur bois détaillée explorant des formes organiques et des textures.'
+        }
     },
     {
         slug: 'modeling-1',
-        title: 'Modeling 1',
-        category: 'Clay',
+        title: { en: 'Modeling 1', fr: 'Modelage 1' },
+        category: { en: 'Clay', fr: 'Argile' },
         year: '2023',
         image: `${base}/images/sculpture/clay/andrea-cavalcanti.png`,
         group: 'Clay',
-        description: 'Clay modeling study focusing on facial expressions and volume.'
+        description: {
+            en: 'Clay modeling study focusing on facial expressions and volume.',
+            fr: "Étude de modelage en argile axée sur les expressions faciales et le volume."
+        }
     },
     {
         slug: 'plastiline-study',
-        title: 'Plastiline Study',
-        category: 'Plastiline',
+        title: { en: 'Plastiline Study', fr: 'Étude en Plastiline' },
+        category: { en: 'Plastiline', fr: 'Plastiline' },
         year: '2023',
         image: `${base}/images/sculpture/plastiline/horse.png`,
         group: 'Plastiline',
-        description: 'An anatomical study of a horse using plastiline.'
+        description: {
+            en: 'An anatomical study of a horse using plastiline.',
+            fr: "Une étude anatomique d'un cheval réalisée en plastiline."
+        }
     },
     {
         slug: 'cast-bronze',
-        title: 'Cast Bronze',
-        category: 'Bronze',
+        title: { en: 'Cast Bronze', fr: 'Bronze Coulé' },
+        category: { en: 'Bronze', fr: 'Bronze' },
         year: '2022',
         image: `${base}/images/sculpture/bronze/horse_head/bronze-horse-head.png`,
         group: 'Bronze',
-        description: 'A bronze casting project, capturing the strength and elegance of the subject.'
+        description: {
+            en: 'A bronze casting project, capturing the strength and elegance of the subject.',
+            fr: "Un projet de coulée en bronze, capturant la force et l'élégance du sujet."
+        }
     },
     {
         slug: 'plaster-cast',
-        title: 'Plaster Cast',
-        category: 'Plaster',
+        title: { en: 'Plaster Cast', fr: 'Moulage en Plâtre' },
+        category: { en: 'Plaster', fr: 'Plâtre' },
         year: '2024',
         image: `${base}/images/sculpture/plaster/rhino.png`,
         group: 'Plaster',
-        description: 'Plaster casting technique demonstration.'
+        description: {
+            en: 'Plaster casting technique demonstration.',
+            fr: "Démonstration de technique de moulage en plâtre."
+        }
     },
 
     // Drawing
     {
         slug: 'artwork-1',
-        title: 'Artwork 1',
-        category: 'Painting',
+        title: { en: 'Artwork 1', fr: 'Œuvre 1' },
+        category: { en: 'Painting', fr: 'Peinture' },
         year: '2024',
         image: `${base}/images/sculpture/clay/andrea-cavalcanti.png`,
         group: 'Painting',
-        description: 'Acrylic painting on canvas.'
+        description: {
+            en: 'Acrylic painting on canvas.',
+            fr: "Peinture acrylique sur toile."
+        }
     },
     {
         slug: 'artwork-2',
-        title: 'Artwork 2',
-        category: 'Painting',
+        title: { en: 'Artwork 2', fr: 'Œuvre 2' },
+        category: { en: 'Painting', fr: 'Peinture' },
         year: '2024',
         image: `${base}/images/sculpture/clay/andrea-cavalcanti.png`,
         group: 'Painting',
-        description: 'Oil painting study.'
+        description: {
+            en: 'Oil painting study.',
+            fr: "Étude de peinture à l'huile."
+        }
     },
     {
         slug: 'manga-panel-1',
-        title: 'Panel 1',
-        category: 'Manga',
+        title: { en: 'Panel 1', fr: 'Planche 1' },
+        category: { en: 'Manga', fr: 'Manga' },
         year: '2023',
         image: `${base}/images/sculpture/wood/fictional-characters/totoro.png`,
         group: 'Manga',
-        description: 'Original manga page layout and inking.'
+        description: {
+            en: 'Original manga page layout and inking.',
+            fr: "Mise en page et encrage d'une planche de manga originale."
+        }
     },
     {
         slug: 'illustration',
-        title: 'Illustration',
-        category: 'Pencils',
+        title: { en: 'Illustration', fr: 'Illustration' },
+        category: { en: 'Pencils', fr: 'Crayons' },
         year: '2023',
         image: `${base}/images/sculpture/wood/fictional-characters/stitch.png`,
         group: 'Pencils & Markers',
-        description: 'Detailed pencil illustration.'
+        description: {
+            en: 'Detailed pencil illustration.',
+            fr: "Illustration détaillée au crayon."
+        }
     },
     {
         slug: 'sketch-study',
-        title: 'Study',
-        category: 'Sketch',
+        title: { en: 'Study', fr: 'Étude' },
+        category: { en: 'Sketch', fr: 'Croquis' },
         year: '2024',
         image: `${base}/images/sculpture/wood/apex-legend-cup/cup-profile.png`,
         group: 'Sketches',
-        description: 'Quick sketch study for a larger project.'
+        description: {
+            en: 'Quick sketch study for a larger project.',
+            fr: "Étude rapide en croquis pour un projet plus vaste."
+        }
     },
 
     // Digital
     {
         slug: 'digital-painting',
-        title: 'Digital Painting',
-        category: '2D',
+        title: { en: 'Digital Painting', fr: 'Peinture Numérique' },
+        category: { en: '2D', fr: '2D' },
         year: '2024',
         image: `${base}/images/sculpture/wood/fictional-characters/elves.png`,
         group: 'Digital Painting',
-        description: 'Digital concept art created in Photoshop.'
+        description: {
+            en: 'Digital concept art created in Photoshop.',
+            fr: "Concept art numérique créé sur Photoshop."
+        }
     },
     {
         slug: 'short-film',
-        title: 'Short Film',
-        category: 'Animation',
+        title: { en: 'Short Film', fr: 'Court Métrage' },
+        category: { en: 'Animation', fr: 'Animation' },
         year: '2023',
         image: `${base}/images/sculpture/wood/fictional-characters/stitch.png`,
         group: '2D Animation',
-        description: 'A short 2D animated clip.'
+        description: {
+            en: 'A short 2D animated clip.',
+            fr: "Un court clip d'animation 2D."
+        }
     },
     {
         slug: 'character-model',
-        title: 'Character Model',
-        category: '3D',
+        title: { en: 'Character Model', fr: 'Modèle de Personnage' },
+        category: { en: '3D', fr: '3D' },
         year: '2024',
         image: `${base}/images/sculpture/plaster/rhino.png`,
         group: '3D Modeling',
-        description: '3D character model sculpted in ZBrush.'
+        description: {
+            en: '3D character model sculpted in ZBrush.',
+            fr: "Modèle de personnage 3D sculpté dans ZBrush."
+        }
     },
 
     // Bakery
     {
         slug: 'sourdough-bread',
-        title: 'Sourdough Bread',
-        category: 'Bakery',
+        title: { en: 'Sourdough Bread', fr: 'Pain au Levain' },
+        category: { en: 'Bakery', fr: 'Boulangerie' },
         year: '2024',
         image: `${base}/images/sculpture/wood/kitchen-utensils/butter-knife.png`,
         group: 'Bakery',
-        description: 'Artisan sourdough bread with natural leaven.'
+        description: {
+            en: 'Artisan sourdough bread with natural leaven.',
+            fr: "Pain artisanal au levain naturel."
+        }
     },
     {
         slug: 'croissants',
-        title: 'Croissants',
-        category: 'Pastry',
+        title: { en: 'Croissants', fr: 'Croissants' },
+        category: { en: 'Pastry', fr: 'Pâtisserie' },
         year: '2024',
         image: `${base}/images/sculpture/wood/kitchen-utensils/spoon.png`,
         group: 'Bakery',
-        description: 'Hand-laminated butter croissants.'
+        description: {
+            en: 'Hand-laminated butter croissants.',
+            fr: "Croissants au beurre laminés à la main."
+        }
     },
 
     // Horse Riding
     {
         slug: 'show-jumping',
-        title: 'Show Jumping',
-        category: 'Competition',
+        title: { en: 'Show Jumping', fr: 'Saut d\'Obstacles' },
+        category: { en: 'Competition', fr: 'Compétition' },
         year: '2024',
         image: `${base}/images/sculpture/bronze/horse_head/bronze-horse-head.png`,
         group: 'Horse Riding',
-        description: 'Competitive show jumping events.'
+        description: {
+            en: 'Competitive show jumping events.',
+            fr: "Épreuves de saut d'obstacles en compétition."
+        }
     },
     {
         slug: 'trail-riding',
-        title: 'Trail Riding',
-        category: 'Leisure',
+        title: { en: 'Trail Riding', fr: 'Randonnée' },
+        category: { en: 'Leisure', fr: 'Loisir' },
         year: '2023',
         image: `${base}/images/sculpture/plastiline/horse.png`,
         group: 'Horse Riding',
-        description: 'Leisure trail riding in the countryside.'
+        description: {
+            en: 'Leisure trail riding in the countryside.',
+            fr: "Randonnée équestre de loisir à la campagne."
+        }
     }
 ];

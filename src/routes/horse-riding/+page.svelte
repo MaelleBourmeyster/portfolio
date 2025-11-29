@@ -2,18 +2,22 @@
   import ProjectCard from '$lib/components/ProjectCard.svelte';
   import { base } from '$app/paths';
   import { projects } from '$lib/data/projects';
+  import { language } from '$lib/stores/language';
+  import { translations } from '$lib/data/translations';
+
+  let t = $derived(translations[$language]);
   
   const horseProjects = projects.filter(p => p.group === 'Horse Riding');
 </script>
 
 <svelte:head>
-  <title>Horse Riding - Maëlle Bourmeyster</title>
+  <title>{t.nav.horseRiding} - Maëlle Bourmeyster</title>
   <meta name="description" content="Follow Maëlle Bourmeyster's equestrian journey, from show jumping competitions to trail riding." />
 </svelte:head>
 
 <div>
   <div class="px-6 py-12 border-b-2 border-black bg-white">
-    <h1 class="text-6xl font-bold uppercase tracking-tighter text-center">Horse Riding</h1>
+    <h1 class="text-6xl font-bold uppercase tracking-tighter text-center">{t.nav.horseRiding}</h1>
   </div>
 
   <section class="py-16 px-6">

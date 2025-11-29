@@ -2,25 +2,29 @@
   import ProjectCard from '$lib/components/ProjectCard.svelte';
   import { base } from '$app/paths';
   import { projects } from '$lib/data/projects';
+  import { language } from '$lib/stores/language';
+  import { translations } from '$lib/data/translations';
+
+  let t = $derived(translations[$language]);
   
   // Group projects by their 'group' property
-  const categories = [
-    { title: 'Wood', projects: projects.filter(p => p.group === 'Wood') },
-    { title: 'Clay', projects: projects.filter(p => p.group === 'Clay') },
-    { title: 'Plastiline', projects: projects.filter(p => p.group === 'Plastiline') },
-    { title: 'Bronze', projects: projects.filter(p => p.group === 'Bronze') },
-    { title: 'Plaster', projects: projects.filter(p => p.group === 'Plaster') }
-  ];
+  let categories = $derived([
+    { title: t.categories.wood, projects: projects.filter(p => p.group === 'Wood') },
+    { title: t.categories.clay, projects: projects.filter(p => p.group === 'Clay') },
+    { title: t.categories.plastiline, projects: projects.filter(p => p.group === 'Plastiline') },
+    { title: t.categories.bronze, projects: projects.filter(p => p.group === 'Bronze') },
+    { title: t.categories.plaster, projects: projects.filter(p => p.group === 'Plaster') }
+  ]);
 </script>
 
 <svelte:head>
-  <title>Sculpture - Maëlle Bourmeyster</title>
+  <title>{t.nav.sculpture} - Maëlle Bourmeyster</title>
   <meta name="description" content="Discover Maëlle Bourmeyster's sculpture works in wood, clay, plastiline, bronze, and plaster." />
 </svelte:head>
 
 <div>
   <div class="px-6 py-12 border-b-2 border-black bg-white">
-    <h1 class="text-6xl font-bold uppercase tracking-tighter text-center">Sculpture</h1>
+    <h1 class="text-6xl font-bold uppercase tracking-tighter text-center">{t.nav.sculpture}</h1>
   </div>
 
   {#each categories as category}

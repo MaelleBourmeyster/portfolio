@@ -2,23 +2,27 @@
   import ProjectCard from '$lib/components/ProjectCard.svelte';
   import { base } from '$app/paths';
   import { projects } from '$lib/data/projects';
+  import { language } from '$lib/stores/language';
+  import { translations } from '$lib/data/translations';
+
+  let t = $derived(translations[$language]);
   
-  const categories = [
-    { title: 'Painting', projects: projects.filter(p => p.group === 'Painting') },
-    { title: 'Manga', projects: projects.filter(p => p.group === 'Manga') },
-    { title: 'Pencils & Markers', projects: projects.filter(p => p.group === 'Pencils & Markers') },
-    { title: 'Sketches', projects: projects.filter(p => p.group === 'Sketches') }
-  ];
+  let categories = $derived([
+    { title: t.categories.painting, projects: projects.filter(p => p.group === 'Painting') },
+    { title: t.categories.manga, projects: projects.filter(p => p.group === 'Manga') },
+    { title: t.categories.pencils, projects: projects.filter(p => p.group === 'Pencils & Markers') },
+    { title: t.categories.sketches, projects: projects.filter(p => p.group === 'Sketches') }
+  ]);
 </script>
 
 <svelte:head>
-  <title>Drawing - Maëlle Bourmeyster</title>
+  <title>{t.nav.drawing} - Maëlle Bourmeyster</title>
   <meta name="description" content="Explore Maëlle Bourmeyster's drawings, including paintings, manga, pencil sketches, and markers." />
 </svelte:head>
 
 <div>
   <div class="px-6 py-12 border-b-2 border-black bg-white">
-    <h1 class="text-6xl font-bold uppercase tracking-tighter text-center">Drawing</h1>
+    <h1 class="text-6xl font-bold uppercase tracking-tighter text-center">{t.nav.drawing}</h1>
   </div>
 
   {#each categories as category}

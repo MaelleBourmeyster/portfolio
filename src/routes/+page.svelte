@@ -1,53 +1,50 @@
 <script lang="ts">
   import Hero from '$lib/components/Hero.svelte';
   import ProjectCard from '$lib/components/ProjectCard.svelte';
-  import Contact from '$lib/components/Contact.svelte';
-
   import { base } from '$app/paths';
+  import { language } from '$lib/stores/language';
+  import { translations } from '$lib/data/translations';
 
-  const categories = [
+  let t = $derived(translations[$language]);
+
+  let categories = $derived([
     {
-      title: 'Drawing',
+      title: t.nav.drawing,
       category: 'Gallery',
       year: '2025',
       image: `${base}/images/sculpture/clay/andrea-cavalcanti.png`,
       href: `${base}/drawing`
     },
     {
-      title: 'Sculpture',
+      title: t.nav.sculpture,
       category: 'Gallery',
       year: '2025',
       image: `${base}/images/sculpture/wood/apex-legend-cup/cup-front.png`,
       href: `${base}/sculpture`
     },
     {
-      title: 'Digital',
+      title: t.nav.digital,
       category: 'Gallery',
       year: '2025',
       image: `${base}/images/sculpture/wood/fictional-characters/stitch.png`,
       href: `${base}/digital`
     },
     {
-      title: 'Bakery',
+      title: t.nav.bakery,
       category: 'Gallery',
       year: '2025',
       image: `${base}/images/sculpture/wood/kitchen-utensils/spoon.png`,
       href: `${base}/bakery`
     },
     {
-      title: 'Horse Riding',
+      title: t.nav.horseRiding,
       category: 'Gallery',
       year: '2025',
       image: `${base}/images/sculpture/bronze/horse_head/bronze-horse-head.png`,
       href: `${base}/horse-riding`
     }
-  ];
+  ]);
 </script>
-
-<svelte:head>
-  <title>Maëlle Bourmeyster - Portfolio 2025</title>
-  <meta name="description" content="Explore the multidisciplinary portfolio of Maëlle Bourmeyster, featuring Fine Arts, Digital Creation, and Craftsmanship." />
-</svelte:head>
 
 <Hero />
 
@@ -55,11 +52,11 @@
   <div class="mx-auto max-w-7xl">
     <div class="flex items-end justify-between mb-12">
       <div>
-        <h2 class="text-4xl font-bold uppercase tracking-tighter">Explore Work</h2>
-        <p class="text-gray-500 font-mono mt-2">Discover the different facets of my creativity.</p>
+        <h2 class="text-4xl font-bold uppercase tracking-tighter">{t.home.explore}</h2>
+        <p class="text-gray-500 font-mono mt-2">{t.home.subtitle}</p>
       </div>
       <div class="hidden md:block text-right font-mono text-sm">
-        CATEGORIES: 01 - 0{categories.length}
+        {t.home.categories}: 01 - 0{categories.length}
       </div>
     </div>
     
