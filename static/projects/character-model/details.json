@@ -1,1 +1,19 @@
-{}
+﻿{
+    "slug":  "character-model",
+    "description":  {
+                        "en":  "3D character model sculpted in ZBrush.",
+                        "fr":  "Modèle de personnage 3D sculpté dans ZBrush."
+                    },
+    "year":  "2024",
+    "category":  {
+                     "en":  "3D",
+                     "fr":  "3D"
+                 },
+    "title":  {
+                  "en":  "Character Model",
+                  "fr":  "Modèle de Personnage"
+              },
+    "group":  "3D Modeling",
+    "mainCategory":  "Digital",
+    "subCategory":  "3D"
+}

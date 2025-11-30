@@ -1,1 +1,19 @@
-{}
+﻿{
+    "slug":  "trail-riding",
+    "description":  {
+                        "en":  "Leisure trail riding in the countryside.",
+                        "fr":  "Randonnée équestre de loisir à la campagne."
+                    },
+    "year":  "2023",
+    "category":  {
+                     "en":  "Leisure",
+                     "fr":  "Loisir"
+                 },
+    "title":  {
+                  "en":  "Trail Riding",
+                  "fr":  "Randonnée"
+              },
+    "group":  "Horse Riding",
+    "mainCategory":  "Horse Riding",
+    "subCategory":  "Leisure"
+}

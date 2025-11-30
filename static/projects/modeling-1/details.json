@@ -1,1 +1,19 @@
-{}
+﻿{
+    "slug":  "modeling-1",
+    "description":  {
+                        "en":  "Clay modeling study focusing on facial expressions and volume.",
+                        "fr":  "Étude de modelage en argile axée sur les expressions faciales et le volume."
+                    },
+    "year":  "2023",
+    "category":  {
+                     "en":  "Clay",
+                     "fr":  "Argile"
+                 },
+    "title":  {
+                  "en":  "Modeling 1",
+                  "fr":  "Modelage 1"
+              },
+    "group":  "Clay",
+    "mainCategory":  "Sculpture",
+    "subCategory":  "Clay"
+}

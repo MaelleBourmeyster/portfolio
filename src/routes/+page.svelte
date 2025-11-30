@@ -5,42 +5,53 @@
   import { language } from '$lib/stores/language';
   import { translations } from '$lib/data/translations';
 
+  import type { PageData } from './$types';
+  import type { Project } from '$lib/data/projects';
+
+  let { data } = $props<{ data: PageData }>();
+  let projects = $derived((data.projects as Project[]) || []);
+
   let t = $derived(translations[$language]);
+
+  function getCategoryImage(mainCat: string, defaultImage: string) {
+      const project = projects.find(p => p.mainCategory === mainCat && p.image);
+      return project ? project.image : defaultImage;
+  }
 
   let categories = $derived([
     {
       title: t.nav.drawing,
       category: 'Gallery',
       year: '2025',
-      image: `${base}/projects/artwork-1/images/painting-horses.png`,
+      image: getCategoryImage('Drawing', `${base}/projects/artwork-1/images/painting-horses.png`),
       href: `${base}/drawing`
     },
     {
       title: t.nav.sculpture,
       category: 'Gallery',
       year: '2025',
-      image: `${base}/projects/wood-sculpture-1/images/cup-front.png`,
+      image: getCategoryImage('Sculpture', `${base}/projects/wood-sculpture-1/images/cup-front.png`),
       href: `${base}/sculpture`
     },
     {
       title: t.nav.digital,
       category: 'Gallery',
       year: '2025',
-      image: `${base}/projects/digital-painting/images/shoto.png`,
+      image: getCategoryImage('Digital', `${base}/projects/digital-painting/images/shoto.png`),
       href: `${base}/digital`
     },
     {
       title: t.nav.bakery,
       category: 'Gallery',
       year: '2025',
-      image: `${base}/projects/sourdough-bread/images/butter-knife.png`,
+      image: getCategoryImage('Bakery', `${base}/projects/sourdough-bread/images/butter-knife.png`),
       href: `${base}/bakery`
     },
     {
       title: t.nav.horseRiding,
       category: 'Gallery',
       year: '2025',
-      image: `${base}/projects/cast-bronze/images/bronze-horse-head.png`,
+      image: getCategoryImage('Horse Riding', `${base}/projects/horse-head/images/bronze-horse-head.png`),
       href: `${base}/horse-riding`
     }
   ]);

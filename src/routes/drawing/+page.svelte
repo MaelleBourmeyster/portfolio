@@ -1,18 +1,32 @@
 <script lang="ts">
   import ProjectCard from '$lib/components/ProjectCard.svelte';
   import { base } from '$app/paths';
-  import { projects } from '$lib/data/projects';
+  import { page } from '$app/stores';
   import { language } from '$lib/stores/language';
   import { translations } from '$lib/data/translations';
+  import type { PageData } from './$types';
+  import type { Project } from '$lib/data/projects';
+
+  let { data } = $props<{ data: PageData }>();
+  let projects = $derived((data.projects as Project[]) || []);
 
   let t = $derived(translations[$language]);
   
-  let categories = $derived([
-    { title: t.categories.painting, projects: projects.filter(p => p.group === 'Painting') },
-    { title: t.categories.manga, projects: projects.filter(p => p.group === 'Manga') },
-    { title: t.categories.pencils, projects: projects.filter(p => p.group === 'Pencils & Markers') },
-    { title: t.categories.sketches, projects: projects.filter(p => p.group === 'Sketches') }
-  ]);
+  let drawingProjects = $derived(projects.filter(p => p.mainCategory === 'Drawing'));
+
+  function getCategoryTitle(subCat: string) {
+      let key = subCat.toLowerCase();
+      if (key === 'sketch') key = 'sketches';
+      // @ts-ignore
+      return t.categories[key] || subCat;
+  }
+
+  let subCategories = $derived([...new Set(drawingProjects.map(p => p.subCategory))]);
+
+  let categories = $derived(subCategories.map(sub => ({
+      title: getCategoryTitle(sub),
+      projects: drawingProjects.filter(p => p.subCategory === sub)
+  })));
 </script>
 
 <svelte:head>

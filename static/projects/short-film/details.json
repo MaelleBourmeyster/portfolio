@@ -1,1 +1,19 @@
-{}
+﻿{
+    "slug":  "short-film",
+    "description":  {
+                        "en":  "A short 2D animated clip.",
+                        "fr":  "Un court clip d\u0027animation 2D."
+                    },
+    "year":  "2023",
+    "category":  {
+                     "en":  "Animation",
+                     "fr":  "Animation"
+                 },
+    "title":  {
+                  "en":  "Short Film",
+                  "fr":  "Court Métrage"
+              },
+    "group":  "2D Animation",
+    "mainCategory":  "Digital",
+    "subCategory":  "Animation"
+}

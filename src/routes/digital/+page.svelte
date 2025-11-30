@@ -1,22 +1,38 @@
 <script lang="ts">
   import ProjectCard from '$lib/components/ProjectCard.svelte';
   import { base } from '$app/paths';
-  import { projects } from '$lib/data/projects';
+  import { page } from '$app/stores';
   import { language } from '$lib/stores/language';
   import { translations } from '$lib/data/translations';
+  import type { PageData } from './$types';
+  import type { Project } from '$lib/data/projects';
+
+  let { data } = $props<{ data: PageData }>();
+  let projects = $derived((data.projects as Project[]) || []);
 
   let t = $derived(translations[$language]);
   
-  let categories = $derived([
-    { title: t.categories.digitalPainting, projects: projects.filter(p => p.group === 'Digital Painting') },
-    { title: t.categories.animation, projects: projects.filter(p => p.group === '2D Animation') },
-    { title: t.categories.modeling, projects: projects.filter(p => p.group === '3D Modeling') }
-  ]);
+  let digitalProjects = $derived(projects.filter(p => p.mainCategory === 'Digital'));
+
+  function getCategoryTitle(subCat: string) {
+      let key = subCat.toLowerCase();
+      if (key === 'digital painting') key = 'digitalPainting';
+      if (key === '3d') key = 'modeling';
+      // @ts-ignore
+      return t.categories[key] || subCat;
+  }
+
+  let subCategories = $derived([...new Set(digitalProjects.map(p => p.subCategory))]);
+
+  let categories = $derived(subCategories.map(sub => ({
+      title: getCategoryTitle(sub),
+      projects: digitalProjects.filter(p => p.subCategory === sub)
+  })));
 </script>
 
 <svelte:head>
   <title>{t.nav.digital} - Maëlle Bourmeyster</title>
-  <meta name="description" content="View Maëlle Bourmeyster's digital art portfolio, featuring digital painting, 2D animation, and 3D modeling." />
+  <meta name="description" content="Discover Maëlle Bourmeyster's digital art, including digital painting, 2D animation, and 3D modeling." />
 </svelte:head>
 
 <div>

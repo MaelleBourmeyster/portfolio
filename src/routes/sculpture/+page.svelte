@@ -1,20 +1,43 @@
 <script lang="ts">
   import ProjectCard from '$lib/components/ProjectCard.svelte';
   import { base } from '$app/paths';
-  import { projects } from '$lib/data/projects';
+  import { page } from '$app/stores';
   import { language } from '$lib/stores/language';
   import { translations } from '$lib/data/translations';
+  import type { PageData } from './$types';
+  import type { Project } from '$lib/data/projects';
+
+  let { data } = $props<{ data: PageData }>();
+  // Access projects from the layout data (which is merged into page data)
+  // However, layout data is available in $page.data or passed down.
+  // In SvelteKit, parent data is merged.
+  
+  let projects = $derived((data.projects as Project[]) || []);
 
   let t = $derived(translations[$language]);
   
-  // Group projects by their 'group' property
-  let categories = $derived([
-    { title: t.categories.wood, projects: projects.filter(p => p.group === 'Wood') },
-    { title: t.categories.clay, projects: projects.filter(p => p.group === 'Clay') },
-    { title: t.categories.plastiline, projects: projects.filter(p => p.group === 'Plastiline') },
-    { title: t.categories.bronze, projects: projects.filter(p => p.group === 'Bronze') },
-    { title: t.categories.plaster, projects: projects.filter(p => p.group === 'Plaster') }
-  ]);
+  // Filter for Sculpture projects
+  let sculptureProjects = $derived(projects.filter(p => p.mainCategory === 'Sculpture'));
+
+  // Group by subCategory
+  // We need to map subCategory (e.g. 'Wood') to the translation key (e.g. 'wood')
+  // The translation keys in translations.ts seem to be lowercase.
+  // Let's check translations.ts to be sure about keys.
+  
+  // Helper to get translation for subCategory
+  function getCategoryTitle(subCat: string) {
+      const key = subCat.toLowerCase();
+      // @ts-ignore
+      return t.categories[key] || subCat;
+  }
+
+  // Get unique subCategories present in the data
+  let subCategories = $derived([...new Set(sculptureProjects.map(p => p.subCategory))]);
+
+  let categories = $derived(subCategories.map(sub => ({
+      title: getCategoryTitle(sub),
+      projects: sculptureProjects.filter(p => p.subCategory === sub)
+  })));
 </script>
 
 <svelte:head>

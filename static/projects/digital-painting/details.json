@@ -1,1 +1,19 @@
-{}
+﻿{
+    "slug":  "digital-painting",
+    "description":  {
+                        "en":  "Digital concept art created in Photoshop.",
+                        "fr":  "Concept art numérique créé sur Photoshop."
+                    },
+    "year":  "2024",
+    "category":  {
+                     "en":  "2D",
+                     "fr":  "2D"
+                 },
+    "title":  {
+                  "en":  "Digital Painting",
+                  "fr":  "Peinture Numérique"
+              },
+    "group":  "Digital Painting",
+    "mainCategory":  "Digital",
+    "subCategory":  "Digital Painting"
+}

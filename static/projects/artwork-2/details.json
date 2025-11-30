@@ -1,1 +1,19 @@
-{}
+﻿{
+    "slug":  "artwork-2",
+    "description":  {
+                        "en":  "Oil painting study.",
+                        "fr":  "Étude de peinture à l\u0027huile."
+                    },
+    "year":  "2024",
+    "category":  {
+                     "en":  "Painting",
+                     "fr":  "Peinture"
+                 },
+    "title":  {
+                  "en":  "Artwork 2",
+                  "fr":  "Œuvre 2"
+              },
+    "group":  "Painting",
+    "mainCategory":  "Drawing",
+    "subCategory":  "Painting"
+}

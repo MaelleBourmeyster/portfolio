@@ -1,1 +1,19 @@
-{}
+﻿{
+    "slug":  "show-jumping",
+    "description":  {
+                        "en":  "Competitive show jumping events.",
+                        "fr":  "Épreuves de saut d\u0027obstacles en compétition."
+                    },
+    "year":  "2024",
+    "category":  {
+                     "en":  "Competition",
+                     "fr":  "Compétition"
+                 },
+    "title":  {
+                  "en":  "Show Jumping",
+                  "fr":  "Saut d\u0027Obstacles"
+              },
+    "group":  "Horse Riding",
+    "mainCategory":  "Horse Riding",
+    "subCategory":  "Competition"
+}
