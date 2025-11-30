@@ -102,8 +102,9 @@
 
     <!-- Language Toggle (Desktop - Right Aligned) -->
     <button 
+      type="button"
       onclick={toggleLanguage}
-      class="hidden md:block font-mono text-sm font-bold border-2 border-black px-2 py-1 hover:bg-black hover:text-white transition-colors uppercase ml-auto"
+      class="hidden md:block pk-btn !px-3 !py-1 ml-auto"
     >
       {$language}
     </button>
@@ -111,6 +112,7 @@
     <!-- Mobile Header (Controls) -->
     <div class="flex md:hidden w-full justify-between items-center">
       <button 
+        type="button"
         onclick={toggleLanguage}
         class="pk-btn !px-3 !py-1"
       >

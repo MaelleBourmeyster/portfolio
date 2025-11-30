@@ -10,12 +10,12 @@
   <!-- Decorative elements -->
   <!-- Decorative elements removed -->
   
-  <div class="relative z-10 max-w-4xl space-y-8">
+  <div class="relative z-10 max-w-4xl space-y-8 -mt-12">
     <div class="inline-block border-2 border-black bg-white px-4 py-1 text-sm font-bold uppercase tracking-widest shadow-[4px_4px_0px_#000]">
       Portfolio 2025
     </div>
     
-    <h1 class="text-5xl font-bold leading-[1.1] md:text-8xl tracking-tighter px-4">
+    <h1 class="text-5xl font-bold leading-[1.1] md:text-8xl tracking-tighter px-4 !mt-3">
       {t.home.heroTitle} <br />
       <span class="text-blue-600">{t.home.heroSubtitle}</span>
     </h1>
