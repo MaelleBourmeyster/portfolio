@@ -4,8 +4,6 @@
   import { translations } from '$lib/data/translations';
 
   let t = $derived(translations[$language]);
-
-
 </script>
 
 <svelte:head>
@@ -15,7 +13,7 @@
 
 <div>
   <div class="px-6 py-12 border-b-2 border-black bg-white">
-    <h1 class="text-6xl font-bold uppercase tracking-tighter text-center">{t.about.title}</h1>
+    <h1 class="text-4xl md:text-6xl font-bold uppercase tracking-tighter text-center break-words">{t.about.title}</h1>
   </div>
 
   <section class="py-16 px-6">
@@ -59,8 +57,6 @@
           {t.about.beyondText}
         </p>
       </div>
-
-
 
     </div>
   </section>

@@ -112,7 +112,7 @@
     <div class="flex md:hidden w-full justify-between items-center">
       <button 
         onclick={toggleLanguage}
-        class="font-mono text-sm font-bold border-2 border-black px-2 py-1 hover:bg-black hover:text-white transition-colors uppercase"
+        class="pk-btn !px-3 !py-1"
       >
         {$language}
       </button>

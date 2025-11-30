@@ -19,6 +19,8 @@
       return t.categories[subCat] || subCat;
   }
 
+  let commonTitleClass = "font-bold uppercase tracking-tighter break-words";
+  
   let subCategories = $derived([...new Set(bakeryProjects.map(p => p.subCategory))]);
 
   let categories = $derived(subCategories.map(sub => ({
@@ -28,20 +30,20 @@
 </script>
 
 <svelte:head>
-  <title>{t.nav.bakery} - Maëlle Bourmeyster</title>
+  <title>{t.nav.bakery} - Maelle Bourmeyster</title>
   <meta name="description" content="Explore Maëlle Bourmeyster's bakery creations, from sourdough bread to pastries." />
 </svelte:head>
 
 <div>
   <div class="px-6 py-12 border-b-2 border-black bg-white">
-    <h1 class="text-6xl font-bold uppercase tracking-tighter text-center">{t.nav.bakery}</h1>
+    <h1 class="text-4xl md:text-6xl text-center {commonTitleClass}">{t.nav.bakery}</h1>
   </div>
 
   {#each categories as category}
     {#if category.projects.length > 0}
       <section class="py-16 px-6 border-b-2 border-black last:border-b-0">
         <div class="mx-auto max-w-7xl">
-          <h2 class="text-4xl font-bold uppercase tracking-tighter mb-8 pl-4 border-l-4 border-blue-600">
+          <h2 class="text-4xl mb-8 pl-4 border-l-4 border-blue-600 {commonTitleClass}">
             {category.title}
           </h2>
           
