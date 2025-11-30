@@ -26,7 +26,7 @@
   <!-- Back Button -->
   <div class="px-6 py-6 border-b-2 border-black">
     <div class="mx-auto max-w-7xl">
-      <button onclick={() => history.back()} class="inline-flex items-center gap-2 font-bold uppercase hover:text-blue-600 transition-colors">
+      <button onclick={() => history.back()} class="inline-flex items-center gap-2 font-bold uppercase hover:text-blue-600 transition-colors cursor-pointer">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
           <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
         </svg>
@@ -50,7 +50,7 @@
                 {#if images.length > 1}
                     <button 
                         type="button"
-                        class="absolute left-4 top-1/2 -translate-y-1/2 bg-white border-2 border-black p-2 shadow-[4px_4px_0px_#000] hover:bg-gray-100 active:bg-gray-200 transition-colors"
+                        class="absolute left-4 top-1/2 -translate-y-1/2 bg-white border-2 border-black p-2 shadow-[4px_4px_0px_#000] hover:bg-gray-100 active:bg-gray-200 transition-colors cursor-pointer"
                         onclick={() => currentImageIndex = (currentImageIndex - 1 + images.length) % images.length}
                         aria-label="Previous image"
                     >
@@ -60,7 +60,7 @@
                     </button>
                     <button 
                         type="button"
-                        class="absolute right-4 top-1/2 -translate-y-1/2 bg-white border-2 border-black p-2 shadow-[4px_4px_0px_#000] hover:bg-gray-100 active:bg-gray-200 transition-colors"
+                        class="absolute right-4 top-1/2 -translate-y-1/2 bg-white border-2 border-black p-2 shadow-[4px_4px_0px_#000] hover:bg-gray-100 active:bg-gray-200 transition-colors cursor-pointer"
                         onclick={() => currentImageIndex = (currentImageIndex + 1) % images.length}
                         aria-label="Next image"
                     >
@@ -73,7 +73,7 @@
                         {#each images as _, i}
                             <button 
                                 type="button"
-                                class="w-3 h-3 border-2 border-black {i === currentImageIndex ? 'bg-blue-600' : 'bg-white'}"
+                                class="w-3 h-3 border-2 border-black {i === currentImageIndex ? 'bg-blue-600' : 'bg-white'} cursor-pointer"
                                 onclick={() => currentImageIndex = i}
                                 aria-label="Go to image {i + 1}"
                             ></button>
