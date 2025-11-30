@@ -1,0 +1,13 @@
+{
+    "slug": "cube",
+    "description": {
+        "en": "3D cube model sculpted in ZBrush.",
+        "fr": "Modèle de cube 3D sculpté dans ZBrush."
+    },
+    "year": "2024",
+    "title": {
+        "en": "Cube",
+        "fr": "Cube"
+    },
+    "thumbnail": "cube.png"
+}
