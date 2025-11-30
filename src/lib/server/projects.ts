@@ -82,6 +82,16 @@ function loadProject(projectDir: string, rootDir: string): Project | null {
                 .map(file => `${base}/projects/${urlPath}/images/${file}`);
         }
 
+        // Auto-discover videos
+        const videosDir = path.join(projectDir, 'videos');
+        let videos: string[] = [];
+
+        if (fs.existsSync(videosDir)) {
+            videos = fs.readdirSync(videosDir)
+                .filter(file => /\.(mp4|webm|ogg|mov)$/i.test(file))
+                .map(file => `${base}/projects/${urlPath}/videos/${file}`);
+        }
+
         let mainImage = json.image;
         if (!mainImage && images.length > 0) {
             mainImage = images[0];
@@ -114,6 +124,7 @@ function loadProject(projectDir: string, rootDir: string): Project | null {
             category: { en: catEn, fr: catFr },
             year: json.year || new Date().getFullYear().toString(),
             images,
+            videos,
             image: mainImage || '',
             thumbnail,
             title: json.title,

@@ -41,6 +41,17 @@
       <!-- Image Section -->
       <!-- Image Section -->
       <div class="space-y-6">
+        {#if project.videos && project.videos.length > 0}
+            <div class="border-2 border-black p-4 shadow-[8px_8px_0px_#000] bg-white relative group mb-8">
+                <div class="w-full overflow-hidden border-2 border-black bg-gray-100 relative">
+                    <video controls class="w-full h-auto">
+                        <source src={project.videos[0]} type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            </div>
+        {/if}
+
         {#if project.images && project.images.length > 0}
             {@const images = project.images}
             <div class="border-2 border-black p-4 shadow-[8px_8px_0px_#000] bg-white relative group">
@@ -88,7 +99,7 @@
                 <img src={project.image} alt={getStr(project.title, $language)} class="w-full h-auto object-cover" />
               </div>
             </div>
-        {:else}
+        {:else if (!project.videos || project.videos.length === 0)}
           <div class="border-2 border-black p-4 shadow-[8px_8px_0px_#000] bg-white">
             <div class="flex h-64 w-full items-center justify-center bg-gray-200 text-gray-400 border-2 border-black">
               NO IMAGE

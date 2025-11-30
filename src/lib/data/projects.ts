@@ -10,6 +10,7 @@ export interface Project {
     image: string;
     thumbnail?: string; // Specific thumbnail for category page
     images?: string[]; // Auto-discovered images
+    videos?: string[]; // Auto-discovered videos
     description: { en: string; fr: string };
     group: string; // Internal grouping identifier (Legacy, use subCategory)
 }
