@@ -24,7 +24,7 @@
       {t.home.heroDesc}
     </p>
     
-    <div class="flex flex-col items-center justify-center gap-4 pt-12 md:flex-row">
+    <div class="flex flex-col items-center justify-center gap-4 pt-16 md:flex-row">
       <a href="{base}/#work" class="pk-btn !bg-blue-600 text-white hover:!bg-blue-700">
         {t.home.viewProjects}
       </a>
