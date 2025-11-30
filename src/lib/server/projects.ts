@@ -54,6 +54,8 @@ function loadProject(projectDir: string, rootDir: string): Project | null {
     const subFolder = parts[1];
 
     const mainCategory = mainCategoryMap[mainFolder] || mainFolder;
+    // We need to store the raw folder name for the URL
+    const categorySlug = mainFolder;
     const subCategory = subFolder;
 
     // localized category
@@ -120,6 +122,7 @@ function loadProject(projectDir: string, rootDir: string): Project | null {
         return {
             slug,
             mainCategory,
+            categorySlug,
             subCategory,
             category: { en: catEn, fr: catFr },
             year: json.year || new Date().getFullYear().toString(),

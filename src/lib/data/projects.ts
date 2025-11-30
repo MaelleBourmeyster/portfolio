@@ -5,6 +5,7 @@ export interface Project {
     title: { en: string; fr: string };
     category: { en: string; fr: string };
     mainCategory: string; // e.g. 'Sculpture'
+    categorySlug: string; // e.g. 'sculpture'
     subCategory: string;  // e.g. 'Bronze'
     year: string;
     image: string;

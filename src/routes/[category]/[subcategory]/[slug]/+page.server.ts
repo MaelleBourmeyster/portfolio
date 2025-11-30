@@ -4,7 +4,11 @@ import { getProjects } from '$lib/server/projects';
 
 export const load: PageServerLoad = async ({ params }) => {
     const projects = getProjects();
-    const project = projects.find((p) => p.slug === params.slug);
+    const project = projects.find((p) =>
+        p.slug === params.slug &&
+        p.categorySlug === params.category &&
+        p.subCategory === params.subcategory
+    );
 
     if (!project) {
         throw error(404, 'Project not found');

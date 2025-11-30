@@ -46,6 +46,7 @@
                 <div class="w-full overflow-hidden border-2 border-black bg-gray-100 relative">
                     <video controls class="w-full h-auto">
                         <source src={project.videos[0]} type="video/mp4">
+                        <track kind="captions" />
                         Your browser does not support the video tag.
                     </video>
                 </div>

@@ -49,7 +49,7 @@
           
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {#each category.projects as project}
-              <a href="{base}/project/{project.slug}" class="block">
+              <a href="{base}/{project.categorySlug}/{project.subCategory}/{project.slug}" class="block">
                 <ProjectCard {...project} />
               </a>
             {/each}

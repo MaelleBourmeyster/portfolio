@@ -1,13 +1,13 @@
 {
-    "slug": "manga-panel-1",
+    "slug": "top-3-super-heros",
     "description": {
-        "en": "Original manga page layout and inking.",
-        "fr": "Mise en page et encrage d'une planche de manga originale."
+        "en": "A manga-style illustration of the top 3 super heros.",
+        "fr": "Une illustration manga de la top 3 des super heros."
     },
     "year": "2023",
     "title": {
-        "en": "Panel 1",
-        "fr": "Planche 1"
+        "en": "Top 3 Super Heros",
+        "fr": "Top 3 Super Heros"
     },
     "thumbnail": ""
 }
