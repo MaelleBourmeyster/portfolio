@@ -30,7 +30,7 @@ export const translations = {
             copyright: '© 2025 MAELLE BOURMEYSTER.'
         },
         about: {
-            title: 'About Me',
+            title: 'About',
             intro1: "Hello! I'm",
             intro2: ", a multidisciplinary artist based in Lyon, France.",
             intro3: "My creative journey is driven by curiosity and a passion for mastering diverse mediums. From the tactile precision of sculpture to the digital infinite of 3D modeling, I explore how different forms of expression can intersect and inform one another.",

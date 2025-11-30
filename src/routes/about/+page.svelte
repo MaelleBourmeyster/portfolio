@@ -5,20 +5,11 @@
 
   let t = $derived(translations[$language]);
 
-  let tools = $derived([
-    { name: t.about.tools.pencils, icon: '✏️' },
-    { name: t.about.tools.clay, icon: '🏺' },
-    { name: t.about.tools.digital, icon: '🎨' },
-    { name: t.about.tools.modeling, icon: '🧊' },
-    { name: t.about.tools.animation, icon: '🎬' },
-    { name: t.about.tools.wood, icon: '🪵' },
-    { name: t.about.tools.pastry, icon: '🥐' },
-    { name: t.about.tools.equestrian, icon: '🐎' }
-  ]);
+
 </script>
 
 <svelte:head>
-  <title>{t.about.title} - Maëlle Bourmeyster</title>
+  <title>{t.about.title} - Maelle Bourmeyster</title>
   <meta name="description" content="Learn more about Maëlle Bourmeyster, a multidisciplinary artist passionate about sculpture, drawing, and craftsmanship." />
 </svelte:head>
 
@@ -69,18 +60,7 @@
         </p>
       </div>
 
-      <!-- Toolbox -->
-      <div>
-        <h2 class="text-3xl font-bold uppercase tracking-tighter mb-8 text-center">{t.about.toolbox}</h2>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {#each tools as tool}
-            <div class="border-2 border-black p-4 text-center hover:-translate-y-1 transition-transform bg-white shadow-[4px_4px_0px_#000]">
-              <div class="text-4xl mb-2">{tool.icon}</div>
-              <div class="font-bold text-sm uppercase">{tool.name}</div>
-            </div>
-          {/each}
-        </div>
-      </div>
+
 
     </div>
   </section>
