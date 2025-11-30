@@ -1,15 +1,14 @@
 import { error } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
-import { getProjects } from '$lib/server/projects';
+import { loadProject } from '$lib/server/projects';
+import path from 'path';
 
 export const load: PageServerLoad = async ({ params }) => {
-    const projects = await getProjects();
-    const project = projects.find((p) =>
-        p.slug === params.slug &&
-        p.domainSlug === params.domain &&
-        p.categorySlug === params.category &&
-        p.subCategory === params.subcategory
-    );
+    const { domain, category, subcategory, slug } = params;
+    const projectsDir = path.resolve('static/projects');
+    const projectDir = path.join(projectsDir, domain, category, subcategory, slug);
+
+    const project = await loadProject(projectDir, projectsDir);
 
     if (!project) {
         throw error(404, 'Project not found');

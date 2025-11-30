@@ -112,7 +112,7 @@ function parseProjectStructure(projectDir: string, rootDir: string) {
     };
 }
 
-async function loadProject(projectDir: string, rootDir: string): Promise<Project | null> {
+export async function loadProject(projectDir: string, rootDir: string): Promise<Project | null> {
     const slug = path.basename(projectDir);
     const structure = parseProjectStructure(projectDir, rootDir);
 
