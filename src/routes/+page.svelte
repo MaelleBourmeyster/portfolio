@@ -12,35 +12,35 @@
       title: t.nav.drawing,
       category: 'Gallery',
       year: '2025',
-      image: `${base}/images/sculpture/clay/andrea-cavalcanti.png`,
+      image: `${base}/projects/artwork-1/images/painting-horses.png`,
       href: `${base}/drawing`
     },
     {
       title: t.nav.sculpture,
       category: 'Gallery',
       year: '2025',
-      image: `${base}/images/sculpture/wood/apex-legend-cup/cup-front.png`,
+      image: `${base}/projects/wood-sculpture-1/images/cup-front.png`,
       href: `${base}/sculpture`
     },
     {
       title: t.nav.digital,
       category: 'Gallery',
       year: '2025',
-      image: `${base}/images/sculpture/wood/fictional-characters/stitch.png`,
+      image: `${base}/projects/digital-painting/images/shoto.png`,
       href: `${base}/digital`
     },
     {
       title: t.nav.bakery,
       category: 'Gallery',
       year: '2025',
-      image: `${base}/images/sculpture/wood/kitchen-utensils/spoon.png`,
+      image: `${base}/projects/sourdough-bread/images/butter-knife.png`,
       href: `${base}/bakery`
     },
     {
       title: t.nav.horseRiding,
       category: 'Gallery',
       year: '2025',
-      image: `${base}/images/sculpture/bronze/horse_head/bronze-horse-head.png`,
+      image: `${base}/projects/cast-bronze/images/bronze-horse-head.png`,
       href: `${base}/horse-riding`
     }
   ]);

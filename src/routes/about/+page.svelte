@@ -35,7 +35,7 @@
         <div class="border-2 border-black p-4 shadow-[8px_8px_0px_#000] bg-white">
           <div class="aspect-square bg-gray-200 border-2 border-black overflow-hidden">
              <!-- Profile Image -->
-             <img src="{base}/images/maelle/maelle_1.png" alt="Maëlle Bourmeyster" class="w-full h-full object-cover" />
+             <img src="{base}/images/maelle/maelle-1.png" alt="Maëlle Bourmeyster" class="w-full h-full object-cover" />
           </div>
         </div>
         

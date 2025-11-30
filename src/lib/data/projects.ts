@@ -17,7 +17,7 @@ export const projects: Project[] = [
         title: { en: 'Wood Sculpture 1', fr: 'Sculpture sur Bois 1' },
         category: { en: 'Wood', fr: 'Bois' },
         year: '2024',
-        image: `${base}/images/sculpture/wood/apex-legend-cup/cup-front.png`,
+        image: `${base}/projects/wood-sculpture-1/images/cup-front.png`,
         group: 'Wood',
         description: {
             en: 'A detailed wood sculpture exploring organic forms and textures.',
@@ -29,7 +29,7 @@ export const projects: Project[] = [
         title: { en: 'Modeling 1', fr: 'Modelage 1' },
         category: { en: 'Clay', fr: 'Argile' },
         year: '2023',
-        image: `${base}/images/sculpture/clay/andrea-cavalcanti.png`,
+        image: `${base}/projects/modeling-1/images/andrea-cavalcanti.png`,
         group: 'Clay',
         description: {
             en: 'Clay modeling study focusing on facial expressions and volume.',
@@ -41,7 +41,7 @@ export const projects: Project[] = [
         title: { en: 'Plastiline Study', fr: 'Étude en Plastiline' },
         category: { en: 'Plastiline', fr: 'Plastiline' },
         year: '2023',
-        image: `${base}/images/sculpture/plastiline/horse.png`,
+        image: `${base}/projects/plastiline-study/images/horse.png`,
         group: 'Plastiline',
         description: {
             en: 'An anatomical study of a horse using plastiline.',
@@ -53,7 +53,7 @@ export const projects: Project[] = [
         title: { en: 'Cast Bronze', fr: 'Bronze Coulé' },
         category: { en: 'Bronze', fr: 'Bronze' },
         year: '2022',
-        image: `${base}/images/sculpture/bronze/horse_head/bronze-horse-head.png`,
+        image: `${base}/projects/cast-bronze/images/bronze-horse-head.png`,
         group: 'Bronze',
         description: {
             en: 'A bronze casting project, capturing the strength and elegance of the subject.',
@@ -65,7 +65,7 @@ export const projects: Project[] = [
         title: { en: 'Plaster Cast', fr: 'Moulage en Plâtre' },
         category: { en: 'Plaster', fr: 'Plâtre' },
         year: '2024',
-        image: `${base}/images/sculpture/plaster/rhino.png`,
+        image: `${base}/projects/plaster-cast/images/rhino.png`,
         group: 'Plaster',
         description: {
             en: 'Plaster casting technique demonstration.',
@@ -79,7 +79,7 @@ export const projects: Project[] = [
         title: { en: 'Artwork 1', fr: 'Œuvre 1' },
         category: { en: 'Painting', fr: 'Peinture' },
         year: '2024',
-        image: `${base}/images/sculpture/clay/andrea-cavalcanti.png`,
+        image: `${base}/projects/artwork-1/images/painting-horses.png`,
         group: 'Painting',
         description: {
             en: 'Acrylic painting on canvas.',
@@ -91,7 +91,7 @@ export const projects: Project[] = [
         title: { en: 'Artwork 2', fr: 'Œuvre 2' },
         category: { en: 'Painting', fr: 'Peinture' },
         year: '2024',
-        image: `${base}/images/sculpture/clay/andrea-cavalcanti.png`,
+        image: `${base}/projects/artwork-2/images/pencils-lion.png`,
         group: 'Painting',
         description: {
             en: 'Oil painting study.',
@@ -103,7 +103,7 @@ export const projects: Project[] = [
         title: { en: 'Panel 1', fr: 'Planche 1' },
         category: { en: 'Manga', fr: 'Manga' },
         year: '2023',
-        image: `${base}/images/sculpture/wood/fictional-characters/totoro.png`,
+        image: `${base}/projects/manga-panel-1/images/top-3-super-heros.png`,
         group: 'Manga',
         description: {
             en: 'Original manga page layout and inking.',
@@ -115,7 +115,7 @@ export const projects: Project[] = [
         title: { en: 'Illustration', fr: 'Illustration' },
         category: { en: 'Pencils', fr: 'Crayons' },
         year: '2023',
-        image: `${base}/images/sculpture/wood/fictional-characters/stitch.png`,
+        image: `${base}/projects/illustration/images/porco-rosso.png`,
         group: 'Pencils & Markers',
         description: {
             en: 'Detailed pencil illustration.',
@@ -127,7 +127,7 @@ export const projects: Project[] = [
         title: { en: 'Study', fr: 'Étude' },
         category: { en: 'Sketch', fr: 'Croquis' },
         year: '2024',
-        image: `${base}/images/sculpture/wood/apex-legend-cup/cup-profile.png`,
+        image: `${base}/projects/sketch-study/images/profile-bust.png`,
         group: 'Sketches',
         description: {
             en: 'Quick sketch study for a larger project.',
@@ -141,7 +141,7 @@ export const projects: Project[] = [
         title: { en: 'Digital Painting', fr: 'Peinture Numérique' },
         category: { en: '2D', fr: '2D' },
         year: '2024',
-        image: `${base}/images/sculpture/wood/fictional-characters/elves.png`,
+        image: `${base}/projects/digital-painting/images/shoto.png`,
         group: 'Digital Painting',
         description: {
             en: 'Digital concept art created in Photoshop.',
@@ -153,7 +153,7 @@ export const projects: Project[] = [
         title: { en: 'Short Film', fr: 'Court Métrage' },
         category: { en: 'Animation', fr: 'Animation' },
         year: '2023',
-        image: `${base}/images/sculpture/wood/fictional-characters/stitch.png`,
+        image: `${base}/projects/short-film/images/izuku.png`,
         group: '2D Animation',
         description: {
             en: 'A short 2D animated clip.',
@@ -165,7 +165,7 @@ export const projects: Project[] = [
         title: { en: 'Character Model', fr: 'Modèle de Personnage' },
         category: { en: '3D', fr: '3D' },
         year: '2024',
-        image: `${base}/images/sculpture/plaster/rhino.png`,
+        image: `${base}/projects/character-model/images/donkey.png`,
         group: '3D Modeling',
         description: {
             en: '3D character model sculpted in ZBrush.',
@@ -179,7 +179,7 @@ export const projects: Project[] = [
         title: { en: 'Sourdough Bread', fr: 'Pain au Levain' },
         category: { en: 'Bakery', fr: 'Boulangerie' },
         year: '2024',
-        image: `${base}/images/sculpture/wood/kitchen-utensils/butter-knife.png`,
+        image: `${base}/projects/sourdough-bread/images/butter-knife.png`,
         group: 'Bakery',
         description: {
             en: 'Artisan sourdough bread with natural leaven.',
@@ -191,7 +191,7 @@ export const projects: Project[] = [
         title: { en: 'Croissants', fr: 'Croissants' },
         category: { en: 'Pastry', fr: 'Pâtisserie' },
         year: '2024',
-        image: `${base}/images/sculpture/wood/kitchen-utensils/spoon.png`,
+        image: `${base}/projects/croissants/images/spoon.png`,
         group: 'Bakery',
         description: {
             en: 'Hand-laminated butter croissants.',
@@ -205,7 +205,7 @@ export const projects: Project[] = [
         title: { en: 'Show Jumping', fr: 'Saut d\'Obstacles' },
         category: { en: 'Competition', fr: 'Compétition' },
         year: '2024',
-        image: `${base}/images/sculpture/bronze/horse_head/bronze-horse-head.png`,
+        image: `${base}/projects/show-jumping/images/bronze-profile-horse-head.png`,
         group: 'Horse Riding',
         description: {
             en: 'Competitive show jumping events.',
@@ -217,7 +217,7 @@ export const projects: Project[] = [
         title: { en: 'Trail Riding', fr: 'Randonnée' },
         category: { en: 'Leisure', fr: 'Loisir' },
         year: '2023',
-        image: `${base}/images/sculpture/plastiline/horse.png`,
+        image: `${base}/projects/trail-riding/images/paper-pencils-horse.png`,
         group: 'Horse Riding',
         description: {
             en: 'Leisure trail riding in the countryside.',
