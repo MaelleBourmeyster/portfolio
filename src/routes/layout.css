@@ -42,7 +42,7 @@ body {
 }
 
 .pk-btn {
-	@apply border-2 border-black bg-white px-6 py-3 font-bold tracking-wider uppercase transition-all duration-200 cursor-pointer;
+	@apply cursor-pointer border-2 border-black bg-white px-6 py-3 font-bold tracking-wider uppercase transition-all duration-200;
 	box-shadow: 4px 4px 0px #000;
 }
 

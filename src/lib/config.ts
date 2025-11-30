@@ -2,19 +2,19 @@ import { dev } from '$app/environment';
 import { base } from '$app/paths';
 
 export const siteConfig = {
-    // Base URL according to environment
-    url: dev ? 'http://localhost:5173' : 'https://maellebourmeyster.github.io',
+	// Base URL according to environment
+	url: dev ? 'http://localhost:5173' : 'https://maellebourmeyster.github.io',
 
-    // Site information
-    name: 'Maëlle Bourmeyster Portfolio',
-    author: 'Maëlle Bourmeyster',
-    email: 'maelle.bourmeyster@gmail.com',
+	// Site information
+	name: 'Maëlle Bourmeyster Portfolio',
+	author: 'Maëlle Bourmeyster',
+	email: 'maelle.bourmeyster@gmail.com',
 
-    // Default OG image
-    defaultImage: '/images/maelle/maelle-1.png',
+	// Default OG image
+	defaultImage: '/images/maelle/maelle-1.png',
 
-    // Default description
-    defaultDescription: 'Multidisciplinary Artist - Sculpture, Drawing, Digital Arts'
+	// Default description
+	defaultDescription: 'Multidisciplinary Artist - Sculpture, Drawing, Digital Arts'
 };
 
 /**
@@ -23,10 +23,10 @@ export const siteConfig = {
  * @returns Full absolute URL including base path
  */
 export function getAbsoluteUrl(path: string = ''): string {
-    // Remove leading slash if present
-    const cleanPath = path.startsWith('/') ? path.slice(1) : path;
-    // Build full URL with base path
-    return `${siteConfig.url}${base}${cleanPath ? '/' + cleanPath : ''}`;
+	// Remove leading slash if present
+	const cleanPath = path.startsWith('/') ? path.slice(1) : path;
+	// Build full URL with base path
+	return `${siteConfig.url}${base}${cleanPath ? '/' + cleanPath : ''}`;
 }
 
 /**
@@ -35,6 +35,6 @@ export function getAbsoluteUrl(path: string = ''): string {
  * @returns Full absolute URL for the image
  */
 export function getImageUrl(imagePath: string): string {
-    if (imagePath.startsWith('http')) return imagePath;
-    return getAbsoluteUrl(imagePath);
+	if (imagePath.startsWith('http')) return imagePath;
+	return getAbsoluteUrl(imagePath);
 }

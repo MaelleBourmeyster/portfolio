@@ -22,7 +22,17 @@ const ProjectDetailsSchema = z.object({
 	group: z.string().optional()
 });
 
-export type Project = z.infer<typeof ProjectDetailsSchema> & {
+type ProjectDetails = Omit<
+	z.infer<typeof ProjectDetailsSchema>,
+	'year' | 'image' | 'thumbnail' | 'group'
+> & {
+	year: string;
+	image: string;
+	thumbnail: string;
+	group: string;
+};
+
+export type Project = ProjectDetails & {
 	slug: string;
 	domain: string;
 	domainSlug: string;
@@ -161,21 +171,25 @@ export async function loadProject(projectDir: string, rootDir: string): Promise<
 			discoverMedia(projectDir, urlPath, 'videos')
 		]);
 
+		const year = json.year ?? new Date().getFullYear().toString();
+
 		// Image Resolution
-		let mainImage = json.image;
+		let mainImage = json.image ?? '';
 		if (!mainImage && images.length > 0) {
 			mainImage = images[0];
 		} else {
 			mainImage = await resolveImagePath(projectDir, urlPath, mainImage);
 		}
 
-		let thumbnail = json.thumbnail;
+		let thumbnail = json.thumbnail ?? '';
 		if (thumbnail) {
 			thumbnail = await resolveImagePath(projectDir, urlPath, thumbnail);
 		} else {
 			// Fallback to main image if no thumbnail
 			thumbnail = mainImage;
 		}
+
+		const group = json.group ?? structure.subCategory;
 
 		// Translations
 		const categoriesEn = translations.en.categories as Record<string, string>;
@@ -191,14 +205,14 @@ export async function loadProject(projectDir: string, rootDir: string): Promise<
 			categorySlug: structure.categorySlug,
 			subCategory: structure.subCategory,
 			category: { en: catEn, fr: catFr },
-			year: json.year || new Date().getFullYear().toString(),
+			year,
 			images,
 			videos,
 			image: mainImage,
-			thumbnail: thumbnail || '',
+			thumbnail,
 			title: json.title,
 			description: json.description,
-			group: json.group || structure.subCategory,
+			group,
 			translationKey: getTranslationKey(structure.categorySlug)
 		};
 	} catch (e) {
