@@ -3,6 +3,7 @@
   import type { PageData } from './$types';
   import { language } from '$lib/stores/language';
   import { translations } from '$lib/data/translations';
+  import VideoPlayer from '$lib/components/VideoPlayer.svelte';
 
   let { data } = $props<{ data: PageData }>();
   let project = $derived(data.project);
@@ -44,11 +45,7 @@
         {#if project.videos && project.videos.length > 0}
             <div class="border-2 border-black p-4 shadow-[8px_8px_0px_#000] bg-white relative group mb-8">
                 <div class="w-full overflow-hidden border-2 border-black bg-gray-100 relative">
-                    <video controls class="w-full h-auto">
-                        <source src={project.videos[0]} type="video/mp4">
-                        <track kind="captions" />
-                        Your browser does not support the video tag.
-                    </video>
+                    <VideoPlayer src={project.videos[0]} />
                 </div>
             </div>
         {/if}

@@ -1,0 +1,13 @@
+{
+    "slug": "donkey",
+    "description": {
+        "en": "An anatomical study of a donkey using plastiline.",
+        "fr": "Une étude anatomique d'un ane réalisée en plastiline."
+    },
+    "year": "2023",
+    "title": {
+        "en": "Plastiline Donkey",
+        "fr": "Ane en Plastiline"
+    },
+    "thumbnail": "donkey.png"
+}

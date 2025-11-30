@@ -18,7 +18,20 @@
   <!-- Image Container -->
   <div class="relative aspect-[4/3] w-full overflow-hidden border-2 border-black bg-gray-100 mb-4">
     {#if thumbnail || image}
-      <img src={thumbnail || image} alt={getStr(title, $language)} class="h-full w-full object-cover" />
+      {@const src = thumbnail || image}
+      {#if src.match(/\.(mp4|webm|ogg|mov)$/i)}
+        <!-- svelte-ignore a11y_media_has_caption -->
+        <video 
+          {src} 
+          class="h-full w-full object-cover pointer-events-none" 
+          muted 
+          playsinline 
+          preload="metadata"
+          onloadeddata={(e) => { e.currentTarget.currentTime = 0; }}
+        ></video>
+      {:else}
+        <img src={src} alt={getStr(title, $language)} class="h-full w-full object-cover" />
+      {/if}
     {:else}
       <div class="flex h-full w-full items-center justify-center bg-gray-200 text-gray-400">
         NO IMAGE
