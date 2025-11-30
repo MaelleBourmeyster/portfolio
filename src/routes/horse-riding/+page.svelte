@@ -15,9 +15,8 @@
   let horseProjects = $derived(projects.filter(p => p.mainCategory === 'Horse Riding'));
 
   function getCategoryTitle(subCat: string) {
-      let key = subCat.toLowerCase();
       // @ts-ignore
-      return t.categories[key] || subCat;
+      return t.categories[subCat] || subCat;
   }
 
   let subCategories = $derived([...new Set(horseProjects.map(p => p.subCategory))]);

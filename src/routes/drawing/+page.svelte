@@ -15,10 +15,8 @@
   let drawingProjects = $derived(projects.filter(p => p.mainCategory === 'Drawing'));
 
   function getCategoryTitle(subCat: string) {
-      let key = subCat.toLowerCase();
-      if (key === 'sketch') key = 'sketches';
       // @ts-ignore
-      return t.categories[key] || subCat;
+      return t.categories[subCat] || subCat;
   }
 
   let subCategories = $derived([...new Set(drawingProjects.map(p => p.subCategory))]);

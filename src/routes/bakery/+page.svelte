@@ -15,9 +15,8 @@
   let bakeryProjects = $derived(projects.filter(p => p.mainCategory === 'Bakery'));
 
   function getCategoryTitle(subCat: string) {
-      let key = subCat.toLowerCase();
       // @ts-ignore
-      return t.categories[key] || subCat;
+      return t.categories[subCat] || subCat;
   }
 
   let subCategories = $derived([...new Set(bakeryProjects.map(p => p.subCategory))]);

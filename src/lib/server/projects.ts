@@ -2,60 +2,110 @@ import fs from 'fs';
 import path from 'path';
 import { base } from '$app/paths';
 import type { Project } from '$lib/data/projects';
+import { translations } from '$lib/data/translations';
+
+const mainCategoryMap: Record<string, string> = {
+    'drawing': 'Drawing',
+    'sculpture': 'Sculpture',
+    'digital': 'Digital',
+    'bakery': 'Bakery',
+    'horse-riding': 'Horse Riding'
+};
+
+function findProjects(dir: string, rootDir: string): Project[] {
+    let results: Project[] = [];
+    const list = fs.readdirSync(dir);
+
+    for (const file of list) {
+        const filePath = path.join(dir, file);
+        const stat = fs.statSync(filePath);
+
+        if (stat.isDirectory()) {
+            // Check if this directory is a project (has details.json)
+            const detailsPath = path.join(filePath, 'details.json');
+            if (fs.existsSync(detailsPath)) {
+                const project = loadProject(filePath, rootDir);
+                if (project) results.push(project);
+            } else {
+                // Recurse
+                results = results.concat(findProjects(filePath, rootDir));
+            }
+        }
+    }
+    return results;
+}
+
+function loadProject(projectDir: string, rootDir: string): Project | null {
+    const detailsPath = path.join(projectDir, 'details.json');
+    const slug = path.basename(projectDir);
+
+    // Determine categories from path
+    const relative = path.relative(rootDir, projectDir);
+    const parts = relative.split(path.sep);
+
+    // Expected: [main, sub, slug]
+    if (parts.length < 3) {
+        return null;
+    }
+
+    const mainFolder = parts[0];
+    const subFolder = parts[1];
+
+    const mainCategory = mainCategoryMap[mainFolder] || mainFolder;
+    const subCategory = subFolder;
+
+    // localized category
+    // @ts-ignore
+    const catEn = translations.en.categories[subCategory] || subCategory;
+    // @ts-ignore
+    const catFr = translations.fr.categories[subCategory] || subCategory;
+
+    try {
+        let content = fs.readFileSync(detailsPath, 'utf-8');
+        if (content.charCodeAt(0) === 0xFEFF) content = content.slice(1);
+        const json = JSON.parse(content);
+
+        // Auto-discover images
+        const imagesDir = path.join(projectDir, 'images');
+        let images: string[] = [];
+
+        // Construct URL path for images
+        // Replace backslashes with slashes for URL
+        const urlPath = relative.replace(/\\/g, '/');
+
+        if (fs.existsSync(imagesDir)) {
+            images = fs.readdirSync(imagesDir)
+                .filter(file => /\.(png|jpg|jpeg|webp|gif)$/i.test(file))
+                .map(file => `${base}/projects/${urlPath}/images/${file}`);
+        }
+
+        let mainImage = json.image;
+        if (!mainImage && images.length > 0) {
+            mainImage = images[0];
+        } else if (mainImage && !mainImage.startsWith('http') && !mainImage.startsWith('/')) {
+            // If manual image path is provided, it needs to be adjusted?
+            // Assuming manual paths were relative to project root or base.
+            // If it was "images/foo.png", we prepend the new URL path.
+            mainImage = `${base}/projects/${urlPath}/${mainImage}`;
+        }
+
+        return {
+            ...json,
+            slug,
+            mainCategory,
+            subCategory,
+            category: { en: catEn, fr: catFr },
+            images,
+            image: mainImage
+        };
+    } catch (e) {
+        console.error(`Error reading project ${slug}`, e);
+        return null;
+    }
+}
 
 export function getProjects(): Project[] {
     const projectsDir = path.resolve('static/projects');
-    if (!fs.existsSync(projectsDir)) {
-        return [];
-    }
-
-    const slugs = fs.readdirSync(projectsDir).filter(file => {
-        return fs.statSync(path.join(projectsDir, file)).isDirectory();
-    });
-
-    const projects: Project[] = slugs.map(slug => {
-        const projectDir = path.join(projectsDir, slug);
-        const detailsPath = path.join(projectDir, 'details.json');
-
-        if (fs.existsSync(detailsPath)) {
-            try {
-                let content = fs.readFileSync(detailsPath, 'utf-8');
-                // Strip BOM if present
-                if (content.charCodeAt(0) === 0xFEFF) {
-                    content = content.slice(1);
-                }
-                const project = JSON.parse(content);
-
-                // Auto-discover images
-                const imagesDir = path.join(projectDir, 'images');
-                let images: string[] = [];
-
-                if (fs.existsSync(imagesDir)) {
-                    images = fs.readdirSync(imagesDir)
-                        .filter(file => /\.(png|jpg|jpeg|webp|gif)$/i.test(file))
-                        .map(file => `${base}/projects/${slug}/images/${file}`);
-                    // console.log(`Found ${images.length} images for ${slug}`);
-                }
-
-                // If no image specified in JSON, use the first discovered one
-                if (!project.image && images.length > 0) {
-                    project.image = images[0];
-                } else if (project.image && !project.image.startsWith('http') && !project.image.startsWith('/')) {
-                    project.image = `${base}/${project.image}`;
-                }
-
-                return {
-                    ...project,
-                    slug,
-                    images
-                };
-            } catch (e) {
-                console.error(`Error reading details.json for ${slug}`, e);
-                return null;
-            }
-        }
-        return null;
-    }).filter((p): p is Project => p !== null);
-
-    return projects;
+    if (!fs.existsSync(projectsDir)) return [];
+    return findProjects(projectsDir, projectsDir);
 }

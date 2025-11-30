@@ -24,11 +24,9 @@
   // The translation keys in translations.ts seem to be lowercase.
   // Let's check translations.ts to be sure about keys.
   
-  // Helper to get translation for subCategory
   function getCategoryTitle(subCat: string) {
-      const key = subCat.toLowerCase();
       // @ts-ignore
-      return t.categories[key] || subCat;
+      return t.categories[subCat] || subCat;
   }
 
   // Get unique subCategories present in the data
