@@ -3,8 +3,9 @@
 	import { resolve } from '$app/paths';
 	import { language } from '$lib/stores/language';
 	import { translations } from '$lib/data/translations';
+	import { getAbsoluteUrl, getImageUrl } from '$lib/config';
 	import type { PageData } from './$types';
-	import type { Project } from '$lib/data/projects';
+	import type { Project } from '$lib/server/projects';
 
 	let { data } = $props<{ data: PageData }>();
 	let projects = $derived(data.projects as Project[]);
@@ -42,13 +43,11 @@
 	}
 
 	let categoryName = $derived(getCategoryName(data.categorySlug));
-	let pageUrl = $derived(
-		`https://maellebourmeyster.github.io/portfolio/${data.domainSlug}/${data.categorySlug}`
-	);
+	let pageUrl = $derived(getAbsoluteUrl(`${data.domainSlug}/${data.categorySlug}`));
 	let firstProjectImage = $derived(
 		projects.length > 0 && projects[0].image
-			? projects[0].image
-			: 'https://maellebourmeyster.github.io/portfolio/images/maelle/maelle-1.png'
+			? getImageUrl(projects[0].image)
+			: getImageUrl('/images/maelle/maelle-1.png')
 	);
 </script>
 

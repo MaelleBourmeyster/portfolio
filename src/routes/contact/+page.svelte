@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { language } from '$lib/stores/language';
 	import { translations } from '$lib/data/translations';
+	import { getAbsoluteUrl, getImageUrl } from '$lib/config';
 
 	let t = $derived(translations[$language]);
 </script>
@@ -14,33 +15,27 @@
 
 	<!-- Open Graph -->
 	<meta property="og:type" content="website" />
-	<meta property="og:url" content="https://maellebourmeyster.github.io/portfolio/contact" />
+	<meta property="og:url" content={getAbsoluteUrl('contact')} />
 	<meta property="og:title" content="Contact - Maëlle Bourmeyster" />
 	<meta
 		property="og:description"
 		content="Get in touch with Maëlle Bourmeyster for collaborations, inquiries, or just to say hello."
 	/>
-	<meta
-		property="og:image"
-		content="https://maellebourmeyster.github.io/portfolio/images/maelle/maelle-1.png"
-	/>
+	<meta property="og:image" content={getImageUrl('/images/maelle/maelle-1.png')} />
 	<meta property="og:locale" content={$language === 'en' ? 'en_US' : 'fr_FR'} />
 
 	<!-- Twitter Card -->
 	<meta name="twitter:card" content="summary_large_image" />
-	<meta name="twitter:url" content="https://maellebourmeyster.github.io/portfolio/contact" />
+	<meta name="twitter:url" content={getAbsoluteUrl('contact')} />
 	<meta name="twitter:title" content="Contact - Maëlle Bourmeyster" />
 	<meta
 		name="twitter:description"
 		content="Get in touch with Maëlle Bourmeyster for collaborations, inquiries, or just to say hello."
 	/>
-	<meta
-		name="twitter:image"
-		content="https://maellebourmeyster.github.io/portfolio/images/maelle/maelle-1.png"
-	/>
+	<meta name="twitter:image" content={getImageUrl('/images/maelle/maelle-1.png')} />
 
 	<!-- Canonical URL -->
-	<link rel="canonical" href="https://maellebourmeyster.github.io/portfolio/contact" />
+	<link rel="canonical" href={getAbsoluteUrl('contact')} />
 </svelte:head>
 
 <div>
@@ -80,50 +75,20 @@
 					</div>
 				</div>
 
-				<!-- Contact Form -->
+				<!-- Contact Action -->
 				<div class="border-2 border-black bg-[#fdfbf7] p-8 shadow-[8px_8px_0px_#000]">
 					<h2 class="mb-6 text-2xl font-bold uppercase">{t.contact.formTitle}</h2>
-					<form class="space-y-6" onsubmit={(e) => e.preventDefault()}>
-						<div>
-							<label for="name" class="mb-2 block text-sm font-bold uppercase"
-								>{t.contact.name}</label
-							>
-							<input
-								type="text"
-								id="name"
-								class="w-full border-2 border-black bg-white p-3 focus:border-transparent focus:ring-2 focus:ring-blue-600 focus:outline-none"
-								placeholder={t.contact.placeholders.name}
-							/>
-						</div>
-
-						<div>
-							<label for="email" class="mb-2 block text-sm font-bold uppercase"
-								>{t.contact.email}</label
-							>
-							<input
-								type="email"
-								id="email"
-								class="w-full border-2 border-black bg-white p-3 focus:border-transparent focus:ring-2 focus:ring-blue-600 focus:outline-none"
-								placeholder={t.contact.placeholders.email}
-							/>
-						</div>
-
-						<div>
-							<label for="message" class="mb-2 block text-sm font-bold uppercase"
-								>{t.contact.message}</label
-							>
-							<textarea
-								id="message"
-								rows="5"
-								class="w-full border-2 border-black bg-white p-3 focus:border-transparent focus:ring-2 focus:ring-blue-600 focus:outline-none"
-								placeholder={t.contact.placeholders.message}
-							></textarea>
-						</div>
-
-						<button type="submit" class="pk-btn w-full justify-center">
+					<div class="space-y-6">
+						<p class="text-lg leading-relaxed text-gray-700">
+							{t.contact.infoText}
+						</p>
+						<a
+							href="mailto:maelle.bourmeyster@gmail.com?subject=Contact from Portfolio"
+							class="pk-btn w-full justify-center"
+						>
 							{t.contact.send}
-						</button>
-					</form>
+						</a>
+					</div>
 				</div>
 			</div>
 		</div>

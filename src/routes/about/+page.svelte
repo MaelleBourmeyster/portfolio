@@ -2,6 +2,7 @@
 	import { base } from '$app/paths';
 	import { language } from '$lib/stores/language';
 	import { translations } from '$lib/data/translations';
+	import { getAbsoluteUrl, getImageUrl } from '$lib/config';
 
 	let t = $derived(translations[$language]);
 </script>
@@ -15,33 +16,27 @@
 
 	<!-- Open Graph -->
 	<meta property="og:type" content="profile" />
-	<meta property="og:url" content="https://maellebourmeyster.github.io/portfolio/about" />
+	<meta property="og:url" content={getAbsoluteUrl('about')} />
 	<meta property="og:title" content="About - Maëlle Bourmeyster" />
 	<meta
 		property="og:description"
 		content="Learn more about Maëlle Bourmeyster, a multidisciplinary artist passionate about sculpture, drawing, and craftsmanship."
 	/>
-	<meta
-		property="og:image"
-		content="https://maellebourmeyster.github.io/portfolio/images/maelle/maelle-1.png"
-	/>
+	<meta property="og:image" content={getImageUrl('/images/maelle/maelle-1.png')} />
 	<meta property="og:locale" content={$language === 'en' ? 'en_US' : 'fr_FR'} />
 
 	<!-- Twitter Card -->
 	<meta name="twitter:card" content="summary_large_image" />
-	<meta name="twitter:url" content="https://maellebourmeyster.github.io/portfolio/about" />
+	<meta name="twitter:url" content={getAbsoluteUrl('about')} />
 	<meta name="twitter:title" content="About - Maëlle Bourmeyster" />
 	<meta
 		name="twitter:description"
 		content="Learn more about Maëlle Bourmeyster, a multidisciplinary artist passionate about sculpture, drawing, and craftsmanship."
 	/>
-	<meta
-		name="twitter:image"
-		content="https://maellebourmeyster.github.io/portfolio/images/maelle/maelle-1.png"
-	/>
+	<meta name="twitter:image" content={getImageUrl('/images/maelle/maelle-1.png')} />
 
 	<!-- Canonical URL -->
-	<link rel="canonical" href="https://maellebourmeyster.github.io/portfolio/about" />
+	<link rel="canonical" href={getAbsoluteUrl('about')} />
 </svelte:head>
 
 <div>

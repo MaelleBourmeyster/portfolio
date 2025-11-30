@@ -4,6 +4,7 @@
 	import { resolve } from '$app/paths';
 	import { language } from '$lib/stores/language';
 	import { translations } from '$lib/data/translations';
+	import { getAbsoluteUrl, getImageUrl } from '$lib/config';
 
 	import type { PageData } from './$types';
 
@@ -23,8 +24,8 @@
 		'@context': 'https://schema.org',
 		'@type': 'Person',
 		name: 'Maëlle Bourmeyster',
-		url: 'https://maellebourmeyster.github.io/portfolio/',
-		image: 'https://maellebourmeyster.github.io/portfolio/images/maelle/maelle-1.png',
+		url: getAbsoluteUrl(),
+		image: getImageUrl('/images/maelle/maelle-1.png'),
 		jobTitle: 'Multidisciplinary Artist',
 		description: t.home.heroDesc,
 		sameAs: [],
@@ -61,27 +62,21 @@
 
 	<!-- Open Graph -->
 	<meta property="og:type" content="website" />
-	<meta property="og:url" content="https://maellebourmeyster.github.io/portfolio/" />
+	<meta property="og:url" content={getAbsoluteUrl()} />
 	<meta property="og:title" content="Maëlle Bourmeyster - Multidisciplinary Artist" />
 	<meta property="og:description" content={t.home.heroDesc} />
-	<meta
-		property="og:image"
-		content="https://maellebourmeyster.github.io/portfolio/images/maelle/maelle-1.png"
-	/>
+	<meta property="og:image" content={getImageUrl('/images/maelle/maelle-1.png')} />
 	<meta property="og:locale" content={$language === 'en' ? 'en_US' : 'fr_FR'} />
 
 	<!-- Twitter Card -->
 	<meta name="twitter:card" content="summary_large_image" />
-	<meta name="twitter:url" content="https://maellebourmeyster.github.io/portfolio/" />
+	<meta name="twitter:url" content={getAbsoluteUrl()} />
 	<meta name="twitter:title" content="Maëlle Bourmeyster - Multidisciplinary Artist" />
 	<meta name="twitter:description" content={t.home.heroDesc} />
-	<meta
-		name="twitter:image"
-		content="https://maellebourmeyster.github.io/portfolio/images/maelle/maelle-1.png"
-	/>
+	<meta name="twitter:image" content={getImageUrl('/images/maelle/maelle-1.png')} />
 
 	<!-- Canonical URL -->
-	<link rel="canonical" href="https://maellebourmeyster.github.io/portfolio/" />
+	<link rel="canonical" href={getAbsoluteUrl()} />
 
 	<!-- JSON-LD Structured Data -->
 	<!-- eslint-disable-next-line svelte/no-at-html-tags -->

@@ -3,6 +3,7 @@
 	import type { PageData } from './$types';
 	import { language } from '$lib/stores/language';
 	import { translations } from '$lib/data/translations';
+	import { getAbsoluteUrl, getImageUrl } from '$lib/config';
 	import VideoPlayer from '$lib/components/VideoPlayer.svelte';
 
 	let { data } = $props<{ data: PageData }>();
@@ -20,12 +21,12 @@
 	let projectTitle = $derived(getStr(project.title, $language));
 	let projectDescription = $derived(getStr(project.description, $language) || t.project.noDesc);
 	let pageUrl = $derived(
-		`https://maellebourmeyster.github.io/portfolio/${project.domainSlug}/${project.categorySlug}/${project.subCategory}/${project.slug}`
+		getAbsoluteUrl(
+			`${project.domainSlug}/${project.categorySlug}/${project.subCategory}/${project.slug}`
+		)
 	);
 	let projectImageUrl = $derived(
-		project.image?.startsWith('http') || project.image?.startsWith('/')
-			? project.image
-			: `https://maellebourmeyster.github.io${project.image || '/portfolio/images/maelle/maelle-1.png'}`
+		project.image ? getImageUrl(project.image) : getImageUrl('/images/maelle/maelle-1.png')
 	);
 </script>
 
