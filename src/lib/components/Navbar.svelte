@@ -10,8 +10,7 @@
 	let t = $derived(translations[$language]);
 
 	let isMenuOpen = $state(false);
-	// Track open state for each dropdown by slug
-	let openDropdowns = $state<Record<string, boolean>>({});
+	let openMenu = $state<string | null>(null);
 
 	function toggleMenu() {
 		isMenuOpen = !isMenuOpen;
@@ -26,6 +25,29 @@
 			return t.nav[translationKey as keyof typeof t.nav];
 		}
 		return fallback;
+	}
+
+	function handleDomainKeydown(event: KeyboardEvent, slug: string) {
+		if (event.key === 'Enter' || event.key === ' ') {
+			event.preventDefault();
+			openMenu = openMenu === slug ? null : slug;
+		} else if (event.key === 'Escape') {
+			openMenu = null;
+			(event.currentTarget as HTMLElement).blur();
+		} else if (event.key === 'ArrowDown') {
+			event.preventDefault();
+			openMenu = slug;
+			const menu = document.getElementById(`menu-${slug}`);
+			menu?.querySelector<HTMLElement>('a')?.focus();
+		}
+	}
+
+	function closeIfOutside(event: FocusEvent, slug: string) {
+		const next = event.relatedTarget as Node | null;
+		const container = event.currentTarget as HTMLElement;
+		if (!container.contains(next)) {
+			openMenu = openMenu === slug ? null : openMenu;
+		}
 	}
 </script>
 
@@ -47,12 +69,18 @@
 			{#each navigationTree as domain (domain.slug)}
 				<div
 					class="group relative"
-					onmouseenter={() => (openDropdowns[domain.slug] = true)}
-					onmouseleave={() => (openDropdowns[domain.slug] = false)}
+					onmouseenter={() => (openMenu = domain.slug)}
+					onmouseleave={() => (openMenu = null)}
+					onfocusin={() => (openMenu = domain.slug)}
+					onfocusout={(event) => closeIfOutside(event, domain.slug)}
 					role="group"
 				>
 					<button
 						class="flex items-center gap-1 text-lg font-bold uppercase decoration-blue-600 decoration-2 underline-offset-4 hover:text-blue-600 hover:underline"
+						aria-haspopup="true"
+						aria-expanded={openMenu === domain.slug}
+						aria-controls={`menu-${domain.slug}`}
+						onkeydown={(event) => handleDomainKeydown(event, domain.slug)}
 					>
 						{getTranslatedName(domain.translationKey, domain.name)}
 						<svg
@@ -72,13 +100,16 @@
 					</button>
 
 					<div
-						class="invisible absolute top-full left-0 w-48 translate-y-2 transform pt-4 opacity-0 transition-all duration-200 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100"
+						id={`menu-${domain.slug}`}
+						class={`invisible absolute top-full left-0 w-48 translate-y-2 transform pt-4 opacity-0 transition-all duration-200 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 ${openMenu === domain.slug ? 'visible translate-y-0 opacity-100' : ''}`}
+						role="menu"
 					>
 						<div class="flex flex-col border-2 border-black bg-white shadow-[4px_4px_0px_#000]">
 							{#each domain.categories as cat (cat.slug)}
 								<a
 									href={resolve(cat.href)}
 									class="border-b border-gray-100 px-4 py-3 font-bold transition-colors last:border-0 hover:bg-blue-50 hover:text-blue-600"
+									role="menuitem"
 								>
 									{getTranslatedName(cat.translationKey, cat.name)}
 								</a>
@@ -109,7 +140,12 @@
 				{$language}
 			</button>
 
-			<button class="pk-btn !px-3 !py-1" onclick={toggleMenu}>
+			<button
+				class="pk-btn !px-3 !py-1"
+				onclick={toggleMenu}
+				aria-expanded={isMenuOpen}
+				aria-controls="mobile-menu"
+			>
 				{isMenuOpen ? t.nav.close : t.nav.menu}
 			</button>
 		</div>
@@ -118,6 +154,7 @@
 	<!-- Mobile Menu -->
 	{#if isMenuOpen}
 		<div
+			id="mobile-menu"
 			class="absolute top-[100%] left-0 flex max-h-[80vh] w-full flex-col gap-6 overflow-y-auto border-b-2 border-black bg-[#fdfbf7] px-6 py-6 shadow-xl md:hidden"
 		>
 			<a

@@ -12,6 +12,18 @@
 	let isEnded = $state(false);
 	let controlsTimeout: NodeJS.Timeout;
 
+	function seekTo(time: number) {
+		if (!video) return;
+		const clamped = Math.max(0, Math.min(duration, time));
+		video.currentTime = clamped;
+		currentTime = clamped;
+		if (isEnded) {
+			isEnded = false;
+			video.play();
+			isPlaying = true;
+		}
+	}
+
 	function togglePlay() {
 		if (video.paused) {
 			video.play();
@@ -37,12 +49,7 @@
 		const rect = progressBar.getBoundingClientRect();
 		const x = e.clientX - rect.left;
 		const percentage = x / rect.width;
-		video.currentTime = percentage * duration;
-		if (isEnded) {
-			isEnded = false;
-			video.play();
-			isPlaying = true;
-		}
+		seekTo(percentage * duration);
 	}
 
 	function toggleMute() {
@@ -79,6 +86,24 @@
 		isPlaying = false;
 		showControls = true;
 		isEnded = true;
+	}
+
+	function handleSliderKeydown(event: KeyboardEvent) {
+		if (!duration) return;
+		const step = Math.max(duration / 20, 1);
+		if (event.key === 'ArrowRight') {
+			event.preventDefault();
+			seekTo(currentTime + step);
+		} else if (event.key === 'ArrowLeft') {
+			event.preventDefault();
+			seekTo(currentTime - step);
+		} else if (event.key === 'Home') {
+			event.preventDefault();
+			seekTo(0);
+		} else if (event.key === 'End') {
+			event.preventDefault();
+			seekTo(duration);
+		}
 	}
 </script>
 
@@ -156,6 +181,7 @@
 			<button
 				onclick={togglePlay}
 				class="shrink-0 border-2 border-transparent p-1 transition-all hover:border-black hover:bg-gray-100 hover:text-blue-600"
+				aria-pressed={isPlaying && !isEnded}
 			>
 				{#if isEnded}
 					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="h-6 w-6">
@@ -207,14 +233,16 @@
 			</span>
 
 			<!-- Progress Bar -->
-			<!-- svelte-ignore a11y_click_events_have_key_events -->
 			<div
 				class="group/progress relative h-4 flex-1 cursor-pointer border-2 border-black bg-gray-200"
 				onclick={handleSeek}
 				role="slider"
-				aria-valuenow={currentTime}
+				aria-valuenow={Math.floor(currentTime)}
 				aria-valuemin={0}
-				aria-valuemax={duration}
+				aria-valuemax={Math.floor(duration)}
+				aria-valuetext={`Position ${formatTime(currentTime)} of ${formatTime(duration)}`}
+				aria-label="Video progress"
+				onkeydown={handleSliderKeydown}
 				tabindex="0"
 			>
 				<div
@@ -228,6 +256,7 @@
 				<button
 					onclick={toggleMute}
 					class="border-2 border-transparent p-1 transition-all hover:border-black hover:bg-gray-100 hover:text-blue-600"
+					aria-pressed={isMuted}
 				>
 					{#if isMuted}
 						<svg
@@ -264,6 +293,7 @@
 				<button
 					onclick={toggleFullscreen}
 					class="border-2 border-transparent p-1 transition-all hover:border-black hover:bg-gray-100 hover:text-blue-600"
+					aria-pressed={isFullscreen}
 				>
 					{#if isFullscreen}
 						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-6 w-6">
