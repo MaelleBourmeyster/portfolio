@@ -98,17 +98,26 @@
 		</div>
 
 		<div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-			{#each categories as cat (cat.href)}
-				{@const href = cat.href as `/${string}/${string}`}
-				<a href={resolve(href)} class="block">
-					<ProjectCard
-						title={cat.title}
-						category={cat.category}
-						year={cat.year}
-						image={cat.image}
-					/>
-				</a>
-			{/each}
+			{#if categories.length === 0}
+				<div class="col-span-full p-12 text-center">
+					<div class="inline-block border-2 border-black bg-white p-8 shadow-[8px_8px_0px_#000]">
+						<p class="mb-2 text-xl font-bold">{t.home.explore}</p>
+						<p class="text-gray-600">No categories found. Please check back later.</p>
+					</div>
+				</div>
+			{:else}
+				{#each categories as cat (cat.href)}
+					{@const href = cat.href as `/${string}/${string}`}
+					<a href={resolve(href)} class="block">
+						<ProjectCard
+							title={cat.title}
+							category={cat.category}
+							year={cat.year}
+							image={cat.image}
+						/>
+					</a>
+				{/each}
+			{/if}
 		</div>
 	</div>
 </section>

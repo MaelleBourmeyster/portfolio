@@ -92,30 +92,42 @@
 	</div>
 
 	<!-- Projects Sections -->
-	{#each Object.entries(groupedProjects) as [subCat, groupProjects], i (subCat)}
-		<section class="py-16 {i % 2 !== 0 ? 'border-y-2 border-black bg-white' : ''}">
-			<div class="mx-auto max-w-7xl px-6">
-				<h2 class="mb-8 border-l-4 border-blue-600 pl-4 text-3xl font-bold uppercase">
-					{getSubCategoryName(subCat)}
-				</h2>
-				<div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-					{#each groupProjects as project (project.slug)}
-						<a
-							href={resolve(
-								`/${project.domainSlug}/${project.categorySlug}/${project.subCategory}/${project.slug}`
-							)}
-							class="block"
-						>
-							<ProjectCard
-								title={project.title}
-								category={project.category}
-								year={project.year}
-								image={project.image || project.thumbnail || ''}
-							/>
-						</a>
-					{/each}
+	{#if Object.keys(groupedProjects).length === 0}
+		<section class="py-16">
+			<div class="mx-auto max-w-7xl px-6 text-center">
+				<div class="inline-block border-2 border-black bg-white p-12 shadow-[8px_8px_0px_#000]">
+					<h2 class="mb-4 text-2xl font-bold uppercase">{categoryName}</h2>
+					<p class="text-lg text-gray-600">No projects found in this category yet.</p>
+					<a href={resolve('/')} class="pk-btn mt-6 inline-block">Back to Home</a>
 				</div>
 			</div>
 		</section>
-	{/each}
+	{:else}
+		{#each Object.entries(groupedProjects) as [subCat, groupProjects], i (subCat)}
+			<section class="py-16 {i % 2 !== 0 ? 'border-y-2 border-black bg-white' : ''}">
+				<div class="mx-auto max-w-7xl px-6">
+					<h2 class="mb-8 border-l-4 border-blue-600 pl-4 text-3xl font-bold uppercase">
+						{getSubCategoryName(subCat)}
+					</h2>
+					<div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+						{#each groupProjects as project (project.slug)}
+							<a
+								href={resolve(
+									`/${project.domainSlug}/${project.categorySlug}/${project.subCategory}/${project.slug}`
+								)}
+								class="block"
+							>
+								<ProjectCard
+									title={project.title}
+									category={project.category}
+									year={project.year}
+									image={project.image || project.thumbnail || ''}
+								/>
+							</a>
+						{/each}
+					</div>
+				</div>
+			</section>
+		{/each}
+	{/if}
 </div>
