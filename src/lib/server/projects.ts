@@ -94,6 +94,10 @@ function loadProject(projectDir: string, rootDir: string): Project | null {
 
         let thumbnail = json.thumbnail;
         if (thumbnail && !thumbnail.startsWith('http') && !thumbnail.startsWith('/')) {
+            // If the user didn't include 'images/', we add it.
+            if (!thumbnail.startsWith('images/')) {
+                thumbnail = `images/${thumbnail}`;
+            }
             thumbnail = `${base}/projects/${urlPath}/${thumbnail}`;
         }
 
