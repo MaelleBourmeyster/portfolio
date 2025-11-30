@@ -22,14 +22,7 @@
   });
 
   function getCategoryName(slug: string) {
-    const keyMap: Record<string, string> = {
-        'drawing': 'drawing',
-        'sculpture': 'sculpture',
-        'digital': 'digital',
-        'bakery': 'bakery',
-        'horse-riding': 'horseRiding'
-    };
-    const key = keyMap[slug];
+    const key = data.translationKey;
     if (key && t.nav[key as keyof typeof t.nav]) {
         return t.nav[key as keyof typeof t.nav];
     }

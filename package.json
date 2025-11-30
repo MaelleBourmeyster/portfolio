@@ -40,5 +40,8 @@
 	},
 	"overrides": {
 		"cookie": "^0.7.0"
+	},
+	"dependencies": {
+		"zod": "^4.1.13"
 	}
 }

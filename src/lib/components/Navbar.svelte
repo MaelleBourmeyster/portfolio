@@ -19,21 +19,9 @@
     language.toggle();
   }
 
-  function getTranslatedName(slug: string, fallback: string) {
-    // Try to find translation in nav keys
-    // Convert slug to camelCase for key matching if needed, or just use mapped keys
-    const keyMap: Record<string, string> = {
-        'visual-arts': 'visualArts',
-        'living-arts': 'livingArts',
-        'drawing': 'drawing',
-        'sculpture': 'sculpture',
-        'digital': 'digital',
-        'bakery': 'bakery',
-        'horse-riding': 'horseRiding'
-    };
-    const key = keyMap[slug];
-    if (key && t.nav[key as keyof typeof t.nav]) {
-        return t.nav[key as keyof typeof t.nav];
+  function getTranslatedName(translationKey: string, fallback: string) {
+    if (translationKey && t.nav[translationKey as keyof typeof t.nav]) {
+        return t.nav[translationKey as keyof typeof t.nav];
     }
     return fallback;
   }
@@ -63,7 +51,7 @@
             role="group"
         >
             <button class="text-lg font-bold hover:text-blue-600 hover:underline decoration-2 underline-offset-4 decoration-blue-600 flex items-center gap-1 uppercase">
-            {getTranslatedName(domain.slug, domain.name)}
+            {getTranslatedName(domain.translationKey, domain.name)}
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
             </svg>
@@ -73,7 +61,7 @@
             <div class="bg-white border-2 border-black shadow-[4px_4px_0px_#000] flex flex-col">
                 {#each domain.categories as cat}
                 <a href={cat.href} class="px-4 py-3 font-bold hover:bg-blue-50 hover:text-blue-600 border-b border-gray-100 last:border-0 transition-colors">
-                    {getTranslatedName(cat.slug, cat.name)}
+                    {getTranslatedName(cat.translationKey, cat.name)}
                 </a>
                 {/each}
             </div>
@@ -126,11 +114,11 @@
 
       {#each navigationTree as domain}
         <div class="font-bold text-gray-400 text-sm uppercase tracking-widest border-b border-gray-200 pb-2 mt-4">
-            {getTranslatedName(domain.slug, domain.name)}
+            {getTranslatedName(domain.translationKey, domain.name)}
         </div>
         {#each domain.categories as cat}
             <a href={cat.href} class="text-xl font-bold uppercase tracking-wide hover:text-blue-600 hover:pl-2 transition-all pl-4" onclick={() => isMenuOpen = false}>
-            {getTranslatedName(cat.slug, cat.name)}
+            {getTranslatedName(cat.translationKey, cat.name)}
             </a>
         {/each}
       {/each}

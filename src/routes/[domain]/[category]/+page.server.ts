@@ -1,5 +1,5 @@
 import type { PageServerLoad } from './$types';
-import { getProjects } from '$lib/server/projects';
+import { getProjects, getTranslationKey } from '$lib/server/projects';
 
 export const load: PageServerLoad = async ({ params }) => {
     const allProjects = getProjects();
@@ -11,6 +11,7 @@ export const load: PageServerLoad = async ({ params }) => {
     return {
         projects,
         categorySlug: params.category,
-        domainSlug: params.domain
+        domainSlug: params.domain,
+        translationKey: getTranslationKey(params.category)
     };
 };

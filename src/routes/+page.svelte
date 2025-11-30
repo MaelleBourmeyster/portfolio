@@ -29,17 +29,9 @@
       return { image: '', year: new Date().getFullYear().toString() };
   }
 
-  function getTranslatedTitle(slug: string, fallback: string) {
-    const keyMap: Record<string, string> = {
-        'drawing': 'drawing',
-        'sculpture': 'sculpture',
-        'digital': 'digital',
-        'bakery': 'bakery',
-        'horse-riding': 'horseRiding'
-    };
-    const key = keyMap[slug];
-    if (key && t.nav[key as keyof typeof t.nav]) {
-        return t.nav[key as keyof typeof t.nav];
+  function getTranslatedTitle(slug: string, translationKey: string, fallback: string) {
+    if (translationKey && t.nav[translationKey as keyof typeof t.nav]) {
+        return t.nav[translationKey as keyof typeof t.nav];
     }
     return fallback;
   }
@@ -49,7 +41,7 @@
     for (const domain of navigationTree) {
         for (const cat of domain.categories) {
             cats.push({
-                title: getTranslatedTitle(cat.slug, cat.name),
+                title: getTranslatedTitle(cat.slug, cat.translationKey, cat.name),
                 category: 'Gallery',
                 href: cat.href,
                 ...getCategoryLatest(cat.slug)
