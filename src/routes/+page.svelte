@@ -13,46 +13,51 @@
 
   let t = $derived(translations[$language]);
 
-  function getCategoryImage(mainCat: string, defaultImage: string) {
-      const project = projects.find(p => p.mainCategory === mainCat && p.image);
-      return project ? project.image : defaultImage;
+  function getCategoryLatest(mainCat: string) {
+      const catProjects = projects.filter(p => p.mainCategory === mainCat && p.image);
+      // Sort by year descending to show the most recent work
+      catProjects.sort((a, b) => parseInt(b.year || '0') - parseInt(a.year || '0'));
+      
+      if (catProjects.length > 0) {
+          return {
+              image: catProjects[0].image,
+              year: catProjects[0].year
+          };
+      }
+      // Fallback if no project exists in this category
+      return { image: '', year: new Date().getFullYear().toString() };
   }
 
   let categories = $derived([
     {
       title: t.nav.drawing,
       category: 'Gallery',
-      year: '2025',
-      image: getCategoryImage('Drawing', `${base}/projects/artwork-1/images/painting-horses.png`),
-      href: `${base}/drawing`
+      href: `${base}/drawing`,
+      ...getCategoryLatest('Drawing')
     },
     {
       title: t.nav.sculpture,
       category: 'Gallery',
-      year: '2025',
-      image: getCategoryImage('Sculpture', `${base}/projects/wood-sculpture-1/images/cup-front.png`),
-      href: `${base}/sculpture`
+      href: `${base}/sculpture`,
+      ...getCategoryLatest('Sculpture')
     },
     {
       title: t.nav.digital,
       category: 'Gallery',
-      year: '2025',
-      image: getCategoryImage('Digital', `${base}/projects/digital-painting/images/shoto.png`),
-      href: `${base}/digital`
+      href: `${base}/digital`,
+      ...getCategoryLatest('Digital')
     },
     {
       title: t.nav.bakery,
       category: 'Gallery',
-      year: '2025',
-      image: getCategoryImage('Bakery', `${base}/projects/sourdough-bread/images/butter-knife.png`),
-      href: `${base}/bakery`
+      href: `${base}/bakery`,
+      ...getCategoryLatest('Bakery')
     },
     {
       title: t.nav.horseRiding,
       category: 'Gallery',
-      year: '2025',
-      image: getCategoryImage('Horse Riding', `${base}/projects/horse-head/images/bronze-horse-head.png`),
-      href: `${base}/horse-riding`
+      href: `${base}/horse-riding`,
+      ...getCategoryLatest('Horse Riding')
     }
   ]);
 </script>

@@ -35,12 +35,12 @@
     <!-- Desktop Menu (Left Aligned) -->
     <div class="hidden md:flex gap-8 items-center">
       <!-- Home Link -->
-      <a href="{base}/" class="text-lg font-bold hover:text-blue-600 hover:underline decoration-2 underline-offset-4 decoration-blue-600 uppercase">
+      <a href="{base}/" class="nav-link">
         {t.nav.home}
       </a>
 
       <!-- About Link -->
-      <a href="{base}/about" class="text-lg font-bold hover:text-blue-600 hover:underline decoration-2 underline-offset-4 decoration-blue-600 uppercase">
+      <a href="{base}/about" class="nav-link">
         {t.nav.about}
       </a>
       
@@ -95,7 +95,7 @@
       </div>
 
       <!-- Contact Link -->
-      <a href="{base}/contact" class="text-lg font-bold hover:text-blue-600 hover:underline decoration-2 underline-offset-4 decoration-blue-600 uppercase">
+      <a href="{base}/contact" class="nav-link">
         {t.nav.contact}
       </a>
     </div>

@@ -61,6 +61,10 @@ body {
   box-shadow: 8px 8px 0px rgba(0,0,0,0.1);
 }
 
+.nav-link {
+  @apply text-lg font-bold uppercase hover:text-blue-600 hover:underline decoration-2 underline-offset-4 decoration-blue-600 transition-colors;
+}
+
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 16px;

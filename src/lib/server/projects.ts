@@ -4,14 +4,6 @@ import { base } from '$app/paths';
 import type { Project } from '$lib/data/projects';
 import { translations } from '$lib/data/translations';
 
-const mainCategoryMap: Record<string, string> = {
-    'drawing': 'Drawing',
-    'sculpture': 'Sculpture',
-    'digital': 'Digital',
-    'bakery': 'Bakery',
-    'horse-riding': 'Horse Riding'
-};
-
 function findProjects(dir: string, rootDir: string): Project[] {
     let results: Project[] = [];
     const list = fs.readdirSync(dir);
@@ -53,7 +45,12 @@ function loadProject(projectDir: string, rootDir: string): Project | null {
     const mainFolder = parts[0];
     const subFolder = parts[1];
 
-    const mainCategory = mainCategoryMap[mainFolder] || mainFolder;
+    // Dynamic category name from folder
+    const mainCategory = mainFolder
+        .split('-')
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(' ');
+
     // We need to store the raw folder name for the URL
     const categorySlug = mainFolder;
     const subCategory = subFolder;
