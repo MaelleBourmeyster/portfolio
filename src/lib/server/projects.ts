@@ -1,6 +1,7 @@
 import { promises as fs } from 'fs';
 import path from 'path';
 import { base } from '$app/paths';
+import { dev } from '$app/environment';
 import { translations } from '$lib/data/translations';
 import { z } from 'zod';
 
@@ -78,6 +79,7 @@ async function discoverMedia(
 	const extensions = type === 'images' ? /\.(png|jpg|jpeg|webp|gif)$/i : /\.(mp4|webm|ogg|mov)$/i;
 
 	const files = await fs.readdir(mediaDir);
+	files.sort(); // ensure deterministic ordering
 	return files
 		.filter((file) => extensions.test(file))
 		.map((file) => `${base}/projects/${urlPath}/${type}/${file}`);
@@ -171,7 +173,7 @@ export async function loadProject(projectDir: string, rootDir: string): Promise<
 			discoverMedia(projectDir, urlPath, 'videos')
 		]);
 
-		const year = json.year ?? new Date().getFullYear().toString();
+		const year = json.year ?? '0000';
 
 		// Image Resolution
 		let mainImage = json.image ?? '';
@@ -226,6 +228,7 @@ async function findProjects(dir: string, rootDir: string): Promise<Project[]> {
 
 	try {
 		const list = await fs.readdir(dir);
+		list.sort(); // deterministic traversal
 
 		const promises = list.map(async (file) => {
 			const filePath = path.join(dir, file);
@@ -252,10 +255,54 @@ async function findProjects(dir: string, rootDir: string): Promise<Project[]> {
 	return results;
 }
 
+let cachedProjects: Project[] | null = null;
+let cachedMtimeMs: number | null = null;
+let inFlight: Promise<Project[]> | null = null;
+
+async function getProjectsMtime(projectsDir: string): Promise<number> {
+	const stat = await fs.stat(projectsDir);
+	return stat.mtimeMs;
+}
+
 export async function getProjects(): Promise<Project[]> {
 	const projectsDir = path.resolve('static/projects');
 	if (!(await fileExists(projectsDir))) return [];
-	return findProjects(projectsDir, projectsDir);
+
+	const currentMtime = await getProjectsMtime(projectsDir);
+
+	if (cachedProjects && cachedMtimeMs === currentMtime) {
+		return cachedProjects;
+	}
+
+	if (inFlight) return inFlight;
+
+	inFlight = (async () => {
+		const projects = await findProjects(projectsDir, projectsDir);
+		projects.sort((a, b) => {
+			return (
+				a.domainSlug.localeCompare(b.domainSlug) ||
+				a.categorySlug.localeCompare(b.categorySlug) ||
+				a.subCategory.localeCompare(b.subCategory) ||
+				a.slug.localeCompare(b.slug)
+			);
+		});
+
+		cachedProjects = projects;
+		cachedMtimeMs = currentMtime;
+		inFlight = null;
+
+		return projects;
+	})();
+
+	const result = await inFlight;
+
+	if (dev) {
+		// In dev, avoid long-lived cache; keep in-flight dedupe only.
+		cachedProjects = null;
+		cachedMtimeMs = null;
+	}
+
+	return result;
 }
 
 export async function getNavigationTree(): Promise<NavigationItem[]> {

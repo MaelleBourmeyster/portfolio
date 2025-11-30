@@ -36,5 +36,12 @@ export function getAbsoluteUrl(path: string = ''): string {
  */
 export function getImageUrl(imagePath: string): string {
 	if (imagePath.startsWith('http')) return imagePath;
-	return getAbsoluteUrl(imagePath);
+	const normalizedPath = imagePath.startsWith('/') ? imagePath : `/${imagePath}`;
+
+	// If the path already contains the base (e.g. /portfolio/...), avoid duplicating it
+	if (base && normalizedPath.startsWith(`${base}/`)) {
+		return `${siteConfig.url}${normalizedPath}`;
+	}
+
+	return `${siteConfig.url}${base}${normalizedPath}`;
 }
