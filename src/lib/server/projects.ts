@@ -68,25 +68,26 @@ async function discoverMedia(projectDir: string, urlPath: string, type: 'images'
         .map(file => `${base}/projects/${urlPath}/${type}/${file}`);
 }
 
+import type { CategoryItem, NavigationItem } from '$lib/types';
+
 async function resolveImagePath(projectDir: string, urlPath: string, imageName: string | undefined): Promise<string> {
     if (!imageName) return '';
     if (imageName.startsWith('http') || imageName.startsWith('/')) return imageName;
 
-    // Check direct file
-    if (await fileExists(path.join(projectDir, imageName))) {
-        return `${base}/projects/${urlPath}/${imageName}`;
-    }
-    // Check in images/
-    if (await fileExists(path.join(projectDir, 'images', imageName))) {
-        return `${base}/projects/${urlPath}/images/${imageName}`;
-    }
-    // Check in videos/ (for thumbnails)
-    if (await fileExists(path.join(projectDir, 'videos', imageName))) {
-        return `${base}/projects/${urlPath}/videos/${imageName}`;
-    }
+    const candidates = [
+        { path: imageName, url: `${base}/projects/${urlPath}/${imageName}` },
+        { path: path.join('images', imageName), url: `${base}/projects/${urlPath}/images/${imageName}` },
+        { path: path.join('videos', imageName), url: `${base}/projects/${urlPath}/videos/${imageName}` }
+    ];
 
-    // Default fallback
-    return `${base}/projects/${urlPath}/${imageName}`;
+    // Check all candidates in parallel
+    const results = await Promise.all(candidates.map(async (c) => {
+        const exists = await fileExists(path.join(projectDir, c.path));
+        return exists ? c.url : null;
+    }));
+
+    // Return the first one that exists
+    return results.find(url => url !== null) || `${base}/projects/${urlPath}/${imageName}`;
 }
 
 // --- Main Logic ---
@@ -231,7 +232,7 @@ export async function getProjects(): Promise<Project[]> {
     return findProjects(projectsDir, projectsDir);
 }
 
-export async function getNavigationTree() {
+export async function getNavigationTree(): Promise<NavigationItem[]> {
     const projects = await getProjects();
     const domains = new Map<string, Set<string>>();
 

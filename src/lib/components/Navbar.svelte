@@ -3,7 +3,9 @@
   import { language } from '$lib/stores/language';
   import { translations } from '$lib/data/translations';
 
-  let { navigationTree } = $props<{ navigationTree: any[] }>();
+  import type { NavigationItem } from '$lib/types';
+  
+  let { navigationTree } = $props<{ navigationTree: NavigationItem[] }>();
 
   let t = $derived(translations[$language]);
 
