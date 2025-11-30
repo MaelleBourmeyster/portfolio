@@ -1,33 +1,23 @@
 <script lang="ts">
   import Hero from '$lib/components/Hero.svelte';
   import ProjectCard from '$lib/components/ProjectCard.svelte';
-  import { base } from '$app/paths';
   import { language } from '$lib/stores/language';
   import { translations } from '$lib/data/translations';
 
   import type { PageData } from './$types';
-  import type { Project } from '$lib/data/projects';
+
+  interface Category {
+    slug: string;
+    translationKey: string;
+    name: string;
+    href: string;
+    image: string;
+    year: string;
+  }
 
   let { data } = $props<{ data: PageData }>();
-  let projects = $derived((data.projects as Project[]) || []);
-  let navigationTree = $derived(data.navigationTree || []);
 
   let t = $derived(translations[$language]);
-
-  function getCategoryLatest(catSlug: string) {
-      const catProjects = projects.filter(p => p.categorySlug === catSlug && p.image);
-      // Sort by year descending to show the most recent work
-      catProjects.sort((a, b) => parseInt(b.year || '0') - parseInt(a.year || '0'));
-      
-      if (catProjects.length > 0) {
-          return {
-              image: catProjects[0].image,
-              year: catProjects[0].year
-          };
-      }
-      // Fallback if no project exists in this category
-      return { image: '', year: new Date().getFullYear().toString() };
-  }
 
   function getTranslatedTitle(slug: string, translationKey: string, fallback: string) {
     if (translationKey && t.nav[translationKey as keyof typeof t.nav]) {
@@ -36,20 +26,13 @@
     return fallback;
   }
 
-  let categories = $derived.by(() => {
-    const cats = [];
-    for (const domain of navigationTree) {
-        for (const cat of domain.categories) {
-            cats.push({
-                title: getTranslatedTitle(cat.slug, cat.translationKey, cat.name),
-                category: 'Gallery',
-                href: cat.href,
-                ...getCategoryLatest(cat.slug)
-            });
-        }
-    }
-    return cats;
-  });
+  let categories = $derived(((data.categories as Category[]) || []).map((cat) => ({
+      title: getTranslatedTitle(cat.slug, cat.translationKey, cat.name),
+      category: t.home.gallery,
+      href: cat.href,
+      image: cat.image,
+      year: cat.year
+  })));
 </script>
 
 <svelte:head>

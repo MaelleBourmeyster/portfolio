@@ -3,7 +3,7 @@ import type { PageServerLoad } from './$types';
 import { getProjects } from '$lib/server/projects';
 
 export const load: PageServerLoad = async ({ params }) => {
-    const projects = getProjects();
+    const projects = await getProjects();
     const project = projects.find((p) =>
         p.slug === params.slug &&
         p.domainSlug === params.domain &&

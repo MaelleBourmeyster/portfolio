@@ -23,7 +23,8 @@ export const translations = {
             heroSubtitle: 'BOURMEYSTER',
             heroDesc: 'A multidisciplinary journey through Fine Arts, Digital Creation, and Craftsmanship.',
             viewProjects: 'View Projects',
-            getInTouch: 'Get in Touch'
+            getInTouch: 'Get in Touch',
+            gallery: 'Gallery'
         },
         footer: {
             legal: 'Legal Notice',
@@ -95,7 +96,8 @@ export const translations = {
             year: 'Year',
             category: 'Category',
             medium: 'Medium',
-            noDesc: 'No description available for this project.'
+            noDesc: 'No description available for this project.',
+            noImage: 'NO IMAGE'
         },
         categories: {
             wood: 'Wood',
@@ -140,7 +142,8 @@ export const translations = {
             heroSubtitle: 'BOURMEYSTER',
             heroDesc: 'Un voyage multidisciplinaire à travers les Beaux-Arts, la Création Numérique et l\'Artisanat.',
             viewProjects: 'Voir les Projets',
-            getInTouch: 'Me Contacter'
+            getInTouch: 'Me Contacter',
+            gallery: 'Galerie'
         },
         footer: {
             legal: 'Mentions Légales',
@@ -212,7 +215,8 @@ export const translations = {
             year: 'Année',
             category: 'Catégorie',
             medium: 'Médium',
-            noDesc: 'Aucune description disponible pour ce projet.'
+            noDesc: 'Aucune description disponible pour ce projet.',
+            noImage: 'AUCUNE IMAGE'
         },
         categories: {
             wood: 'Bois',

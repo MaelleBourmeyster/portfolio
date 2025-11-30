@@ -1,5 +1,6 @@
 <script lang="ts">
   import { language } from '$lib/stores/language';
+  import { translations } from '$lib/data/translations';
   
   export let title: string | { en: string; fr: string };
   export let category: string | { en: string; fr: string };
@@ -34,7 +35,7 @@
       {/if}
     {:else}
       <div class="flex h-full w-full items-center justify-center bg-gray-200 text-gray-400">
-        NO IMAGE
+        {translations[$language].project.noImage}
       </div>
     {/if}
     

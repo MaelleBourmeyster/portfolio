@@ -1,4 +1,4 @@
-import fs from 'fs';
+import { promises as fs } from 'fs';
 import path from 'path';
 import { base } from '$app/paths';
 import { translations } from '$lib/data/translations';
@@ -38,40 +38,50 @@ export type Project = z.infer<typeof ProjectDetailsSchema> & {
 // --- Helper Functions ---
 
 export function getTranslationKey(slug: string): string {
-    return slug.replace(/-([a-z])/g, (g) => g[1].toUpperCase());
+    return slug.toLowerCase().replace(/-([a-z])/g, (g) => g[1].toUpperCase());
 }
 
 function formatName(slug: string): string {
     return slug.split('-').map(s => s.charAt(0).toUpperCase() + s.slice(1)).join(' ');
 }
 
-function discoverMedia(projectDir: string, urlPath: string, type: 'images' | 'videos'): string[] {
+async function fileExists(filePath: string): Promise<boolean> {
+    try {
+        await fs.access(filePath);
+        return true;
+    } catch {
+        return false;
+    }
+}
+
+async function discoverMedia(projectDir: string, urlPath: string, type: 'images' | 'videos'): Promise<string[]> {
     const mediaDir = path.join(projectDir, type);
-    if (!fs.existsSync(mediaDir)) return [];
+    if (!(await fileExists(mediaDir))) return [];
 
     const extensions = type === 'images'
         ? /\.(png|jpg|jpeg|webp|gif)$/i
         : /\.(mp4|webm|ogg|mov)$/i;
 
-    return fs.readdirSync(mediaDir)
+    const files = await fs.readdir(mediaDir);
+    return files
         .filter(file => extensions.test(file))
         .map(file => `${base}/projects/${urlPath}/${type}/${file}`);
 }
 
-function resolveImagePath(projectDir: string, urlPath: string, imageName: string | undefined): string {
+async function resolveImagePath(projectDir: string, urlPath: string, imageName: string | undefined): Promise<string> {
     if (!imageName) return '';
     if (imageName.startsWith('http') || imageName.startsWith('/')) return imageName;
 
     // Check direct file
-    if (fs.existsSync(path.join(projectDir, imageName))) {
+    if (await fileExists(path.join(projectDir, imageName))) {
         return `${base}/projects/${urlPath}/${imageName}`;
     }
     // Check in images/
-    if (fs.existsSync(path.join(projectDir, 'images', imageName))) {
+    if (await fileExists(path.join(projectDir, 'images', imageName))) {
         return `${base}/projects/${urlPath}/images/${imageName}`;
     }
     // Check in videos/ (for thumbnails)
-    if (fs.existsSync(path.join(projectDir, 'videos', imageName))) {
+    if (await fileExists(path.join(projectDir, 'videos', imageName))) {
         return `${base}/projects/${urlPath}/videos/${imageName}`;
     }
 
@@ -82,8 +92,8 @@ function resolveImagePath(projectDir: string, urlPath: string, imageName: string
 // --- Main Logic ---
 
 function parseProjectStructure(projectDir: string, rootDir: string) {
-    const relative = path.relative(rootDir, projectDir);
-    const parts = relative.split(path.sep);
+    const relative = path.relative(rootDir, projectDir).replace(/\\/g, '/');
+    const parts = relative.split('/');
 
     // We expect: domain / category / subcategory / slug
     if (parts.length < 4) {
@@ -102,19 +112,18 @@ function parseProjectStructure(projectDir: string, rootDir: string) {
     };
 }
 
-function loadProject(projectDir: string, rootDir: string): Project | null {
+async function loadProject(projectDir: string, rootDir: string): Promise<Project | null> {
     const slug = path.basename(projectDir);
     const structure = parseProjectStructure(projectDir, rootDir);
 
     if (!structure) {
-        // console.warn(`Skipping project ${slug}: Invalid folder structure.`);
         return null;
     }
 
     const detailsPath = path.join(projectDir, 'details.json');
 
     try {
-        let content = fs.readFileSync(detailsPath, 'utf-8');
+        let content = await fs.readFile(detailsPath, 'utf-8');
         // Handle BOM
         if (content.charCodeAt(0) === 0xFEFF) content = content.slice(1);
 
@@ -132,20 +141,22 @@ function loadProject(projectDir: string, rootDir: string): Project | null {
         const urlPath = structure.relative.replace(/\\/g, '/');
 
         // Media Discovery
-        const images = discoverMedia(projectDir, urlPath, 'images');
-        const videos = discoverMedia(projectDir, urlPath, 'videos');
+        const [images, videos] = await Promise.all([
+            discoverMedia(projectDir, urlPath, 'images'),
+            discoverMedia(projectDir, urlPath, 'videos')
+        ]);
 
         // Image Resolution
         let mainImage = json.image;
         if (!mainImage && images.length > 0) {
             mainImage = images[0];
         } else {
-            mainImage = resolveImagePath(projectDir, urlPath, mainImage);
+            mainImage = await resolveImagePath(projectDir, urlPath, mainImage);
         }
 
         let thumbnail = json.thumbnail;
         if (thumbnail) {
-            thumbnail = resolveImagePath(projectDir, urlPath, thumbnail);
+            thumbnail = await resolveImagePath(projectDir, urlPath, thumbnail);
         } else {
             // Fallback to main image if no thumbnail
             thumbnail = mainImage;
@@ -182,26 +193,31 @@ function loadProject(projectDir: string, rootDir: string): Project | null {
     }
 }
 
-function findProjects(dir: string, rootDir: string): Project[] {
+async function findProjects(dir: string, rootDir: string): Promise<Project[]> {
     let results: Project[] = [];
 
     try {
-        const list = fs.readdirSync(dir);
+        const list = await fs.readdir(dir);
 
-        for (const file of list) {
+        const promises = list.map(async (file) => {
             const filePath = path.join(dir, file);
-            const stat = fs.statSync(filePath);
+            const stat = await fs.stat(filePath);
 
             if (stat.isDirectory()) {
                 const detailsPath = path.join(filePath, 'details.json');
-                if (fs.existsSync(detailsPath)) {
-                    const project = loadProject(filePath, rootDir);
-                    if (project) results.push(project);
+                if (await fileExists(detailsPath)) {
+                    const project = await loadProject(filePath, rootDir);
+                    if (project) return [project];
                 } else {
-                    results = results.concat(findProjects(filePath, rootDir));
+                    return findProjects(filePath, rootDir);
                 }
             }
-        }
+            return [];
+        });
+
+        const nestedResults = await Promise.all(promises);
+        results = nestedResults.flat();
+
     } catch (e) {
         console.error(`Error scanning directory ${dir}`, e);
     }
@@ -209,14 +225,14 @@ function findProjects(dir: string, rootDir: string): Project[] {
     return results;
 }
 
-export function getProjects(): Project[] {
+export async function getProjects(): Promise<Project[]> {
     const projectsDir = path.resolve('static/projects');
-    if (!fs.existsSync(projectsDir)) return [];
+    if (!(await fileExists(projectsDir))) return [];
     return findProjects(projectsDir, projectsDir);
 }
 
-export function getNavigationTree() {
-    const projects = getProjects();
+export async function getNavigationTree() {
+    const projects = await getProjects();
     const domains = new Map<string, Set<string>>();
 
     projects.forEach(p => {
