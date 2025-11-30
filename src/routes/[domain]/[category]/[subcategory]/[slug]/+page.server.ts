@@ -5,7 +5,7 @@ import path from 'path';
 
 export const load: PageServerLoad = async ({ params }) => {
 	const { domain, category, subcategory, slug } = params;
-	const slugPattern = /^[a-z0-9-]+$/;
+	const slugPattern = /^[A-Za-z0-9-]+$/;
 	if (![domain, category, subcategory, slug].every((part) => slugPattern.test(part))) {
 		throw error(404, 'Not found');
 	}

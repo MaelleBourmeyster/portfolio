@@ -3,7 +3,7 @@ import type { PageServerLoad } from './$types';
 import { getTranslationKey } from '$lib/server/projects';
 
 export const load: PageServerLoad = async ({ params, parent }) => {
-	const slugPattern = /^[a-z0-9-]+$/;
+	const slugPattern = /^[A-Za-z0-9-]+$/;
 	const { domain, category } = params;
 
 	if (!slugPattern.test(domain) || !slugPattern.test(category)) {
