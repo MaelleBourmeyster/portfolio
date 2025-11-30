@@ -4,6 +4,8 @@ export interface Project {
     slug: string;
     title: { en: string; fr: string };
     category: { en: string; fr: string };
+    domain: string; // e.g. 'Visual Arts'
+    domainSlug: string; // e.g. 'visual-arts'
     mainCategory: string; // e.g. 'Sculpture'
     categorySlug: string; // e.g. 'sculpture'
     subCategory: string;  // e.g. 'Bronze'

@@ -10,11 +10,12 @@
 
   let { data } = $props<{ data: PageData }>();
   let projects = $derived((data.projects as Project[]) || []);
+  let navigationTree = $derived(data.navigationTree || []);
 
   let t = $derived(translations[$language]);
 
-  function getCategoryLatest(mainCat: string) {
-      const catProjects = projects.filter(p => p.mainCategory === mainCat && p.image);
+  function getCategoryLatest(catSlug: string) {
+      const catProjects = projects.filter(p => p.categorySlug === catSlug && p.image);
       // Sort by year descending to show the most recent work
       catProjects.sort((a, b) => parseInt(b.year || '0') - parseInt(a.year || '0'));
       
@@ -28,38 +29,35 @@
       return { image: '', year: new Date().getFullYear().toString() };
   }
 
-  let categories = $derived([
-    {
-      title: t.nav.drawing,
-      category: 'Gallery',
-      href: `${base}/drawing`,
-      ...getCategoryLatest('Drawing')
-    },
-    {
-      title: t.nav.sculpture,
-      category: 'Gallery',
-      href: `${base}/sculpture`,
-      ...getCategoryLatest('Sculpture')
-    },
-    {
-      title: t.nav.digital,
-      category: 'Gallery',
-      href: `${base}/digital`,
-      ...getCategoryLatest('Digital')
-    },
-    {
-      title: t.nav.bakery,
-      category: 'Gallery',
-      href: `${base}/bakery`,
-      ...getCategoryLatest('Bakery')
-    },
-    {
-      title: t.nav.horseRiding,
-      category: 'Gallery',
-      href: `${base}/horse-riding`,
-      ...getCategoryLatest('Horse Riding')
+  function getTranslatedTitle(slug: string, fallback: string) {
+    const keyMap: Record<string, string> = {
+        'drawing': 'drawing',
+        'sculpture': 'sculpture',
+        'digital': 'digital',
+        'bakery': 'bakery',
+        'horse-riding': 'horseRiding'
+    };
+    const key = keyMap[slug];
+    if (key && t.nav[key as keyof typeof t.nav]) {
+        return t.nav[key as keyof typeof t.nav];
     }
-  ]);
+    return fallback;
+  }
+
+  let categories = $derived.by(() => {
+    const cats = [];
+    for (const domain of navigationTree) {
+        for (const cat of domain.categories) {
+            cats.push({
+                title: getTranslatedTitle(cat.slug, cat.name),
+                category: 'Gallery',
+                href: cat.href,
+                ...getCategoryLatest(cat.slug)
+            });
+        }
+    }
+    return cats;
+  });
 </script>
 
 <svelte:head>

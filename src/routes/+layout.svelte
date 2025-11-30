@@ -6,7 +6,9 @@
 	import Navbar from '$lib/components/Navbar.svelte';
 	import Footer from '$lib/components/Footer.svelte';
 	
-	let { children } = $props();
+	import type { LayoutData } from './$types';
+
+	let { children, data } = $props<{ children: any, data: LayoutData }>();
 
 	onMount(() => {
 		language.init();
@@ -18,7 +20,7 @@
 </svelte:head>
 
 <div class="min-h-screen flex flex-col">
-	<Navbar />
+	<Navbar navigationTree={data.navigationTree} />
 	<main class="flex-grow">
 		{@render children()}
 	</main>
