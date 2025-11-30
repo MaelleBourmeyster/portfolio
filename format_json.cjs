@@ -4,20 +4,29 @@ const path = require('path');
 
 const projectsDir = path.resolve('static/projects');
 
-if (fs.existsSync(projectsDir)) {
-	const projects = fs.readdirSync(projectsDir);
-	projects.forEach((slug) => {
-		const jsonPath = path.join(projectsDir, slug, 'details.json');
-		if (fs.existsSync(jsonPath)) {
+function formatDetailsFiles(dir) {
+	const entries = fs
+		.readdirSync(dir, { withFileTypes: true })
+		.sort((a, b) => a.name.localeCompare(b.name));
+
+	for (const entry of entries) {
+		const fullPath = path.join(dir, entry.name);
+
+		if (entry.isDirectory()) {
+			formatDetailsFiles(fullPath);
+		} else if (entry.isFile() && entry.name === 'details.json') {
 			try {
-				const content = fs.readFileSync(jsonPath, 'utf8');
+				const content = fs.readFileSync(fullPath, 'utf8');
 				const json = JSON.parse(content);
-				// Write with 4 spaces indentation and a trailing newline
-				fs.writeFileSync(jsonPath, JSON.stringify(json, null, 4) + '\n');
-				console.log(`Formatted ${jsonPath}`);
+				fs.writeFileSync(fullPath, JSON.stringify(json, null, 4) + '\n');
+				console.log(`Formatted ${fullPath}`);
 			} catch (e) {
-				console.error(`Error formatting ${jsonPath}:`, e);
+				console.error(`Error formatting ${fullPath}:`, e);
 			}
 		}
-	});
+	}
+}
+
+if (fs.existsSync(projectsDir)) {
+	formatDetailsFiles(projectsDir);
 }
