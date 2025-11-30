@@ -92,6 +92,11 @@ function loadProject(projectDir: string, rootDir: string): Project | null {
             mainImage = `${base}/projects/${urlPath}/${mainImage}`;
         }
 
+        let thumbnail = json.thumbnail;
+        if (thumbnail && !thumbnail.startsWith('http') && !thumbnail.startsWith('/')) {
+            thumbnail = `${base}/projects/${urlPath}/${thumbnail}`;
+        }
+
         // Ensure required fields are present
         if (!json.title || !json.description) {
             console.warn(`Skipping project ${slug}: Missing title or description in details.json`);
@@ -106,6 +111,7 @@ function loadProject(projectDir: string, rootDir: string): Project | null {
             year: json.year || new Date().getFullYear().toString(),
             images,
             image: mainImage || '',
+            thumbnail,
             title: json.title,
             description: json.description,
             group: json.group || subCategory

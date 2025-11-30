@@ -8,6 +8,7 @@ export interface Project {
     subCategory: string;  // e.g. 'Bronze'
     year: string;
     image: string;
+    thumbnail?: string; // Specific thumbnail for category page
     images?: string[]; // Auto-discovered images
     description: { en: string; fr: string };
     group: string; // Internal grouping identifier (Legacy, use subCategory)

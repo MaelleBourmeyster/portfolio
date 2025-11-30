@@ -4,6 +4,7 @@
   export let title: string | { en: string; fr: string };
   export let category: string | { en: string; fr: string };
   export let image: string;
+  export let thumbnail: string | undefined = undefined;
   export let year: string;
 
   // Helper to get string
@@ -16,8 +17,8 @@
 <div class="group relative bg-white border-2 border-black p-4 transition-all hover:-translate-y-2 hover:shadow-[8px_8px_0px_#000] shadow-[4px_4px_0px_#000]">
   <!-- Image Container -->
   <div class="relative aspect-[4/3] w-full overflow-hidden border-2 border-black bg-gray-100 mb-4">
-    {#if image}
-      <img src={image} alt={getStr(title, $language)} class="h-full w-full object-cover" />
+    {#if thumbnail || image}
+      <img src={thumbnail || image} alt={getStr(title, $language)} class="h-full w-full object-cover" />
     {:else}
       <div class="flex h-full w-full items-center justify-center bg-gray-200 text-gray-400">
         NO IMAGE
