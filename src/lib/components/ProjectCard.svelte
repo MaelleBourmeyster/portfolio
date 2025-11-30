@@ -17,7 +17,7 @@
   <!-- Image Container -->
   <div class="relative aspect-[4/3] w-full overflow-hidden border-2 border-black bg-gray-100 mb-4">
     {#if image}
-      <img src={image} alt={getStr(title, $language)} class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+      <img src={image} alt={getStr(title, $language)} class="h-full w-full object-cover" />
     {:else}
       <div class="flex h-full w-full items-center justify-center bg-gray-200 text-gray-400">
         NO IMAGE

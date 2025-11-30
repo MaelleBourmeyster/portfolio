@@ -13,7 +13,13 @@ function createLanguageStore() {
                 localStorage.setItem('language', lang);
             }
         },
-        toggle: () => update(l => l === 'en' ? 'fr' : 'en'),
+        toggle: () => update(l => {
+            const newLang = l === 'en' ? 'fr' : 'en';
+            if (typeof localStorage !== 'undefined') {
+                localStorage.setItem('language', newLang);
+            }
+            return newLang;
+        }),
         init: () => {
             if (typeof localStorage !== 'undefined') {
                 const stored = localStorage.getItem('language') as Language;
