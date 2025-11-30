@@ -1,133 +1,165 @@
 <script lang="ts">
-  import { base } from '$app/paths';
-  import { language } from '$lib/stores/language';
-  import { translations } from '$lib/data/translations';
+	import { resolve } from '$app/paths';
+	import { language } from '$lib/stores/language';
+	import { translations } from '$lib/data/translations';
 
-  import type { NavigationItem } from '$lib/types';
-  
-  let { navigationTree } = $props<{ navigationTree: NavigationItem[] }>();
+	import type { NavigationItem } from '$lib/types';
 
-  let t = $derived(translations[$language]);
+	let { navigationTree } = $props<{ navigationTree: NavigationItem[] }>();
 
-  let isMenuOpen = $state(false);
-  // Track open state for each dropdown by slug
-  let openDropdowns = $state<Record<string, boolean>>({});
+	let t = $derived(translations[$language]);
 
-  function toggleMenu() {
-    isMenuOpen = !isMenuOpen;
-  }
+	let isMenuOpen = $state(false);
+	// Track open state for each dropdown by slug
+	let openDropdowns = $state<Record<string, boolean>>({});
 
-  function toggleLanguage() {
-    language.toggle();
-  }
+	function toggleMenu() {
+		isMenuOpen = !isMenuOpen;
+	}
 
-  function getTranslatedName(translationKey: string, fallback: string) {
-    if (translationKey && t.nav[translationKey as keyof typeof t.nav]) {
-        return t.nav[translationKey as keyof typeof t.nav];
-    }
-    return fallback;
-  }
+	function toggleLanguage() {
+		language.toggle();
+	}
+
+	function getTranslatedName(translationKey: string, fallback: string) {
+		if (translationKey && t.nav[translationKey as keyof typeof t.nav]) {
+			return t.nav[translationKey as keyof typeof t.nav];
+		}
+		return fallback;
+	}
 </script>
 
 <nav class="sticky top-0 z-50 w-full border-b-2 border-black bg-[#fdfbf7] px-6 py-4">
-  <div class="mx-auto flex max-w-7xl items-center justify-between">
-    
-    <!-- Desktop Menu (Left Aligned) -->
-    <div class="hidden md:flex gap-8 items-center">
-      <!-- Home Link -->
-      <a href="{base}/" class="nav-link">
-        {t.nav.home}
-      </a>
+	<div class="mx-auto flex max-w-7xl items-center justify-between">
+		<!-- Desktop Menu (Left Aligned) -->
+		<div class="hidden items-center gap-8 md:flex">
+			<!-- Home Link -->
+			<a href={resolve('/')} class="nav-link">
+				{t.nav.home}
+			</a>
 
-      <!-- About Link -->
-      <a href="{base}/about" class="nav-link">
-        {t.nav.about}
-      </a>
-      
-      <!-- Dynamic Dropdowns -->
-      {#each navigationTree as domain}
-        <div 
-            class="relative group"
-            onmouseenter={() => openDropdowns[domain.slug] = true}
-            onmouseleave={() => openDropdowns[domain.slug] = false}
-            role="group"
-        >
-            <button class="text-lg font-bold hover:text-blue-600 hover:underline decoration-2 underline-offset-4 decoration-blue-600 flex items-center gap-1 uppercase">
-            {getTranslatedName(domain.translationKey, domain.name)}
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-            </svg>
-            </button>
+			<!-- About Link -->
+			<a href={resolve('/about')} class="nav-link">
+				{t.nav.about}
+			</a>
 
-            <div class="absolute top-full left-0 pt-4 w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform group-hover:translate-y-0 translate-y-2">
-            <div class="bg-white border-2 border-black shadow-[4px_4px_0px_#000] flex flex-col">
-                {#each domain.categories as cat}
-                <a href={cat.href} class="px-4 py-3 font-bold hover:bg-blue-50 hover:text-blue-600 border-b border-gray-100 last:border-0 transition-colors">
-                    {getTranslatedName(cat.translationKey, cat.name)}
-                </a>
-                {/each}
-            </div>
-            </div>
-        </div>
-      {/each}
+			<!-- Dynamic Dropdowns -->
+			{#each navigationTree as domain (domain.slug)}
+				<div
+					class="group relative"
+					onmouseenter={() => (openDropdowns[domain.slug] = true)}
+					onmouseleave={() => (openDropdowns[domain.slug] = false)}
+					role="group"
+				>
+					<button
+						class="flex items-center gap-1 text-lg font-bold uppercase decoration-blue-600 decoration-2 underline-offset-4 hover:text-blue-600 hover:underline"
+					>
+						{getTranslatedName(domain.translationKey, domain.name)}
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							fill="none"
+							viewBox="0 0 24 24"
+							stroke-width="2"
+							stroke="currentColor"
+							class="h-4 w-4"
+						>
+							<path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								d="M19.5 8.25l-7.5 7.5-7.5-7.5"
+							/>
+						</svg>
+					</button>
 
-      <!-- Contact Link -->
-      <a href="{base}/contact" class="nav-link">
-        {t.nav.contact}
-      </a>
-    </div>
+					<div
+						class="invisible absolute top-full left-0 w-48 translate-y-2 transform pt-4 opacity-0 transition-all duration-200 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100"
+					>
+						<div class="flex flex-col border-2 border-black bg-white shadow-[4px_4px_0px_#000]">
+							{#each domain.categories as cat (cat.slug)}
+								<a
+									href={resolve(cat.href)}
+									class="border-b border-gray-100 px-4 py-3 font-bold transition-colors last:border-0 hover:bg-blue-50 hover:text-blue-600"
+								>
+									{getTranslatedName(cat.translationKey, cat.name)}
+								</a>
+							{/each}
+						</div>
+					</div>
+				</div>
+			{/each}
 
-    <!-- Language Toggle (Desktop - Right Aligned) -->
-    <button 
-      type="button"
-      onclick={toggleLanguage}
-      class="hidden md:block pk-btn !px-3 !py-1 ml-auto"
-    >
-      {$language}
-    </button>
+			<!-- Contact Link -->
+			<a href={resolve('/contact')} class="nav-link">
+				{t.nav.contact}
+			</a>
+		</div>
 
-    <!-- Mobile Header (Controls) -->
-    <div class="flex md:hidden w-full justify-between items-center">
-      <button 
-        type="button"
-        onclick={toggleLanguage}
-        class="pk-btn !px-3 !py-1"
-      >
-        {$language}
-      </button>
-      
-      <button class="pk-btn !px-3 !py-1" onclick={toggleMenu}>
-        {isMenuOpen ? t.nav.close : t.nav.menu}
-      </button>
-    </div>
-  </div>
+		<!-- Language Toggle (Desktop - Right Aligned) -->
+		<button
+			type="button"
+			onclick={toggleLanguage}
+			class="pk-btn ml-auto hidden !px-3 !py-1 md:block"
+		>
+			{$language}
+		</button>
 
-  <!-- Mobile Menu -->
-  {#if isMenuOpen}
-    <div class="absolute top-[100%] left-0 w-full border-b-2 border-black bg-[#fdfbf7] px-6 py-6 shadow-xl md:hidden flex flex-col gap-6 max-h-[80vh] overflow-y-auto">
-      
-      <a href="{base}/" class="text-xl font-bold uppercase tracking-wide hover:text-blue-600 hover:pl-2 transition-all border-b border-gray-200 pb-2" onclick={() => isMenuOpen = false}>
-        {t.nav.home}
-      </a>
+		<!-- Mobile Header (Controls) -->
+		<div class="flex w-full items-center justify-between md:hidden">
+			<button type="button" onclick={toggleLanguage} class="pk-btn !px-3 !py-1">
+				{$language}
+			</button>
 
-      <a href="{base}/about" class="text-xl font-bold uppercase tracking-wide hover:text-blue-600 hover:pl-2 transition-all border-b border-gray-200 pb-2" onclick={() => isMenuOpen = false}>
-        {t.nav.about}
-      </a>
+			<button class="pk-btn !px-3 !py-1" onclick={toggleMenu}>
+				{isMenuOpen ? t.nav.close : t.nav.menu}
+			</button>
+		</div>
+	</div>
 
-      {#each navigationTree as domain}
-        <div class="font-bold text-gray-400 text-sm uppercase tracking-widest border-b border-gray-200 pb-2 mt-4">
-            {getTranslatedName(domain.translationKey, domain.name)}
-        </div>
-        {#each domain.categories as cat}
-            <a href={cat.href} class="text-xl font-bold uppercase tracking-wide hover:text-blue-600 hover:pl-2 transition-all pl-4" onclick={() => isMenuOpen = false}>
-            {getTranslatedName(cat.translationKey, cat.name)}
-            </a>
-        {/each}
-      {/each}
+	<!-- Mobile Menu -->
+	{#if isMenuOpen}
+		<div
+			class="absolute top-[100%] left-0 flex max-h-[80vh] w-full flex-col gap-6 overflow-y-auto border-b-2 border-black bg-[#fdfbf7] px-6 py-6 shadow-xl md:hidden"
+		>
+			<a
+				href={resolve('/')}
+				class="border-b border-gray-200 pb-2 text-xl font-bold tracking-wide uppercase transition-all hover:pl-2 hover:text-blue-600"
+				onclick={() => (isMenuOpen = false)}
+			>
+				{t.nav.home}
+			</a>
 
-      <a href="{base}/contact" class="text-xl font-bold uppercase tracking-wide hover:text-blue-600 hover:pl-2 transition-all border-b border-gray-200 pb-2 mt-4" onclick={() => isMenuOpen = false}>
-        {t.nav.contact}
-      </a>
-    </div>
-  {/if}
+			<a
+				href={resolve('/about')}
+				class="border-b border-gray-200 pb-2 text-xl font-bold tracking-wide uppercase transition-all hover:pl-2 hover:text-blue-600"
+				onclick={() => (isMenuOpen = false)}
+			>
+				{t.nav.about}
+			</a>
+
+			{#each navigationTree as domain (domain.slug)}
+				<div
+					class="mt-4 border-b border-gray-200 pb-2 text-sm font-bold tracking-widest text-gray-400 uppercase"
+				>
+					{getTranslatedName(domain.translationKey, domain.name)}
+				</div>
+				{#each domain.categories as cat (cat.slug)}
+					<a
+						href={resolve(cat.href)}
+						class="pl-4 text-xl font-bold tracking-wide uppercase transition-all hover:pl-2 hover:text-blue-600"
+						onclick={() => (isMenuOpen = false)}
+					>
+						{getTranslatedName(cat.translationKey, cat.name)}
+					</a>
+				{/each}
+			{/each}
+
+			<a
+				href={resolve('/contact')}
+				class="mt-4 border-b border-gray-200 pb-2 text-xl font-bold tracking-wide uppercase transition-all hover:pl-2 hover:text-blue-600"
+				onclick={() => (isMenuOpen = false)}
+			>
+				{t.nav.contact}
+			</a>
+		</div>
+	{/if}
 </nav>

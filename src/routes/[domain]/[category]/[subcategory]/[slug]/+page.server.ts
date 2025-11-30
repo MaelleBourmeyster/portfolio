@@ -4,17 +4,17 @@ import { loadProject } from '$lib/server/projects';
 import path from 'path';
 
 export const load: PageServerLoad = async ({ params }) => {
-    const { domain, category, subcategory, slug } = params;
-    const projectsDir = path.resolve('static/projects');
-    const projectDir = path.join(projectsDir, domain, category, subcategory, slug);
+	const { domain, category, subcategory, slug } = params;
+	const projectsDir = path.resolve('static/projects');
+	const projectDir = path.join(projectsDir, domain, category, subcategory, slug);
 
-    const project = await loadProject(projectDir, projectsDir);
+	const project = await loadProject(projectDir, projectsDir);
 
-    if (!project) {
-        throw error(404, 'Project not found');
-    }
+	if (!project) {
+		throw error(404, 'Project not found');
+	}
 
-    return {
-        project
-    };
+	return {
+		project
+	};
 };

@@ -5,10 +5,11 @@
 	import favicon from '$lib/assets/light-favicon.svg';
 	import Navbar from '$lib/components/Navbar.svelte';
 	import Footer from '$lib/components/Footer.svelte';
-	
-	import type { LayoutData } from './$types';
 
-	let { children, data } = $props<{ children: any, data: LayoutData }>();
+	import type { LayoutData } from './$types';
+	import type { Snippet } from 'svelte';
+
+	let { children, data } = $props<{ children: Snippet; data: LayoutData }>();
 
 	onMount(() => {
 		language.init();
@@ -17,9 +18,12 @@
 
 <svelte:head>
 	<link rel="icon" href={favicon} />
+	<meta property="og:site_name" content="Maëlle Bourmeyster Portfolio" />
+	<meta name="author" content="Maëlle Bourmeyster" />
+	<meta name="robots" content="index, follow" />
 </svelte:head>
 
-<div class="min-h-screen flex flex-col">
+<div class="flex min-h-screen flex-col">
 	<Navbar navigationTree={data.navigationTree} />
 	<main class="flex-grow">
 		{@render children()}
