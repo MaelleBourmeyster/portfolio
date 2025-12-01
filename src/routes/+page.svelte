@@ -30,9 +30,15 @@
 	});
 	let jsonLdString = $derived(JSON.stringify(jsonLd));
 
+	type NavKey = keyof typeof translations.en.nav;
+
+	function isNavKey(key: string): key is NavKey {
+		return key in translations.en.nav;
+	}
+
 	function getTranslatedTitle(slug: string, translationKey: string, fallback: string) {
-		if (translationKey && t.nav[translationKey as keyof typeof t.nav]) {
-			return t.nav[translationKey as keyof typeof t.nav];
+		if (isNavKey(translationKey)) {
+			return t.nav[translationKey];
 		}
 		return fallback;
 	}
@@ -99,7 +105,7 @@
 				</div>
 			{:else}
 				{#each categories as cat (cat.href)}
-					{@const href = cat.href as `/${string}/${string}`}
+					{@const href = cat.href}
 					<a href={resolve(href)} class="block">
 						<ProjectCard
 							title={cat.title}

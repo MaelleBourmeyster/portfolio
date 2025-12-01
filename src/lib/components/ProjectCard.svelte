@@ -38,7 +38,13 @@
 					}}
 				></video>
 			{:else}
-				<img {src} alt={getStr(title, $language)} class="h-full w-full object-cover" />
+				<img
+					{src}
+					alt={getStr(title, $language)}
+					class="h-full w-full object-cover"
+					loading="lazy"
+					decoding="async"
+				/>
 			{/if}
 		{:else}
 			<div class="flex h-full w-full items-center justify-center bg-gray-200 text-gray-400">

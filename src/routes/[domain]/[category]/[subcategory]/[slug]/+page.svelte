@@ -105,6 +105,8 @@
 								src={images[currentImageIndex]}
 								alt={getStr(project.title, $language)}
 								class="h-auto w-full object-cover"
+								loading="lazy"
+								decoding="async"
 							/>
 
 							{#if images.length > 1}
@@ -174,6 +176,8 @@
 								src={project.image}
 								alt={getStr(project.title, $language)}
 								class="h-auto w-full object-cover"
+								loading="lazy"
+								decoding="async"
 							/>
 						</div>
 					</div>

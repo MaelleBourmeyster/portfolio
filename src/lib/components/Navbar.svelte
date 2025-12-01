@@ -20,9 +20,15 @@
 		language.toggle();
 	}
 
+	type NavKey = keyof typeof translations.en.nav;
+
+	function isNavKey(key: string): key is NavKey {
+		return key in translations.en.nav;
+	}
+
 	function getTranslatedName(translationKey: string, fallback: string) {
-		if (translationKey && t.nav[translationKey as keyof typeof t.nav]) {
-			return t.nav[translationKey as keyof typeof t.nav];
+		if (isNavKey(translationKey)) {
+			return t.nav[translationKey];
 		}
 		return fallback;
 	}

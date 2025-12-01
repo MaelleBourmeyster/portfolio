@@ -57,6 +57,8 @@
 							src="{base}/images/maelle/maelle-1.png"
 							alt="Maëlle Bourmeyster"
 							class="h-full w-full object-cover"
+							loading="lazy"
+							decoding="async"
 						/>
 					</div>
 				</div>

@@ -88,6 +88,8 @@ export async function getNavigationTree(projects?: Project[]): Promise<Navigatio
 	return tree;
 }
 
+import { getYearValue } from '../utils';
+
 export async function getHomeCategories(): Promise<HomeCategory[]> {
 	const projects = await getProjects();
 	const navigationTree = await getNavigationTree(projects);
@@ -101,13 +103,6 @@ export async function getHomeCategories(): Promise<HomeCategory[]> {
 			projectsByCategory.set(p.categorySlug, existing);
 		}
 	}
-
-	// Helper for year extraction
-	const getYearValue = (yearStr: string | undefined): number => {
-		if (!yearStr) return 0;
-		const match = yearStr.match(/\d{4}/);
-		return match ? parseInt(match[0], 10) : 0;
-	};
 
 	const categories: HomeCategory[] = [];
 
