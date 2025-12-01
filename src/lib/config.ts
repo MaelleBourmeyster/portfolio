@@ -15,7 +15,13 @@ export const siteConfig = {
 	defaultImage: DEFAULTS.IMAGE,
 
 	// Default description
-	defaultDescription: DEFAULTS.DESCRIPTION
+	defaultDescription: DEFAULTS.DESCRIPTION,
+
+	// Address
+	address: {
+		locality: 'Lyon',
+		country: 'FR'
+	}
 };
 
 /**

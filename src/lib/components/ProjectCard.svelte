@@ -1,6 +1,10 @@
 <script lang="ts">
 	import { language } from '$lib/stores/language';
 	import { translations } from '$lib/data/translations';
+	import { FILE_EXTENSIONS } from '$lib/constants';
+	import { getStr } from '$lib/utils';
+
+	import ArrowUpRightIcon from '$lib/components/icons/ArrowUpRightIcon.svelte';
 
 	let {
 		title,
@@ -15,22 +19,14 @@
 		thumbnail?: string;
 		year: string;
 	}>();
-
-	// Helper to get string
-	function getStr(val: string | { en: string; fr: string }, lang: 'en' | 'fr') {
-		if (typeof val === 'string') return val;
-		return val[lang];
-	}
 </script>
 
-<div
-	class="group relative border-2 border-black bg-white p-4 shadow-[4px_4px_0px_#000] transition-all hover:-translate-y-2 hover:shadow-[8px_8px_0px_#000]"
->
+<div class="pk-shadow pk-shadow-hover group relative border-2 border-black bg-white p-4">
 	<!-- Image Container -->
 	<div class="relative mb-4 aspect-[4/3] w-full overflow-hidden border-2 border-black bg-gray-100">
 		{#if thumbnail || image}
 			{@const src = thumbnail || image}
-			{#if src.match(/\.(mp4|webm|ogg|mov)$/i)}
+			{#if src.match(FILE_EXTENSIONS.VIDEOS)}
 				<video
 					{src}
 					class="pointer-events-none h-full w-full object-cover"
@@ -71,20 +67,7 @@
 		<div
 			class="flex h-8 w-8 items-center justify-center rounded-full border-2 border-black transition-colors group-hover:bg-black group-hover:text-white"
 		>
-			<svg
-				xmlns="http://www.w3.org/2000/svg"
-				fill="none"
-				viewBox="0 0 24 24"
-				stroke-width="2"
-				stroke="currentColor"
-				class="h-4 w-4"
-			>
-				<path
-					stroke-linecap="round"
-					stroke-linejoin="round"
-					d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"
-				/>
-			</svg>
+			<ArrowUpRightIcon class="h-4 w-4" />
 		</div>
 	</div>
 </div>

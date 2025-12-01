@@ -60,11 +60,11 @@ export async function getProjects(): Promise<Project[]> {
 	return result;
 }
 
-export async function getNavigationTree(): Promise<NavigationItem[]> {
-	const projects = await getProjects();
+export async function getNavigationTree(projects?: Project[]): Promise<NavigationItem[]> {
+	const allProjects = projects || (await getProjects());
 	const domains = new Map<string, Set<string>>();
 
-	projects.forEach((p) => {
+	allProjects.forEach((p) => {
 		if (!domains.has(p.domainSlug)) {
 			domains.set(p.domainSlug, new Set());
 		}

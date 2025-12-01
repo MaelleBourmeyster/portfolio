@@ -4,15 +4,10 @@
 	import { resolve } from '$app/paths';
 	import { language } from '$lib/stores/language';
 	import { translations } from '$lib/data/translations';
-	import { getAbsoluteUrl, getImageUrl } from '$lib/config';
+	import { getAbsoluteUrl, getImageUrl, siteConfig } from '$lib/config';
 
-	import type { CategoryItem } from '$lib/types';
+	import type { HomeCategory } from '$lib/types';
 	import type { PageData } from './$types';
-
-	interface Category extends CategoryItem {
-		image: string;
-		year: string;
-	}
 
 	let { data } = $props<{ data: PageData }>();
 
@@ -20,18 +15,18 @@
 	let jsonLd = $derived({
 		'@context': 'https://schema.org',
 		'@type': 'Person',
-		name: 'Maëlle Bourmeyster',
+		name: siteConfig.author,
 		url: getAbsoluteUrl(),
-		image: getImageUrl('/images/maelle/maelle-1.png'),
+		image: getImageUrl(siteConfig.defaultImage),
 		jobTitle: t.meta.jobTitle,
 		description: t.home.heroDesc,
 		sameAs: [],
 		address: {
 			'@type': 'PostalAddress',
-			addressLocality: 'Lyon',
-			addressCountry: 'FR'
+			addressLocality: siteConfig.address.locality,
+			addressCountry: siteConfig.address.country
 		},
-		email: 'maelle.bourmeyster@gmail.com'
+		email: siteConfig.email
 	});
 	let jsonLdString = $derived(JSON.stringify(jsonLd));
 
@@ -43,7 +38,7 @@
 	}
 
 	let categories = $derived(
-		((data.categories as Category[]) || []).map((cat) => ({
+		data.categories.map((cat: HomeCategory) => ({
 			title: getTranslatedTitle(cat.slug, cat.translationKey, cat.name),
 			category: t.home.gallery,
 			href: cat.href,
@@ -54,23 +49,23 @@
 </script>
 
 <svelte:head>
-	<title>Maëlle Bourmeyster</title>
+	<title>{siteConfig.author}</title>
 	<meta name="description" content={t.home.heroDesc} />
 
 	<!-- Open Graph -->
 	<meta property="og:type" content="website" />
 	<meta property="og:url" content={getAbsoluteUrl()} />
-	<meta property="og:title" content="Maëlle Bourmeyster - Multidisciplinary Artist" />
+	<meta property="og:title" content="{siteConfig.author} - Multidisciplinary Artist" />
 	<meta property="og:description" content={t.home.heroDesc} />
-	<meta property="og:image" content={getImageUrl('/images/maelle/maelle-1.png')} />
+	<meta property="og:image" content={getImageUrl(siteConfig.defaultImage)} />
 	<meta property="og:locale" content={$language === 'en' ? 'en_US' : 'fr_FR'} />
 
 	<!-- Twitter Card -->
 	<meta name="twitter:card" content="summary_large_image" />
 	<meta name="twitter:url" content={getAbsoluteUrl()} />
-	<meta name="twitter:title" content="Maëlle Bourmeyster - Multidisciplinary Artist" />
+	<meta name="twitter:title" content="{siteConfig.author} - Multidisciplinary Artist" />
 	<meta name="twitter:description" content={t.home.heroDesc} />
-	<meta name="twitter:image" content={getImageUrl('/images/maelle/maelle-1.png')} />
+	<meta name="twitter:image" content={getImageUrl(siteConfig.defaultImage)} />
 
 	<!-- Canonical URL -->
 	<link rel="canonical" href={getAbsoluteUrl()} />
@@ -97,7 +92,7 @@
 		<div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
 			{#if categories.length === 0}
 				<div class="col-span-full p-12 text-center">
-					<div class="inline-block border-2 border-black bg-white p-8 shadow-[8px_8px_0px_#000]">
+					<div class="pk-shadow-lg inline-block border-2 border-black bg-white p-8">
 						<p class="mb-2 text-xl font-bold">{t.home.explore}</p>
 						<p class="text-gray-600">{t.home.noCategories}</p>
 					</div>

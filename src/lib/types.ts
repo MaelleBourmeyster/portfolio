@@ -11,3 +11,8 @@ export interface NavigationItem {
 	translationKey: string;
 	categories: CategoryItem[];
 }
+
+export interface HomeCategory extends CategoryItem {
+	image: string;
+	year: string;
+}

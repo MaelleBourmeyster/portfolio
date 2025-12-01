@@ -1,25 +1,36 @@
 import type { PageServerLoad } from './$types';
 import { getNavigationTree, getProjects } from '$lib/server/projects';
+import type { HomeCategory } from '$lib/types';
 
 export const load: PageServerLoad = async () => {
-	const navigationTree = await getNavigationTree();
 	const projects = await getProjects();
+	const navigationTree = await getNavigationTree(projects);
 
-	const categories = [];
+	// Optimization: Group projects by category for O(1) lookup
+	const projectsByCategory = new Map<string, typeof projects>();
+	for (const p of projects) {
+		if (p.image) {
+			const existing = projectsByCategory.get(p.categorySlug) || [];
+			existing.push(p);
+			projectsByCategory.set(p.categorySlug, existing);
+		}
+	}
+
+	// Helper for year extraction (defined once)
+	const getYearValue = (yearStr: string | undefined): number => {
+		if (!yearStr) return 0;
+		const match = yearStr.match(/\d{4}/);
+		return match ? parseInt(match[0], 10) : 0;
+	};
+
+	const categories: HomeCategory[] = [];
 
 	for (const domain of navigationTree) {
 		for (const cat of domain.categories) {
-			// Find latest project for this category
-			const catProjects = projects.filter((p) => p.categorySlug === cat.slug && p.image);
+			const catProjects = projectsByCategory.get(cat.slug) || [];
 
-			// Sort by year descending (robust extraction of first 4-digit year)
-			catProjects.sort((a, b) => {
-				const getYear = (y: string | undefined) => {
-					const match = (y || '').match(/\d{4}/);
-					return match ? parseInt(match[0], 10) : 0;
-				};
-				return getYear(b.year) - getYear(a.year);
-			});
+			// Sort by year descending
+			catProjects.sort((a, b) => getYearValue(b.year) - getYearValue(a.year));
 
 			let image = '';
 			let year = new Date().getFullYear().toString();

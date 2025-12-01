@@ -35,10 +35,17 @@ body {
 	box-shadow: 2px 2px 0px var(--pk-ink);
 }
 
+.pk-shadow-lg {
+	box-shadow: 8px 8px 0px var(--pk-ink);
+}
+
+.pk-shadow-hover {
+	transition: all 0.2s ease;
+}
+
 .pk-shadow-hover:hover {
 	transform: translate(-2px, -2px);
-	box-shadow: 6px 6px 0px var(--pk-ink);
-	transition: all 0.2s ease;
+	box-shadow: 8px 8px 0px var(--pk-ink);
 }
 
 .pk-btn {
