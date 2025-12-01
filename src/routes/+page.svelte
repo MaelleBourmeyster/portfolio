@@ -6,13 +6,10 @@
 	import { translations } from '$lib/data/translations';
 	import { getAbsoluteUrl, getImageUrl } from '$lib/config';
 
+	import type { CategoryItem } from '$lib/types';
 	import type { PageData } from './$types';
 
-	interface Category {
-		slug: string;
-		translationKey: string;
-		name: string;
-		href: string;
+	interface Category extends CategoryItem {
 		image: string;
 		year: string;
 	}
@@ -26,7 +23,7 @@
 		name: 'Maëlle Bourmeyster',
 		url: getAbsoluteUrl(),
 		image: getImageUrl('/images/maelle/maelle-1.png'),
-		jobTitle: 'Multidisciplinary Artist',
+		jobTitle: t.meta.jobTitle,
 		description: t.home.heroDesc,
 		sameAs: [],
 		address: {
@@ -102,7 +99,7 @@
 				<div class="col-span-full p-12 text-center">
 					<div class="inline-block border-2 border-black bg-white p-8 shadow-[8px_8px_0px_#000]">
 						<p class="mb-2 text-xl font-bold">{t.home.explore}</p>
-						<p class="text-gray-600">No categories found. Please check back later.</p>
+						<p class="text-gray-600">{t.home.noCategories}</p>
 					</div>
 				</div>
 			{:else}

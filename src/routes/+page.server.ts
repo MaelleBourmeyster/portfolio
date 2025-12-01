@@ -12,8 +12,14 @@ export const load: PageServerLoad = async () => {
 			// Find latest project for this category
 			const catProjects = projects.filter((p) => p.categorySlug === cat.slug && p.image);
 
-			// Sort by year descending
-			catProjects.sort((a, b) => parseInt(b.year || '0') - parseInt(a.year || '0'));
+			// Sort by year descending (robust extraction of first 4-digit year)
+			catProjects.sort((a, b) => {
+				const getYear = (y: string | undefined) => {
+					const match = (y || '').match(/\d{4}/);
+					return match ? parseInt(match[0], 10) : 0;
+				};
+				return getYear(b.year) - getYear(a.year);
+			});
 
 			let image = '';
 			let year = new Date().getFullYear().toString();

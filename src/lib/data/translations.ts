@@ -25,7 +25,11 @@ export const translations = {
 				'A multidisciplinary journey through Fine Arts, Digital Creation, and Craftsmanship.',
 			viewProjects: 'View Projects',
 			getInTouch: 'Get in Touch',
-			gallery: 'Gallery'
+			gallery: 'Gallery',
+			noCategories: 'No categories found. Please check back later.'
+		},
+		meta: {
+			jobTitle: 'Multidisciplinary Artist'
 		},
 		footer: {
 			legal: 'Legal Notice',
@@ -154,7 +158,11 @@ export const translations = {
 				"Un voyage multidisciplinaire à travers les Beaux-Arts, la Création Numérique et l'Artisanat.",
 			viewProjects: 'Voir les Projets',
 			getInTouch: 'Me Contacter',
-			gallery: 'Galerie'
+			gallery: 'Galerie',
+			noCategories: 'Aucune catégorie trouvée. Veuillez revenir plus tard.'
+		},
+		meta: {
+			jobTitle: 'Artiste Multidisciplinaire'
 		},
 		footer: {
 			legal: 'Mentions Légales',
