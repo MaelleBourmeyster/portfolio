@@ -294,20 +294,24 @@ let cachedProjects: Project[] | null = null;
 let cachedSignature: string | null = null;
 let inFlight: Promise<Project[]> | null = null;
 
+function sortProjects(projects: Project[]): void {
+	projects.sort((a, b) => {
+		return (
+			a.domainSlug.localeCompare(b.domainSlug) ||
+			a.categorySlug.localeCompare(b.categorySlug) ||
+			a.subCategory.localeCompare(b.subCategory) ||
+			a.slug.localeCompare(b.slug)
+		);
+	});
+}
+
 export async function getProjects(): Promise<Project[]> {
 	const projectsDir = path.resolve('static/projects');
 	if (!(await fileExists(projectsDir))) return [];
 
 	if (dev) {
 		const projects = await findProjects(projectsDir, projectsDir);
-		projects.sort((a, b) => {
-			return (
-				a.domainSlug.localeCompare(b.domainSlug) ||
-				a.categorySlug.localeCompare(b.categorySlug) ||
-				a.subCategory.localeCompare(b.subCategory) ||
-				a.slug.localeCompare(b.slug)
-			);
-		});
+		sortProjects(projects);
 		return projects;
 	}
 
@@ -320,21 +324,17 @@ export async function getProjects(): Promise<Project[]> {
 	if (inFlight) return inFlight;
 
 	inFlight = (async () => {
-		const projects = await findProjects(projectsDir, projectsDir);
-		projects.sort((a, b) => {
-			return (
-				a.domainSlug.localeCompare(b.domainSlug) ||
-				a.categorySlug.localeCompare(b.categorySlug) ||
-				a.subCategory.localeCompare(b.subCategory) ||
-				a.slug.localeCompare(b.slug)
-			);
-		});
+		try {
+			const projects = await findProjects(projectsDir, projectsDir);
+			sortProjects(projects);
 
-		cachedProjects = projects;
-		cachedSignature = signature;
-		inFlight = null;
+			cachedProjects = projects;
+			cachedSignature = signature;
 
-		return projects;
+			return projects;
+		} finally {
+			inFlight = null;
+		}
 	})();
 
 	const result = await inFlight;
