@@ -1,9 +1,10 @@
 import { dev } from '$app/environment';
 import { base } from '$app/paths';
+import { URLS, DEFAULTS } from '$lib/constants';
 
 export const siteConfig = {
 	// Base URL according to environment
-	url: dev ? 'http://localhost:5173' : 'https://maellebourmeyster.github.io',
+	url: dev ? URLS.DEVELOPMENT : URLS.PRODUCTION,
 
 	// Site information
 	name: 'Maëlle Bourmeyster Portfolio',
@@ -11,10 +12,10 @@ export const siteConfig = {
 	email: 'maelle.bourmeyster@gmail.com',
 
 	// Default OG image
-	defaultImage: '/images/maelle/maelle-1.png',
+	defaultImage: DEFAULTS.IMAGE,
 
 	// Default description
-	defaultDescription: 'Multidisciplinary Artist - Sculpture, Drawing, Digital Arts'
+	defaultDescription: DEFAULTS.DESCRIPTION
 };
 
 /**

@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { TIMEOUTS } from '$lib/constants';
+
 	let { src, poster = '' } = $props<{ src: string; poster?: string }>();
 
 	let video: HTMLVideoElement;
@@ -79,7 +81,7 @@
 		clearTimeout(controlsTimeout);
 		controlsTimeout = setTimeout(() => {
 			if (isPlaying) showControls = false;
-		}, 2000);
+		}, TIMEOUTS.VIDEO_CONTROLS_HIDE);
 	}
 
 	function handleVideoEnd() {

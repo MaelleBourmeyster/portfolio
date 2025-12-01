@@ -5,6 +5,7 @@ import { base } from '$app/paths';
 import { dev } from '$app/environment';
 import { translations } from '$lib/data/translations';
 import { z } from 'zod';
+import { FILE_EXTENSIONS, DEFAULTS } from '$lib/constants';
 
 // Dev-only logger to avoid polluting production logs
 const logger = {
@@ -86,7 +87,7 @@ async function discoverMedia(
 	const mediaDir = path.join(projectDir, type);
 	if (!(await fileExists(mediaDir))) return [];
 
-	const extensions = type === 'images' ? /\.(png|jpg|jpeg|webp|gif)$/i : /\.(mp4|webm|ogg|mov)$/i;
+	const extensions = type === 'images' ? FILE_EXTENSIONS.IMAGES : FILE_EXTENSIONS.VIDEOS;
 
 	const files = await fs.readdir(mediaDir);
 	files.sort(); // ensure deterministic ordering
@@ -183,7 +184,7 @@ export async function loadProject(projectDir: string, rootDir: string): Promise<
 			discoverMedia(projectDir, urlPath, 'videos')
 		]);
 
-		const year = json.year ?? '0000';
+		const year = json.year ?? DEFAULTS.YEAR;
 
 		// Image Resolution
 		let mainImage = json.image ?? '';
