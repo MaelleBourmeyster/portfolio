@@ -1,6 +1,8 @@
 import { promises as fs } from 'fs';
 import path from 'path';
+import { createHash } from 'crypto';
 import { base } from '$app/paths';
+import { dev } from '$app/environment';
 import { translations } from '$lib/data/translations';
 import { z } from 'zod';
 
@@ -254,21 +256,81 @@ async function findProjects(dir: string, rootDir: string): Promise<Project[]> {
 	return results;
 }
 
+async function getProjectsSignature(projectsDir: string): Promise<string> {
+	const hash = createHash('sha1');
+
+	async function walk(dir: string) {
+		const entries = await fs.readdir(dir, { withFileTypes: true });
+		entries.sort((a, b) => a.name.localeCompare(b.name));
+
+		for (const entry of entries) {
+			const fullPath = path.join(dir, entry.name);
+			const rel = path.relative(projectsDir, fullPath).replace(/\\/g, '/');
+
+			if (entry.isDirectory()) {
+				hash.update(`dir:${rel}`);
+				await walk(fullPath);
+			} else if (entry.isFile()) {
+				const stat = await fs.stat(fullPath);
+				hash.update(`file:${rel}:${stat.mtimeMs}:${stat.size}`);
+			}
+		}
+	}
+
+	await walk(projectsDir);
+	return hash.digest('hex');
+}
+
+let cachedProjects: Project[] | null = null;
+let cachedSignature: string | null = null;
+let inFlight: Promise<Project[]> | null = null;
+
 export async function getProjects(): Promise<Project[]> {
 	const projectsDir = path.resolve('static/projects');
 	if (!(await fileExists(projectsDir))) return [];
 
-	const projects = await findProjects(projectsDir, projectsDir);
-	projects.sort((a, b) => {
-		return (
-			a.domainSlug.localeCompare(b.domainSlug) ||
-			a.categorySlug.localeCompare(b.categorySlug) ||
-			a.subCategory.localeCompare(b.subCategory) ||
-			a.slug.localeCompare(b.slug)
-		);
-	});
+	if (dev) {
+		const projects = await findProjects(projectsDir, projectsDir);
+		projects.sort((a, b) => {
+			return (
+				a.domainSlug.localeCompare(b.domainSlug) ||
+				a.categorySlug.localeCompare(b.categorySlug) ||
+				a.subCategory.localeCompare(b.subCategory) ||
+				a.slug.localeCompare(b.slug)
+			);
+		});
+		return projects;
+	}
 
-	return projects;
+	const signature = await getProjectsSignature(projectsDir);
+
+	if (cachedProjects && cachedSignature === signature) {
+		return cachedProjects;
+	}
+
+	if (inFlight) return inFlight;
+
+	inFlight = (async () => {
+		const projects = await findProjects(projectsDir, projectsDir);
+		projects.sort((a, b) => {
+			return (
+				a.domainSlug.localeCompare(b.domainSlug) ||
+				a.categorySlug.localeCompare(b.categorySlug) ||
+				a.subCategory.localeCompare(b.subCategory) ||
+				a.slug.localeCompare(b.slug)
+			);
+		});
+
+		cachedProjects = projects;
+		cachedSignature = signature;
+		inFlight = null;
+
+		return projects;
+	})();
+
+	const result = await inFlight;
+
+	return result;
 }
 
 export async function getNavigationTree(): Promise<NavigationItem[]> {
