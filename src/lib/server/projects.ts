@@ -6,6 +6,15 @@ import { dev } from '$app/environment';
 import { translations } from '$lib/data/translations';
 import { z } from 'zod';
 
+// Dev-only logger to avoid polluting production logs
+const logger = {
+	error: (msg: string, data?: unknown) => {
+		if (dev) {
+			console.error(msg, data);
+		}
+	}
+};
+
 // --- Zod Schema ---
 const LocalizedStringSchema = z.union([
 	z.string(),
@@ -161,7 +170,7 @@ export async function loadProject(projectDir: string, rootDir: string): Promise<
 		const result = ProjectDetailsSchema.safeParse(rawJson);
 
 		if (!result.success) {
-			console.error(`Validation error in ${detailsPath}:`, result.error.format());
+			logger.error(`Validation error in ${detailsPath}:`, result.error.format());
 			return null;
 		}
 
@@ -219,7 +228,7 @@ export async function loadProject(projectDir: string, rootDir: string): Promise<
 			translationKey: getTranslationKey(structure.categorySlug)
 		};
 	} catch (e) {
-		console.error(`Error reading project ${slug}`, e);
+		logger.error(`Error reading project ${slug}`, e);
 		return null;
 	}
 }
@@ -250,7 +259,7 @@ async function findProjects(dir: string, rootDir: string): Promise<Project[]> {
 		const nestedResults = await Promise.all(promises);
 		results = nestedResults.flat();
 	} catch (e) {
-		console.error(`Error scanning directory ${dir}`, e);
+		logger.error(`Error scanning directory ${dir}`, e);
 	}
 
 	return results;

@@ -2,11 +2,19 @@
 	import { language } from '$lib/stores/language';
 	import { translations } from '$lib/data/translations';
 
-	export let title: string | { en: string; fr: string };
-	export let category: string | { en: string; fr: string };
-	export let image: string;
-	export let thumbnail: string | undefined = undefined;
-	export let year: string;
+	let {
+		title,
+		category,
+		image,
+		thumbnail = undefined,
+		year
+	} = $props<{
+		title: string | { en: string; fr: string };
+		category: string | { en: string; fr: string };
+		image: string;
+		thumbnail?: string;
+		year: string;
+	}>();
 
 	// Helper to get string
 	function getStr(val: string | { en: string; fr: string }, lang: 'en' | 'fr') {

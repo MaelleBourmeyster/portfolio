@@ -1,39 +1,28 @@
 import { error } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
-import { getTranslationKey } from '$lib/server/projects';
+import { getProjects } from '$lib/server/projects';
 
-export const load: PageServerLoad = async ({ params, parent }) => {
-	const slugPattern = /^[A-Za-z0-9-]+$/;
+export const load: PageServerLoad = async ({ params }) => {
 	const { domain, category } = params;
 
-	if (!slugPattern.test(domain) || !slugPattern.test(category)) {
-		throw error(404, 'Not found');
-	}
-
-	const { navigationTree, projects: parentProjects = [] } = await parent();
-
-	const domainNode = navigationTree.find((d) => d.slug === domain);
-	if (!domainNode) {
-		throw error(404, 'Domain not found');
-	}
-
-	const categoryNode = domainNode.categories.find((c) => c.slug === category);
-	if (!categoryNode) {
-		throw error(404, 'Category not found');
-	}
-
-	const projects = parentProjects.filter(
+	const projects = await getProjects();
+	const filteredProjects = projects.filter(
 		(p) => p.domainSlug === domain && p.categorySlug === category
 	);
 
-	if (projects.length === 0) {
-		throw error(404, 'No projects found');
+	if (filteredProjects.length === 0) {
+		error(404, {
+			message: `No projects found in category "${category}"`
+		});
 	}
 
+	// Get translation key from first project
+	const translationKey = filteredProjects[0]?.translationKey || category;
+
 	return {
-		projects,
-		categorySlug: category,
+		projects: filteredProjects,
 		domainSlug: domain,
-		translationKey: getTranslationKey(category)
+		categorySlug: category,
+		translationKey
 	};
 };
