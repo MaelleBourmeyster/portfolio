@@ -1,7 +1,6 @@
 import { promises as fs } from 'fs';
 import path from 'path';
 import { base } from '$app/paths';
-import { dev } from '$app/environment';
 import { translations } from '$lib/data/translations';
 import { z } from 'zod';
 
@@ -255,54 +254,21 @@ async function findProjects(dir: string, rootDir: string): Promise<Project[]> {
 	return results;
 }
 
-let cachedProjects: Project[] | null = null;
-let cachedMtimeMs: number | null = null;
-let inFlight: Promise<Project[]> | null = null;
-
-async function getProjectsMtime(projectsDir: string): Promise<number> {
-	const stat = await fs.stat(projectsDir);
-	return stat.mtimeMs;
-}
-
 export async function getProjects(): Promise<Project[]> {
 	const projectsDir = path.resolve('static/projects');
 	if (!(await fileExists(projectsDir))) return [];
 
-	const currentMtime = await getProjectsMtime(projectsDir);
+	const projects = await findProjects(projectsDir, projectsDir);
+	projects.sort((a, b) => {
+		return (
+			a.domainSlug.localeCompare(b.domainSlug) ||
+			a.categorySlug.localeCompare(b.categorySlug) ||
+			a.subCategory.localeCompare(b.subCategory) ||
+			a.slug.localeCompare(b.slug)
+		);
+	});
 
-	if (cachedProjects && cachedMtimeMs === currentMtime) {
-		return cachedProjects;
-	}
-
-	if (inFlight) return inFlight;
-
-	inFlight = (async () => {
-		const projects = await findProjects(projectsDir, projectsDir);
-		projects.sort((a, b) => {
-			return (
-				a.domainSlug.localeCompare(b.domainSlug) ||
-				a.categorySlug.localeCompare(b.categorySlug) ||
-				a.subCategory.localeCompare(b.subCategory) ||
-				a.slug.localeCompare(b.slug)
-			);
-		});
-
-		cachedProjects = projects;
-		cachedMtimeMs = currentMtime;
-		inFlight = null;
-
-		return projects;
-	})();
-
-	const result = await inFlight;
-
-	if (dev) {
-		// In dev, avoid long-lived cache; keep in-flight dedupe only.
-		cachedProjects = null;
-		cachedMtimeMs = null;
-	}
-
-	return result;
+	return projects;
 }
 
 export async function getNavigationTree(): Promise<NavigationItem[]> {
