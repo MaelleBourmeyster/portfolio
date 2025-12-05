@@ -1,13 +1,13 @@
 {
-    "slug": "horse",
+    "slug": "monte-cristo",
     "description": {
-        "en": "An anatomical study of a horse using plastiline.",
-        "fr": "Une étude anatomique d'un cheval réalisée en plastiline."
+        "en": "A sculpture of the character Monte-Cristo from the film 'Le Comte de Monte-Cristo' by Alexandre de la Patelliere using plastiline.",
+        "fr": "Une sculpture du personnage Monte-Cristo tiré du film d'Alexandre de la Patelliere réalisée en plastiline."
     },
     "year": "2023",
     "title": {
-        "en": "Plastiline Horse",
-        "fr": "Cheval en Plastiline"
+        "en": "Monte-Cristo",
+        "fr": "Le comte de Monte-Cristo"
     },
-    "thumbnail": "plastiline-horse.png"
+    "thumbnail": "monte-cristo.png"
 }
