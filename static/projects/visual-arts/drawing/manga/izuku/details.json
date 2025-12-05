@@ -1,13 +1,13 @@
 {
-    "slug": "izuku-megane",
+    "slug": "izuku-midoriya",
     "description": {
-        "en": "A manga-style illustration of Izuku Megane.",
-        "fr": "Une illustration manga de Izuku Megane."
+        "en": "A manga-style illustration of Izuku Midoriya from the manga 'My Hero Academia' by Kohei Horikoshi.",
+        "fr": "Une illustration manga de Izuku Midoriya tiré du manga 'My Hero Academia' de Kohei Horikoshi."
     },
     "year": "2025",
     "title": {
-        "en": "Izuku Megane",
-        "fr": "Izuku Megane"
+        "en": "Izuku Midoriya",
+        "fr": "Izuku Midoriya"
     },
-    "thumbnail": "izuku.png"
+    "thumbnail": "drawing-izuku.png"
 }

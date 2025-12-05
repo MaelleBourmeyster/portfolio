@@ -1,13 +1,13 @@
 {
-    "slug": "shoto",
+    "slug": "drawing-shoto",
     "description": {
-        "en": "A manga-style illustration of Shoto Todoroki.",
-        "fr": "Une illustration manga de Shoto Todoroki."
+        "en": "A manga-style illustration of Shoto Todoroki from the anime 'My Hero Academia' by Kohei Horikoshi.",
+        "fr": "Une illustration manga de Shoto Todoroki tiré de l'anime 'My Hero Academia' de Kohei Horikoshi."
     },
     "year": "2024",
     "title": {
         "en": "Shoto",
         "fr": "Shoto"
     },
-    "thumbnail": "shoto.png"
+    "thumbnail": "drawing-shoto.png"
 }
