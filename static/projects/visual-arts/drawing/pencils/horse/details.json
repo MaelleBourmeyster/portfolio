@@ -1,13 +1,13 @@
 {
-    "slug": "horse",
+    "slug": "pencil-horse",
     "description": {
         "en": "Detailed pencil illustration of a horse.",
-        "fr": "Illustration détaillée au crayon d'un cheval."
+        "fr": "Illustration détaillée au crayon de couleur d'un cheval."
     },
     "year": "2023",
     "title": {
-        "en": "Horse",
-        "fr": "Cheval"
+        "en": "Pencil Horse",
+        "fr": "Cheval au crayon de couleur"
     },
-    "thumbnail": "paper-pencils-horse.png"
+    "thumbnail": "pencil-horse.png"
 }
