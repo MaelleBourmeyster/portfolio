@@ -27,7 +27,10 @@ function getProjectEntries() {
 
 		if (parts.length < 4) return;
 
-		const [domain, category, subcategory, slug] = parts.slice(-4);
+		const domain = parts[0];
+		const category = parts[1];
+		const subcategory = parts[2];
+		const slug = parts[parts.length - 1];
 		categories.add(`/${domain}/${category}`);
 		projects.add(`/${domain}/${category}/${subcategory}/${slug}`);
 	};
