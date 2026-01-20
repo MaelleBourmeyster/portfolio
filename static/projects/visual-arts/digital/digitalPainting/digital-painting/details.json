@@ -1,13 +1,13 @@
 {
     "slug": "digital-painting",
     "description": {
-        "en": "Digital concept art created in Photoshop.",
-        "fr": "Concept art numérique créé sur Photoshop."
+        "en": "Digital concept art created in IbisPaint.",
+        "fr": "Concept art numérique créé sur IbisPaint."
     },
     "year": "2024",
     "title": {
         "en": "Digital Painting",
         "fr": "Peinture Numérique"
     },
-    "thumbnail": ""
+    "thumbnail": "digital-lion.png"
 }
