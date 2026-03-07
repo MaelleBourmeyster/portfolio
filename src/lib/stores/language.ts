@@ -30,6 +30,21 @@ function createLanguageStore() {
 				return newLang;
 			}),
 		init: () => {
+			// Priority 1: ?lang= in URL (for hreflang / shared links)
+			if (typeof window !== 'undefined') {
+				const params = new URLSearchParams(window.location.search);
+				const langParam = params.get('lang');
+				if (langParam === 'en' || langParam === 'fr') {
+					set(langParam);
+					if (typeof localStorage !== 'undefined') {
+						localStorage.setItem('language', langParam);
+					}
+					setLangAttribute(langParam);
+					return;
+				}
+			}
+
+			// Priority 2: localStorage
 			if (typeof localStorage !== 'undefined') {
 				const stored = localStorage.getItem('language') as Language;
 				if (stored && (stored === 'en' || stored === 'fr')) {
@@ -39,7 +54,7 @@ function createLanguageStore() {
 				}
 			}
 
-			// Fallback to browser language when nothing stored
+			// Priority 3: Browser language
 			if (typeof navigator !== 'undefined') {
 				const browserLang = navigator.language?.startsWith('fr') ? 'fr' : 'en';
 				set(browserLang);

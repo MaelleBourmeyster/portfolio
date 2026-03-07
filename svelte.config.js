@@ -40,7 +40,7 @@ function getProjectEntries() {
 	return [...new Set([...categories, ...projects])].sort();
 }
 
-const prerenderEntries = ['*', ...getProjectEntries()];
+const prerenderEntries = ['*', '/robots.txt', '/sitemap.xml', ...getProjectEntries()];
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -52,7 +52,7 @@ const config = {
 			pages: 'build',
 			assets: 'build',
 			fallback: '404.html',
-			precompress: false,
+			precompress: true,
 			strict: true
 		}),
 		prerender: {

@@ -1,6 +1,5 @@
 export const TIMEOUTS = {
-	VIDEO_CONTROLS_HIDE: 2000,
-	CONTROLS_FADE_DELAY: 2000
+	VIDEO_CONTROLS_HIDE: 2000
 } as const;
 
 export const URLS = {
@@ -16,5 +15,12 @@ export const FILE_EXTENSIONS = {
 export const DEFAULTS = {
 	YEAR: '0000',
 	IMAGE: '/images/maelle/maelle-1.png',
+	IMAGE_ALT: 'Maëlle Bourmeyster - Multidisciplinary Artist',
 	DESCRIPTION: 'Multidisciplinary Artist - Sculpture, Drawing, Digital Arts'
+} as const;
+
+/** Recommended Open Graph image dimensions (1.91:1 ratio) */
+export const OG_IMAGE = {
+	WIDTH: 1200,
+	HEIGHT: 630
 } as const;

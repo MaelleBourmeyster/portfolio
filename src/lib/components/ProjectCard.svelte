@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { language } from '$lib/stores/language';
-	import { translations } from '$lib/data/translations';
+	import { t } from '$lib/stores/translations';
 	import { FILE_EXTENSIONS } from '$lib/constants';
 	import { getStr } from '$lib/utils';
 
@@ -11,19 +11,23 @@
 		category,
 		image,
 		thumbnail = undefined,
-		year
+		year,
+		priority = false
 	} = $props<{
 		title: string | { en: string; fr: string };
 		category: string | { en: string; fr: string };
 		image: string;
 		thumbnail?: string;
 		year: string;
+		priority?: boolean;
 	}>();
 </script>
 
-<div class="pk-shadow pk-shadow-hover group relative border-2 border-black bg-white p-4">
+<div
+	class="group relative border-2 border-pk-ink bg-pk-white p-4 shadow-pk transition-all duration-200 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-pk-lg"
+>
 	<!-- Image Container -->
-	<div class="relative mb-4 aspect-[4/3] w-full overflow-hidden border-2 border-black bg-gray-100">
+	<div class="relative mb-4 aspect-[4/3] w-full overflow-hidden border-2 border-pk-ink bg-gray-100">
 		{#if thumbnail || image}
 			{@const src = thumbnail || image}
 			{#if src.match(FILE_EXTENSIONS.VIDEOS)}
@@ -42,19 +46,20 @@
 					{src}
 					alt={getStr(title, $language)}
 					class="h-full w-full object-cover"
-					loading="lazy"
+					loading={priority ? 'eager' : 'lazy'}
+					fetchpriority={priority ? 'high' : undefined}
 					decoding="async"
 				/>
 			{/if}
 		{:else}
 			<div class="flex h-full w-full items-center justify-center bg-gray-200 text-gray-400">
-				{translations[$language].project.noImage}
+				{$t.project.noImage}
 			</div>
 		{/if}
 
 		<!-- Overlay Tag -->
 		<div
-			class="absolute top-2 right-2 border-2 border-black bg-white px-2 py-1 text-xs font-bold uppercase"
+			class="absolute top-2 right-2 border-2 border-pk-ink bg-pk-white px-2 py-1 text-xs font-bold uppercase"
 		>
 			{year}
 		</div>
@@ -71,7 +76,7 @@
 			<p class="font-mono text-sm text-gray-500">{getStr(category, $language)}</p>
 		</div>
 		<div
-			class="flex h-8 w-8 items-center justify-center rounded-full border-2 border-black transition-colors group-hover:bg-black group-hover:text-white"
+			class="flex h-8 w-8 items-center justify-center rounded-full border-2 border-pk-ink transition-colors group-hover:bg-pk-ink group-hover:text-pk-white"
 		>
 			<ArrowUpRightIcon class="h-4 w-4" />
 		</div>

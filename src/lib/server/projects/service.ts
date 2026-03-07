@@ -2,9 +2,11 @@ import path from 'path';
 import { dev } from '$app/environment';
 import type { NavigationItem, HomeCategory } from '$lib/types';
 import type { Project } from './schema';
-import { findProjects, getProjectsSignature, formatName, getTranslationKey } from './data';
+import { findProjects } from './data';
+import { getProjectsSignature } from './signature';
+import { buildNavigationTree } from './navigation';
+import { buildHomeCategories } from './categories';
 
-// --- Caching State ---
 let cachedProjects: Project[] | null = null;
 let cachedSignature: string | null = null;
 let inFlight: Promise<Project[]> | null = null;
@@ -23,10 +25,6 @@ function sortProjects(projects: Project[]): void {
 export async function getProjects(): Promise<Project[]> {
 	const projectsDir = path.resolve('static/projects');
 
-	// In dev, we might want to skip caching or handle it differently,
-	// but keeping the signature check is good practice even in dev
-	// to avoid unnecessary re-scans if nothing changed.
-	// However, the original code forced a re-scan in dev.
 	if (dev) {
 		const projects = await findProjects(projectsDir, projectsDir);
 		sortProjects(projects);
@@ -55,82 +53,16 @@ export async function getProjects(): Promise<Project[]> {
 		}
 	})();
 
-	const result = await inFlight;
-
-	return result;
+	return inFlight;
 }
 
 export async function getNavigationTree(projects?: Project[]): Promise<NavigationItem[]> {
-	const allProjects = projects || (await getProjects());
-	const domains = new Map<string, Set<string>>();
-
-	allProjects.forEach((p) => {
-		if (!domains.has(p.domainSlug)) {
-			domains.set(p.domainSlug, new Set());
-		}
-		domains.get(p.domainSlug)?.add(p.categorySlug);
-	});
-
-	const tree = Array.from(domains.entries()).map(([domainSlug, categories]) => {
-		return {
-			name: formatName(domainSlug),
-			slug: domainSlug,
-			translationKey: getTranslationKey(domainSlug),
-			categories: Array.from(categories).map((catSlug) => ({
-				name: formatName(catSlug),
-				slug: catSlug,
-				href: `/${domainSlug}/${catSlug}`,
-				translationKey: getTranslationKey(catSlug)
-			}))
-		};
-	});
-
-	return tree;
+	const allProjects = projects ?? (await getProjects());
+	return buildNavigationTree(allProjects);
 }
-
-import { getYearValue } from '../utils';
 
 export async function getHomeCategories(): Promise<HomeCategory[]> {
 	const projects = await getProjects();
-	const navigationTree = await getNavigationTree(projects);
-
-	// Optimization: Group projects by category for O(1) lookup
-	const projectsByCategory = new Map<string, typeof projects>();
-	for (const p of projects) {
-		if (p.image) {
-			const existing = projectsByCategory.get(p.categorySlug) || [];
-			existing.push(p);
-			projectsByCategory.set(p.categorySlug, existing);
-		}
-	}
-
-	const categories: HomeCategory[] = [];
-
-	for (const domain of navigationTree) {
-		for (const cat of domain.categories) {
-			const catProjects = projectsByCategory.get(cat.slug) || [];
-
-			// Sort by year descending
-			catProjects.sort((a, b) => getYearValue(b.year) - getYearValue(a.year));
-
-			let image = '';
-			let year = new Date().getFullYear().toString();
-
-			if (catProjects.length > 0) {
-				image = catProjects[0].image || '';
-				year = catProjects[0].year || year;
-			}
-
-			categories.push({
-				slug: cat.slug,
-				translationKey: cat.translationKey,
-				name: cat.name,
-				href: cat.href,
-				image,
-				year
-			});
-		}
-	}
-
-	return categories;
+	const navigationTree = buildNavigationTree(projects);
+	return buildHomeCategories(navigationTree, projects);
 }

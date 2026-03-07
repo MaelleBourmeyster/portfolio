@@ -1,15 +1,17 @@
 <script lang="ts">
 	import ProjectCard from '$lib/components/ProjectCard.svelte';
+	import PageMeta from '$lib/components/PageMeta.svelte';
+	import PageHeader from '$lib/components/PageHeader.svelte';
+	import Button from '$lib/components/Button.svelte';
 	import { resolve } from '$app/paths';
-	import { language } from '$lib/stores/language';
-	import { translations } from '$lib/data/translations';
-	import { getAbsoluteUrl, getImageUrl } from '$lib/config';
+	import { t } from '$lib/stores/translations';
+	import { siteConfig } from '$lib/config';
+	import { getCategoryName, getSubCategoryName } from '$lib/utils';
 	import type { PageData } from './$types';
 	import type { Project } from '$lib/server/projects';
 
 	let { data } = $props<{ data: PageData }>();
 	let projects = $derived(data.projects as Project[]);
-	let t = $derived(translations[$language]);
 
 	let groupedProjects = $derived.by(() => {
 		const groups: Record<string, Project[]> = {};
@@ -22,95 +24,46 @@
 		return groups;
 	});
 
-	function getCategoryName(slug: string) {
-		const key = data.translationKey;
-		if (key && t.nav[key as keyof typeof t.nav]) {
-			return t.nav[key as keyof typeof t.nav];
-		}
-		return slug.charAt(0).toUpperCase() + slug.slice(1);
-	}
-
-	function getSubCategoryName(slug: string) {
-		// Try to find in categories translations
-		if (t.categories[slug as keyof typeof t.categories]) {
-			return t.categories[slug as keyof typeof t.categories];
-		}
-		// Fallback to capitalizing slug
-		return slug
-			.split('-')
-			.map((s) => s.charAt(0).toUpperCase() + s.slice(1))
-			.join(' ');
-	}
-
-	let categoryName = $derived(getCategoryName(data.categorySlug));
-	let pageUrl = $derived(getAbsoluteUrl(`${data.domainSlug}/${data.categorySlug}`));
-	let firstProjectImage = $derived(
-		projects.length > 0 && projects[0].image
-			? getImageUrl(projects[0].image)
-			: getImageUrl('/images/maelle/maelle-1.png')
+	let categoryName = $derived(getCategoryName($t, data.translationKey, data.categorySlug));
+	let categoryDescription = $derived(
+		$t.project.categoryMetaDescription.replace('{category}', categoryName)
 	);
 </script>
 
-<svelte:head>
-	<title>{categoryName} - Maëlle Bourmeyster</title>
-	<meta
-		name="description"
-		content="Explore {categoryName} projects by Maëlle Bourmeyster, a multidisciplinary artist."
-	/>
-
-	<!-- Open Graph -->
-	<meta property="og:type" content="website" />
-	<meta property="og:url" content={pageUrl} />
-	<meta property="og:title" content="{categoryName} - Maëlle Bourmeyster" />
-	<meta
-		property="og:description"
-		content="Explore {categoryName} projects by Maëlle Bourmeyster, a multidisciplinary artist."
-	/>
-	<meta property="og:image" content={firstProjectImage} />
-	<meta property="og:locale" content={$language === 'en' ? 'en_US' : 'fr_FR'} />
-
-	<!-- Twitter Card -->
-	<meta name="twitter:card" content="summary_large_image" />
-	<meta name="twitter:url" content={pageUrl} />
-	<meta name="twitter:title" content="{categoryName} - Maëlle Bourmeyster" />
-	<meta
-		name="twitter:description"
-		content="Explore {categoryName} projects by Maëlle Bourmeyster, a multidisciplinary artist."
-	/>
-	<meta name="twitter:image" content={firstProjectImage} />
-
-	<!-- Canonical URL -->
-	<link rel="canonical" href={pageUrl} />
-</svelte:head>
+<PageMeta
+	title={categoryName}
+	description={categoryDescription}
+	path={`${data.domainSlug}/${data.categorySlug}`}
+	image={projects.length > 0 && projects[0].image ? projects[0].image : siteConfig.defaultImage}
+	imageAlt={`${categoryName} - ${siteConfig.author}`}
+/>
 
 <div class="min-h-screen">
-	<!-- Header -->
-	<div class="border-b-2 border-black bg-white px-6 py-12">
-		<h1 class="text-center text-5xl font-bold tracking-tighter break-words uppercase md:text-6xl">
-			{getCategoryName(data.categorySlug)}
-		</h1>
-	</div>
+	<PageHeader title={categoryName} />
 
 	<!-- Projects Sections -->
 	{#if Object.keys(groupedProjects).length === 0}
 		<section class="py-16">
 			<div class="mx-auto max-w-7xl px-6 text-center">
-				<div class="inline-block border-2 border-black bg-white p-12 shadow-[8px_8px_0px_#000]">
+				<div class="inline-block border-2 border-pk-ink bg-pk-white p-12 shadow-pk-lg">
 					<h2 class="mb-4 text-2xl font-bold uppercase">{categoryName}</h2>
-					<p class="text-lg text-gray-600">No projects found in this category yet.</p>
-					<a href={resolve('/')} class="pk-btn mt-6 inline-block">Back to Home</a>
+<p class="text-lg text-gray-600">{$t.project.noProjectsInCategory}</p>
+				<Button href={resolve('/')} class="mt-6 inline-block">
+					{$t.project.backToHome}
+				</Button>
 				</div>
 			</div>
 		</section>
 	{:else}
 		{#each Object.entries(groupedProjects) as [subCat, groupProjects], i (subCat)}
-			<section class="py-16 {i % 2 !== 0 ? 'border-y-2 border-black bg-white' : ''}">
+			<section class="py-16 {i % 2 !== 0 ? 'border-y-2 border-pk-ink bg-pk-white' : ''}">
 				<div class="mx-auto max-w-7xl px-6">
 					<h2 class="mb-8 border-l-4 border-blue-600 pl-4 text-3xl font-bold uppercase">
-						{getSubCategoryName(subCat)}
+						{getSubCategoryName($t, subCat)}
 					</h2>
 					<div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-						{#each groupProjects as project (project.slug)}
+						{#each groupProjects as project, j (project.slug)}
+							{@const isFirstCard = i === 0 && j === 0}
 							<a
 								href={resolve(
 									`/${project.domainSlug}/${project.categorySlug}/${project.subCategory}/${project.slug}`
@@ -122,6 +75,7 @@
 									category={project.category}
 									year={project.year}
 									image={project.image || project.thumbnail || ''}
+									priority={isFirstCard}
 								/>
 							</a>
 						{/each}

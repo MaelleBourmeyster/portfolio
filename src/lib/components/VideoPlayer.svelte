@@ -141,7 +141,7 @@
 		<div class="pointer-events-none absolute inset-0 flex items-center justify-center bg-black/20">
 			<button
 				onclick={togglePlay}
-				class="pointer-events-auto flex h-20 w-20 cursor-pointer items-center justify-center border-2 border-black bg-white text-black shadow-[4px_4px_0px_#000] transition-transform hover:scale-105 hover:bg-blue-50 hover:text-blue-600 active:scale-95"
+				class="pointer-events-auto flex h-20 w-20 cursor-pointer items-center justify-center border-2 border-pk-ink bg-pk-white text-pk-ink shadow-pk transition-transform hover:scale-105 hover:bg-blue-50 hover:text-blue-600 active:scale-95"
 				aria-label={isEnded ? 'Replay video' : 'Play video'}
 			>
 				{#if isEnded}
@@ -160,12 +160,12 @@
 			: 'opacity-0'} bg-gradient-to-t from-black/50 to-transparent"
 	>
 		<div
-			class="flex items-center gap-4 border-2 border-black bg-white p-2 text-black shadow-[4px_4px_0px_#000]"
+			class="flex items-center gap-4 border-2 border-pk-ink bg-pk-white p-2 text-pk-ink shadow-pk"
 		>
 			<!-- Play/Pause Mini -->
 			<button
 				onclick={togglePlay}
-				class="shrink-0 border-2 border-transparent p-1 transition-all hover:border-black hover:bg-gray-100 hover:text-blue-600"
+				class="shrink-0 border-2 border-transparent p-1 transition-all hover:border-pk-ink hover:bg-gray-100 hover:text-blue-600"
 				aria-pressed={isPlaying && !isEnded}
 			>
 				{#if isEnded}
@@ -184,7 +184,7 @@
 
 			<!-- Progress Bar -->
 			<div
-				class="group/progress relative h-4 flex-1 cursor-pointer border-2 border-black bg-gray-200"
+				class="group/progress relative h-4 flex-1 cursor-pointer border-2 border-pk-ink bg-gray-200"
 				onclick={handleSeek}
 				role="slider"
 				aria-valuenow={Math.floor(currentTime)}
@@ -196,7 +196,7 @@
 				tabindex="0"
 			>
 				<div
-					class="h-full border-r-2 border-black bg-blue-600 transition-colors group-hover/progress:bg-blue-500"
+					class="h-full border-r-2 border-pk-ink bg-blue-600 transition-colors group-hover/progress:bg-blue-500"
 					style="width: {duration ? (currentTime / duration) * 100 : 0}%"
 				></div>
 			</div>
@@ -205,7 +205,7 @@
 				<!-- Mute -->
 				<button
 					onclick={toggleMute}
-					class="border-2 border-transparent p-1 transition-all hover:border-black hover:bg-gray-100 hover:text-blue-600"
+					class="border-2 border-transparent p-1 transition-all hover:border-pk-ink hover:bg-gray-100 hover:text-blue-600"
 					aria-pressed={isMuted}
 				>
 					{#if isMuted}
@@ -218,7 +218,7 @@
 				<!-- Fullscreen -->
 				<button
 					onclick={toggleFullscreen}
-					class="border-2 border-transparent p-1 transition-all hover:border-black hover:bg-gray-100 hover:text-blue-600"
+					class="border-2 border-transparent p-1 transition-all hover:border-pk-ink hover:bg-gray-100 hover:text-blue-600"
 					aria-pressed={isFullscreen}
 				>
 					{#if isFullscreen}

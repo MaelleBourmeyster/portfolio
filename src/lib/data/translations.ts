@@ -33,10 +33,20 @@ export const translations = {
 		},
 		footer: {
 			legal: 'Legal Notice',
-			copyright: '© 2025 MAELLE BOURMEYSTER.'
+			copyright: '© 2025 MAELLE BOURMEYSTER. All Rights Reserved.'
+		},
+		error: {
+			title: '404',
+			notFound: 'Page Not Found',
+			generic: 'Something Went Wrong',
+			notFoundDesc: "The page you're looking for doesn't exist or has been moved.",
+			genericDesc: 'An unexpected error occurred.',
+			goBack: 'Go Back'
 		},
 		about: {
 			title: 'About',
+			metaDescription:
+				'Learn more about Maëlle Bourmeyster, a multidisciplinary artist passionate about sculpture, drawing, and craftsmanship.',
 			intro1: "Hello! I'm",
 			intro2: ', a multidisciplinary artist based in Lyon, France.',
 			intro3:
@@ -61,6 +71,8 @@ export const translations = {
 		},
 		contact: {
 			title: 'Get in Touch',
+			metaDescription:
+				'Get in touch with Maëlle Bourmeyster for collaborations, inquiries, or just to say hello.',
 			infoTitle: 'Contact Information',
 			infoText:
 				"Whether you have a project in mind, a question about my work, or just want to say hello, I'd love to hear from you.",
@@ -71,6 +83,7 @@ export const translations = {
 			name: 'Name',
 			message: 'Message',
 			send: 'Send Message',
+			mailSubject: 'Contact from Portfolio',
 			placeholders: {
 				name: 'YOUR NAME',
 				email: 'YOUR EMAIL',
@@ -79,6 +92,7 @@ export const translations = {
 		},
 		legal: {
 			title: 'Legal Notice',
+			metaDescription: "Legal notice and privacy policy of Maëlle Bourmeyster's portfolio.",
 			editor: '1. Site Editor',
 			editorName: 'Name:',
 			editorContact: 'Contact:',
@@ -89,11 +103,11 @@ export const translations = {
 			privacyLink: 'GitHub Privacy Statement',
 			ip: '3. Intellectual Property',
 			ipText1:
-				'The entirety of this site is subject to French and international legislation on copyright and intellectual property.',
+				'The entirety of this site is subject to French and international legislation on copyright and intellectual property. This site is protected under the most restrictive terms: All Rights Reserved.',
 			ipText2:
-				'All reproduction rights are reserved, including for downloadable documents and iconographic and photographic representations. The reproduction of all or part of this site on any electronic medium whatsoever is strictly prohibited unless expressly authorized by the publication director.',
+				'All reproduction rights are reserved, including for downloadable documents and iconographic and photographic representations. The reproduction of all or part of this site on any electronic medium whatsoever is strictly prohibited unless expressly authorized in writing by the publication director.',
 			ipText3:
-				'The works (sculptures, drawings, digital creations, etc.) presented on this site are the exclusive property of Maëlle Bourmeyster. Any use, reproduction, or modification without prior authorization is prohibited.',
+				'The works (sculptures, drawings, digital creations, etc.), the source code, design, and all content presented on this site are the exclusive property of Maëlle Bourmeyster. Any use, reproduction, modification, distribution, or adaptation—in whole or in part—without prior written authorization is strictly prohibited and may result in legal action.',
 			data: '4. Personal Data',
 			dataText1: 'This site does not collect personal data for commercial purposes.',
 			dataForm: 'Contact Form:',
@@ -105,6 +119,10 @@ export const translations = {
 		},
 		project: {
 			back: 'Back',
+			backToHome: 'Back to Home',
+			noProjectsInCategory: 'No projects found in this category yet.',
+			categoryMetaDescription:
+				'Explore {category} projects by Maëlle Bourmeyster, a multidisciplinary artist.',
 			about: 'About Project',
 			details: 'Details',
 			year: 'Year',
@@ -166,10 +184,20 @@ export const translations = {
 		},
 		footer: {
 			legal: 'Mentions Légales',
-			copyright: '© 2025 MAELLE BOURMEYSTER.'
+			copyright: '© 2025 MAELLE BOURMEYSTER. Tous droits réservés.'
+		},
+		error: {
+			title: '404',
+			notFound: 'Page introuvable',
+			generic: 'Une erreur est survenue',
+			notFoundDesc: "La page que vous recherchez n'existe pas ou a été déplacée.",
+			genericDesc: "Une erreur inattendue s'est produite.",
+			goBack: 'Retour'
 		},
 		about: {
 			title: 'À Propos',
+			metaDescription:
+				"Découvrez Maëlle Bourmeyster, une artiste multidisciplinaire passionnée par la sculpture, le dessin et l'artisanat.",
 			intro1: 'Bonjour ! Je suis',
 			intro2: ', une artiste multidisciplinaire basée à Lyon, France.',
 			intro3:
@@ -194,6 +222,8 @@ export const translations = {
 		},
 		contact: {
 			title: 'Me Contacter',
+			metaDescription:
+				'Contactez Maëlle Bourmeyster pour des collaborations, des questions ou simplement pour dire bonjour.',
 			infoTitle: 'Informations de Contact',
 			infoText:
 				"Que vous ayez un projet en tête, une question sur mon travail ou juste envie de dire bonjour, j'adorerais vous lire.",
@@ -204,6 +234,7 @@ export const translations = {
 			name: 'Nom',
 			message: 'Message',
 			send: 'Envoyer',
+			mailSubject: 'Contact depuis le Portfolio',
 			placeholders: {
 				name: 'VOTRE NOM',
 				email: 'VOTRE EMAIL',
@@ -212,6 +243,8 @@ export const translations = {
 		},
 		legal: {
 			title: 'Mentions Légales',
+			metaDescription:
+				'Mentions légales et politique de confidentialité du portfolio de Maëlle Bourmeyster.',
 			editor: '1. Éditeur du site',
 			editorName: 'Nom :',
 			editorContact: 'Contact :',
@@ -222,11 +255,11 @@ export const translations = {
 			privacyLink: 'Politique de confidentialité de GitHub',
 			ip: '3. Propriété Intellectuelle',
 			ipText1:
-				"L'ensemble de ce site relève de la législation française et internationale sur le droit d'auteur et la propriété intellectuelle.",
+				"L'ensemble de ce site relève de la législation française et internationale sur le droit d'auteur et la propriété intellectuelle. Ce site est protégé selon les termes les plus restrictifs : Tous droits réservés.",
 			ipText2:
-				"Tous les droits de reproduction sont réservés, y compris pour les documents téléchargeables et les représentations iconographiques et photographiques. La reproduction de tout ou partie de ce site sur un support électronique quel qu'il soit est formellement interdite sauf autorisation expresse du directeur de la publication.",
+				"Tous les droits de reproduction sont réservés, y compris pour les documents téléchargeables et les représentations iconographiques et photographiques. La reproduction de tout ou partie de ce site sur un support électronique quel qu'il soit est formellement interdite sauf autorisation écrite expresse du directeur de la publication.",
 			ipText3:
-				'Les œuvres (sculptures, dessins, créations numériques, etc.) présentées sur ce site sont la propriété exclusive de Maëlle Bourmeyster. Toute utilisation, reproduction ou modification sans autorisation préalable est interdite.',
+				'Les œuvres (sculptures, dessins, créations numériques, etc.), le code source, le design et tout contenu présenté sur ce site sont la propriété exclusive de Maëlle Bourmeyster. Toute utilisation, reproduction, modification, distribution ou adaptation—en tout ou en partie—sans autorisation écrite préalable est strictement interdite et peut donner lieu à des poursuites judiciaires.',
 			data: '4. Données Personnelles',
 			dataText1: 'Ce site ne collecte pas de données personnelles à des fins commerciales.',
 			dataForm: 'Formulaire de contact :',
@@ -238,6 +271,10 @@ export const translations = {
 		},
 		project: {
 			back: 'Retour',
+			backToHome: "Retour à l'accueil",
+			noProjectsInCategory: 'Aucun projet trouvé dans cette catégorie pour le moment.',
+			categoryMetaDescription:
+				'Découvrez les projets {category} de Maëlle Bourmeyster, artiste multidisciplinaire.',
 			about: 'À Propos du Projet',
 			details: 'Détails',
 			year: 'Année',

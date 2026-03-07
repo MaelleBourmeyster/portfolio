@@ -6,24 +6,29 @@
 	import Navbar from '$lib/components/Navbar.svelte';
 	import Footer from '$lib/components/Footer.svelte';
 
+	import { siteConfig } from '$lib/config';
 	import type { LayoutData } from './$types';
 	import type { Snippet } from 'svelte';
 
 	let { children, data } = $props<{ children: Snippet; data: LayoutData }>();
 
-	onMount(() => {
+	onMount(async () => {
+		const scheduler = (globalThis as { scheduler?: { yield?: () => Promise<void> } }).scheduler;
+		if (typeof scheduler?.yield === 'function') {
+			await scheduler.yield();
+		}
 		language.init();
 	});
 </script>
 
 <svelte:head>
 	<link rel="icon" href={favicon} />
-	<meta property="og:site_name" content="Maëlle Bourmeyster Portfolio" />
-	<meta name="author" content="Maëlle Bourmeyster" />
+	<meta property="og:site_name" content={siteConfig.name} />
+	<meta name="author" content={siteConfig.author} />
 	<meta name="robots" content="index, follow" />
 </svelte:head>
 
-<div class="flex min-h-screen flex-col">
+<div class="flex min-h-[100dvh] flex-col">
 	<Navbar navigationTree={data.navigationTree} />
 	<main class="flex-grow">
 		{@render children()}
