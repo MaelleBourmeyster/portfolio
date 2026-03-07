@@ -7,6 +7,13 @@
 	--color-pk-bg: oklch(0.985 0.008 85);
 	--color-pk-ink: oklch(0.165 0.002 285);
 	--color-pk-accent: oklch(0.545 0.215 264);
+	--color-pk-accent-hover: oklch(0.488 0.243 264);
+	--color-pk-accent-muted: oklch(0.97 0.02 264);
+	--color-pk-surface: oklch(0.97 0.005 0);
+	--color-pk-surface-hover: oklch(0.93 0.008 0);
+	--color-pk-muted: oklch(0.55 0.01 0);
+	--color-pk-muted-strong: oklch(0.48 0.01 0);
+	--color-pk-border-subtle: oklch(0.96 0.003 0);
 	--color-pk-grid: oklch(0.918 0.001 0);
 	--color-pk-white: oklch(1 0 0);
 	--font-mono: 'Space Mono', monospace;
@@ -15,6 +22,7 @@
 	--spacing-scrollbar: 1rem;
 	--spacing-stroke: 0.0625rem;
 	--spacing-border: 0.125rem;
+	--duration-image-reveal: 400ms;
 }
 
 @theme inline {
@@ -64,4 +72,13 @@ body {
 #work,
 .content-visibility-auto {
 	content-visibility: auto;
+}
+
+.img-reveal {
+	opacity: 0;
+	transition: opacity var(--duration-image-reveal) ease-out;
+}
+
+.img-reveal.loaded {
+	opacity: 1;
 }

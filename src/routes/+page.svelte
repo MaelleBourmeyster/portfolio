@@ -42,7 +42,7 @@
 		<div class="mb-12 flex items-end justify-between">
 			<div>
 				<h2 class="text-4xl font-bold tracking-tighter uppercase">{$t.home.explore}</h2>
-				<p class="mt-2 font-mono text-gray-500">{$t.home.subtitle}</p>
+				<p class="mt-2 font-mono text-pk-muted">{$t.home.subtitle}</p>
 			</div>
 			<div class="hidden text-right font-mono text-sm md:block">
 				{$t.home.categories}: 01 - 0{categories.length}
@@ -54,7 +54,7 @@
 				<div class="col-span-full p-12 text-center">
 					<div class="inline-block border-2 border-pk-ink bg-pk-white p-8 shadow-pk-lg">
 						<p class="mb-2 text-xl font-bold">{$t.home.explore}</p>
-						<p class="text-gray-600">{$t.home.noCategories}</p>
+						<p class="text-pk-muted-strong">{$t.home.noCategories}</p>
 					</div>
 				</div>
 			{:else}

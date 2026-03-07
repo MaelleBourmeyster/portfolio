@@ -48,7 +48,7 @@
 			<div class="mx-auto max-w-7xl px-6 text-center">
 				<div class="inline-block border-2 border-pk-ink bg-pk-white p-12 shadow-pk-lg">
 					<h2 class="mb-4 text-2xl font-bold uppercase">{categoryName}</h2>
-					<p class="text-lg text-gray-600">{$t.project.noProjectsInCategory}</p>
+					<p class="text-lg text-pk-muted-strong">{$t.project.noProjectsInCategory}</p>
 					<Button href={resolve('/')} class="mt-6 inline-block">
 						{$t.project.backToHome}
 					</Button>
@@ -59,7 +59,7 @@
 		{#each Object.entries(groupedProjects) as [subCat, groupProjects], i (subCat)}
 			<section class="py-16 {i % 2 !== 0 ? 'border-y-2 border-pk-ink bg-pk-white' : ''}">
 				<div class="mx-auto max-w-7xl px-6">
-					<h2 class="mb-8 border-l-4 border-blue-600 pl-4 text-3xl font-bold uppercase">
+					<h2 class="mb-8 border-l-4 border-pk-accent pl-4 text-3xl font-bold uppercase">
 						{getSubCategoryName($t, subCat)}
 					</h2>
 					<div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">

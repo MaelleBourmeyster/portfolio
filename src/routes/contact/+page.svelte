@@ -23,7 +23,7 @@
 				<div class="space-y-8">
 					<div>
 						<h2 class="mb-4 text-2xl font-bold uppercase">{$t.contact.infoTitle}</h2>
-						<p class="mb-6 text-gray-600">
+						<p class="mb-6 text-pk-muted-strong">
 							{$t.contact.infoText}
 						</p>
 					</div>
@@ -31,14 +31,14 @@
 					<div class="space-y-6">
 						<div class="border-2 border-pk-ink bg-pk-white p-6 shadow-pk">
 							<h3 class="mb-2 font-bold uppercase">{$t.contact.email}</h3>
-							<a href="mailto:{siteConfig.email}" class="break-all text-blue-600 hover:underline">
+							<a href="mailto:{siteConfig.email}" class="break-all text-pk-accent hover:underline">
 								{siteConfig.email}
 							</a>
 						</div>
 
 						<div class="border-2 border-pk-ink bg-pk-white p-6 shadow-pk">
 							<h3 class="mb-2 font-bold uppercase">{$t.contact.location}</h3>
-							<p class="text-gray-600">{siteConfig.locationDisplay}</p>
+							<p class="text-pk-muted-strong">{siteConfig.locationDisplay}</p>
 						</div>
 					</div>
 				</div>

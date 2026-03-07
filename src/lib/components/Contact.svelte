@@ -10,15 +10,15 @@
 				class="flex flex-col items-center justify-center border-2 border-pk-ink bg-pk-white p-6 shadow-pk"
 			>
 				<h3 class="mb-2 font-bold uppercase">{$t.contact.email}</h3>
-				<p class="break-all text-gray-600">{siteConfig.email}</p>
+				<p class="break-all text-pk-muted-strong">{siteConfig.email}</p>
 			</div>
 			<div class="border-2 border-pk-ink bg-pk-white p-6 shadow-pk">
 				<h3 class="mb-2 font-bold uppercase">{$t.contact.social}</h3>
-				<p class="text-gray-600">{siteConfig.socialHandle}</p>
+				<p class="text-pk-muted-strong">{siteConfig.socialHandle}</p>
 			</div>
 			<div class="border-2 border-pk-ink bg-pk-white p-6 shadow-pk">
 				<h3 class="mb-2 font-bold uppercase">{$t.contact.location}</h3>
-				<p class="text-gray-600">{siteConfig.locationDisplay}</p>
+				<p class="text-pk-muted-strong">{siteConfig.locationDisplay}</p>
 			</div>
 		</div>
 	</div>

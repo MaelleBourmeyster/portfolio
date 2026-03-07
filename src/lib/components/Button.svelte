@@ -28,7 +28,7 @@
 
 	const variants: Record<string, string> = {
 		default: 'bg-pk-white',
-		primary: 'bg-blue-600 text-white hover:bg-blue-700'
+		primary: 'bg-pk-accent text-pk-white hover:bg-pk-accent-hover'
 	};
 
 	const sizes: Record<string, string> = {

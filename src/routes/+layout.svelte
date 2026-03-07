@@ -1,14 +1,24 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import { onNavigate } from '$app/navigation';
 	import { language } from '$lib/stores/language';
 	import './layout.css';
 	import favicon from '$lib/assets/light-favicon.svg';
 	import Navbar from '$lib/components/Navbar.svelte';
 	import Footer from '$lib/components/Footer.svelte';
-
 	import { siteConfig } from '$lib/config';
 	import type { LayoutData } from './$types';
 	import type { Snippet } from 'svelte';
+
+	onNavigate((navigation) => {
+		if (typeof document === 'undefined' || !document.startViewTransition) return;
+		return new Promise<void>((resolve) => {
+			document.startViewTransition(async () => {
+				resolve();
+				await navigation.complete;
+			});
+		});
+	});
 
 	let { children, data } = $props<{ children: Snippet; data: LayoutData }>();
 

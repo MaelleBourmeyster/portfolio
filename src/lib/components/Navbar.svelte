@@ -75,7 +75,7 @@
 					role="group"
 				>
 					<button
-						class="flex items-center gap-1 text-lg font-bold uppercase hover:text-blue-600"
+						class="flex items-center gap-1 text-lg font-bold uppercase hover:text-pk-accent"
 						aria-haspopup="true"
 						aria-expanded={openMenu === domain.slug}
 						aria-controls={`menu-${domain.slug}`}
@@ -107,7 +107,7 @@
 							{#each domain.categories as cat (cat.slug)}
 								<a
 									href={resolve(cat.href)}
-									class="border-b border-gray-100 px-4 py-3 font-bold transition-colors last:border-0 hover:bg-blue-50 hover:text-blue-600"
+									class="border-b border-pk-border-subtle px-4 py-3 font-bold transition-colors last:border-0 hover:bg-pk-accent-muted hover:text-pk-accent"
 									role="menuitem"
 								>
 									{getTranslatedNavName($t, cat.translationKey, cat.name)}
@@ -158,7 +158,7 @@
 		>
 			<a
 				href={resolve('/')}
-				class="border-b border-gray-200 pb-2 text-xl font-bold tracking-wide uppercase transition-all hover:pl-2 hover:text-blue-600"
+				class="border-b border-pk-surface-hover pb-2 text-xl font-bold tracking-wide uppercase transition-all hover:pl-2 hover:text-pk-accent"
 				onclick={() => (isMenuOpen = false)}
 			>
 				{$t.nav.home}
@@ -166,7 +166,7 @@
 
 			<a
 				href={resolve('/about')}
-				class="border-b border-gray-200 pb-2 text-xl font-bold tracking-wide uppercase transition-all hover:pl-2 hover:text-blue-600"
+				class="border-b border-pk-surface-hover pb-2 text-xl font-bold tracking-wide uppercase transition-all hover:pl-2 hover:text-pk-accent"
 				onclick={() => (isMenuOpen = false)}
 			>
 				{$t.nav.about}
@@ -174,14 +174,14 @@
 
 			{#each navigationTree as domain (domain.slug)}
 				<div
-					class="mt-4 border-b border-gray-200 pb-2 text-sm font-bold tracking-widest text-gray-400 uppercase"
+					class="mt-4 border-b border-pk-surface-hover pb-2 text-sm font-bold tracking-widest text-pk-muted uppercase"
 				>
 					{getTranslatedNavName($t, domain.translationKey, domain.name)}
 				</div>
 				{#each domain.categories as cat (cat.slug)}
 					<a
 						href={resolve(cat.href)}
-						class="pl-4 text-xl font-bold tracking-wide uppercase transition-all hover:pl-2 hover:text-blue-600"
+						class="pl-4 text-xl font-bold tracking-wide uppercase transition-all hover:pl-2 hover:text-pk-accent"
 						onclick={() => (isMenuOpen = false)}
 					>
 						{getTranslatedNavName($t, cat.translationKey, cat.name)}
@@ -191,7 +191,7 @@
 
 			<a
 				href={resolve('/contact')}
-				class="mt-4 border-b border-gray-200 pb-2 text-xl font-bold tracking-wide uppercase transition-all hover:pl-2 hover:text-blue-600"
+				class="mt-4 border-b border-pk-surface-hover pb-2 text-xl font-bold tracking-wide uppercase transition-all hover:pl-2 hover:text-pk-accent"
 				onclick={() => (isMenuOpen = false)}
 			>
 				{$t.nav.contact}

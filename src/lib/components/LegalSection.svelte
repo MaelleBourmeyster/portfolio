@@ -15,7 +15,7 @@
 	<h2 class="mb-4 border-b-2 border-pk-ink pb-2 text-2xl font-bold uppercase">
 		{title}
 	</h2>
-	<div class="text-gray-600 {variant === 'spaced' ? 'space-y-4' : 'space-y-2'}">
+	<div class="text-pk-muted-strong {variant === 'spaced' ? 'space-y-4' : 'space-y-2'}">
 		{#if children}
 			{@render children()}
 		{/if}

@@ -18,18 +18,23 @@ const logger = {
 
 type ProjectDetailsJson = z.infer<typeof ProjectDetailsSchema>;
 
-async function readAndValidateDetails(projectDir: string): Promise<ProjectDetailsJson | null> {
+async function readAndValidateDetails(
+	projectDir: string
+): Promise<{ json: ProjectDetailsJson; mtime: Date } | null> {
 	const detailsPath = path.join(projectDir, 'details.json');
 	try {
-		let content = await fs.readFile(detailsPath, 'utf-8');
-		if (content.charCodeAt(0) === 0xfeff) content = content.slice(1);
-		const rawJson = JSON.parse(content);
+		const [content, stat] = await Promise.all([
+			fs.readFile(detailsPath, 'utf-8'),
+			fs.stat(detailsPath)
+		]);
+		const trimmed = content.charCodeAt(0) === 0xfeff ? content.slice(1) : content;
+		const rawJson = JSON.parse(trimmed);
 		const result = ProjectDetailsSchema.safeParse(rawJson);
 		if (!result.success) {
 			logger.error(`Validation error in ${detailsPath}:`, result.error.format());
 			return null;
 		}
-		return result.data;
+		return { json: result.data, mtime: stat.mtime };
 	} catch {
 		return null;
 	}
@@ -76,11 +81,12 @@ export async function loadProject(projectDir: string, rootDir: string): Promise<
 		return null;
 	}
 
-	const json = await readAndValidateDetails(projectDir);
-	if (!json) {
+	const details = await readAndValidateDetails(projectDir);
+	if (!details) {
 		logger.error(`Error reading project ${slug}`);
 		return null;
 	}
+	const { json, mtime } = details;
 
 	const urlPath = structure.relative.replace(/\\/g, '/');
 
@@ -109,7 +115,8 @@ export async function loadProject(projectDir: string, rootDir: string): Promise<
 		title: json.title,
 		description: json.description,
 		group: json.group ?? structure.subCategory,
-		translationKey: getTranslationKey(structure.categorySlug)
+		translationKey: getTranslationKey(structure.categorySlug),
+		lastModified: mtime
 	};
 }
 

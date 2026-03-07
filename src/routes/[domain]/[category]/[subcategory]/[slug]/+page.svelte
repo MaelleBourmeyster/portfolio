@@ -71,7 +71,7 @@
 		<div class="mx-auto max-w-7xl">
 			<a
 				href={resolve(`/${project.domainSlug}/${project.categorySlug}`)}
-				class="inline-flex items-center gap-2 font-bold uppercase transition-colors hover:text-blue-600"
+				class="inline-flex items-center gap-2 font-bold uppercase transition-colors hover:text-pk-accent"
 			>
 				<ArrowLeftIcon />
 				{$t.project.back}
@@ -84,7 +84,7 @@
 			<div class="space-y-6">
 				{#if project.videos && project.videos.length > 0}
 					<div class="group relative mb-8 border-2 border-pk-ink bg-pk-white p-4 shadow-pk-lg">
-						<div class="relative w-full overflow-hidden border-2 border-pk-ink bg-gray-100">
+						<div class="relative w-full overflow-hidden border-2 border-pk-ink bg-pk-surface">
 							<VideoPlayer src={project.videos[0]} />
 						</div>
 					</div>

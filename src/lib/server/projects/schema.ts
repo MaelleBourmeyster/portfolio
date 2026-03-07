@@ -39,4 +39,5 @@ export type Project = ProjectDetails & {
 	images: string[];
 	videos: string[];
 	translationKey: string;
+	lastModified?: Date;
 };

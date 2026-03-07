@@ -52,7 +52,11 @@ export function buildSitemapUrls(projects: Project[]): SitemapUrlEntry[] {
 	}
 
 	for (const project of projects) {
-		addUrl(`/${getProjectPath(project)}`, yearToDate(project.year), {
+		const lastmod =
+			project.lastModified && project.lastModified > yearToDate(project.year)
+				? project.lastModified
+				: yearToDate(project.year);
+		addUrl(`/${getProjectPath(project)}`, lastmod, {
 			changefreq: 'monthly',
 			priority: '0.6'
 		});

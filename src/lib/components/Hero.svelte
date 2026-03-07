@@ -18,10 +18,10 @@
 
 		<h1 class="px-4 text-5xl leading-[1.1] font-bold tracking-tighter md:text-8xl">
 			{$t.home.heroTitle} <br />
-			<span class="text-blue-600">{$t.home.heroSubtitle}</span>
+			<span class="text-pk-accent">{$t.home.heroSubtitle}</span>
 		</h1>
 
-		<p class="mx-auto mt-8 max-w-2xl text-xl font-medium text-gray-600 md:text-2xl">
+		<p class="mx-auto mt-8 max-w-2xl text-xl font-medium text-pk-muted-strong md:text-2xl">
 			{$t.home.heroDesc}
 		</p>
 

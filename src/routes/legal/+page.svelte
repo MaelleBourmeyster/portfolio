@@ -17,7 +17,7 @@
 				<p><span class="font-bold">{$t.legal.editorName}</span> {siteConfig.author}</p>
 				<p>
 					<span class="font-bold">{$t.legal.editorContact}</span>
-					<a href="mailto:{siteConfig.email}" class="text-blue-600 hover:underline">
+					<a href="mailto:{siteConfig.email}" class="text-pk-accent hover:underline">
 						{siteConfig.email}
 					</a>
 				</p>
@@ -35,7 +35,7 @@
 						href="https://docs.github.com/en/site-policy/privacy-policies/github-privacy-statement"
 						target="_blank"
 						rel="noopener noreferrer"
-						class="text-blue-600 hover:underline"
+						class="text-pk-accent hover:underline"
 					>
 						{$t.legal.privacyLink}
 					</a>

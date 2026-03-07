@@ -31,7 +31,7 @@
 			{errorTitle}
 		</h1>
 
-		<p class="mb-8 text-lg text-gray-600">
+		<p class="mb-8 text-lg text-pk-muted-strong">
 			{errorDesc}
 		</p>
 
@@ -40,7 +40,7 @@
 			<Button href={resolve('/')}>
 				{$t.nav.home}
 			</Button>
-			<Button onclick={() => window.history.back()} class="bg-gray-100 hover:bg-gray-200">
+			<Button onclick={() => window.history.back()} class="bg-pk-surface hover:bg-pk-surface-hover">
 				{$t.error.goBack}
 			</Button>
 		</div>
