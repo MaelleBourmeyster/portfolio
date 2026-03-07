@@ -1,6 +1,7 @@
 import type { NavigationItem } from '$lib/types';
 import type { Project } from './schema';
-import { formatName, getTranslationKey } from './structure';
+import { formatSlugToTitle } from '$lib/utils';
+import { getTranslationKey } from './structure';
 
 export function buildNavigationTree(projects: Project[]): NavigationItem[] {
 	const domains = new Map<string, Set<string>>();
@@ -13,11 +14,11 @@ export function buildNavigationTree(projects: Project[]): NavigationItem[] {
 	});
 
 	return Array.from(domains.entries()).map(([domainSlug, categories]) => ({
-		name: formatName(domainSlug),
+		name: formatSlugToTitle(domainSlug),
 		slug: domainSlug,
 		translationKey: getTranslationKey(domainSlug),
 		categories: Array.from(categories).map((catSlug) => ({
-			name: formatName(catSlug),
+			name: formatSlugToTitle(catSlug),
 			slug: catSlug,
 			href: `/${domainSlug}/${catSlug}`,
 			translationKey: getTranslationKey(catSlug)

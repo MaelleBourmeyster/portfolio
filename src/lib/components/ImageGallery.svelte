@@ -20,7 +20,7 @@
 		<div class="relative w-full overflow-hidden border-2 border-pk-ink bg-gray-100">
 			<img
 				src={images[currentIndex]}
-				alt={alt}
+				{alt}
 				class="h-auto w-full object-cover"
 				loading={currentIndex === 0 ? 'eager' : 'lazy'}
 				fetchpriority={currentIndex === 0 ? 'high' : undefined}

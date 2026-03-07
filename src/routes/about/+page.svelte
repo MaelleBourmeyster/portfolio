@@ -35,7 +35,8 @@
 
 				<div class="space-y-6">
 					<p class="text-2xl leading-tight font-bold">
-						{$t.about.intro1} <span class="text-blue-600">{siteConfig.author}</span>{$t.about.intro2}
+						{$t.about.intro1} <span class="text-blue-600">{siteConfig.author}</span>{$t.about
+							.intro2}
 					</p>
 					<p class="leading-relaxed text-gray-600">
 						{$t.about.intro3}

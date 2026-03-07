@@ -1,10 +1,6 @@
 import path from 'path';
 import { formatSlugToTitle } from '$lib/utils';
 
-export function formatName(slug: string): string {
-	return formatSlugToTitle(slug);
-}
-
 export function getTranslationKey(slug: string): string {
 	return slug.toLowerCase().replace(/-([a-z])/g, (g) => g[1].toUpperCase());
 }
@@ -37,7 +33,7 @@ export function parseProjectStructure(
 		categorySlug,
 		subCategory,
 		relative,
-		domain: formatName(domainSlug),
-		mainCategory: formatName(categorySlug)
+		domain: formatSlugToTitle(domainSlug),
+		mainCategory: formatSlugToTitle(categorySlug)
 	};
 }

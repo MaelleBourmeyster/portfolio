@@ -4,6 +4,7 @@
 	import PageHeader from '$lib/components/PageHeader.svelte';
 	import Button from '$lib/components/Button.svelte';
 	import { resolve } from '$app/paths';
+	import { getProjectPath } from '$lib/url';
 	import { t } from '$lib/stores/translations';
 	import { siteConfig } from '$lib/config';
 	import { getCategoryName, getSubCategoryName } from '$lib/utils';
@@ -47,10 +48,10 @@
 			<div class="mx-auto max-w-7xl px-6 text-center">
 				<div class="inline-block border-2 border-pk-ink bg-pk-white p-12 shadow-pk-lg">
 					<h2 class="mb-4 text-2xl font-bold uppercase">{categoryName}</h2>
-<p class="text-lg text-gray-600">{$t.project.noProjectsInCategory}</p>
-				<Button href={resolve('/')} class="mt-6 inline-block">
-					{$t.project.backToHome}
-				</Button>
+					<p class="text-lg text-gray-600">{$t.project.noProjectsInCategory}</p>
+					<Button href={resolve('/')} class="mt-6 inline-block">
+						{$t.project.backToHome}
+					</Button>
 				</div>
 			</div>
 		</section>
@@ -66,7 +67,7 @@
 							{@const isFirstCard = i === 0 && j === 0}
 							<a
 								href={resolve(
-									`/${project.domainSlug}/${project.categorySlug}/${project.subCategory}/${project.slug}`
+									`/${getProjectPath(project)}` as `/${string}/${string}/${string}/${string}`
 								)}
 								class="block"
 							>

@@ -2,8 +2,10 @@ import type { HomeCategory, NavigationItem } from '$lib/types';
 import type { Project } from './schema';
 import { getYearValue } from '../utils';
 
-export function buildHomeCategories(navigationTree: NavigationItem[], projects: Project[]): HomeCategory[] {
-
+export function buildHomeCategories(
+	navigationTree: NavigationItem[],
+	projects: Project[]
+): HomeCategory[] {
 	const projectsByCategory = new Map<string, Project[]>();
 	for (const p of projects) {
 		if (p.image) {

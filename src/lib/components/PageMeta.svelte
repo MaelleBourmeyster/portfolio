@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { language } from '$lib/stores/language';
-	import { getAbsoluteUrl, getImageUrl, getOgLocale } from '$lib/url';
+	import { getAbsoluteUrl, getAlternateUrls, getImageUrl, getOgLocale } from '$lib/url';
 	import { siteConfig } from '$lib/config';
 	import { DEFAULTS, OG_IMAGE } from '$lib/constants';
 
@@ -38,8 +38,7 @@
 	}: Props = $props();
 
 	let pageUrl = $derived(getAbsoluteUrl(path));
-	let urlEn = $derived(`${pageUrl}${pageUrl.includes('?') ? '&' : '?'}lang=en`);
-	let urlFr = $derived(`${pageUrl}${pageUrl.includes('?') ? '&' : '?'}lang=fr`);
+	let { en: urlEn, fr: urlFr } = $derived(getAlternateUrls(pageUrl));
 	let canonicalUrl = $derived(urlEn);
 	let imageUrl = $derived(image ? getImageUrl(image) : getImageUrl(siteConfig.defaultImage));
 	let fullTitle = $derived(noSuffix ? title : `${title} - ${siteConfig.author}`);

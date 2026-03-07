@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { TIMEOUTS } from '$lib/constants';
+	import { formatTime } from '$lib/utils';
 	import PlayIcon from './icons/PlayIcon.svelte';
 	import PauseIcon from './icons/PauseIcon.svelte';
 	import ReplayIcon from './icons/ReplayIcon.svelte';
@@ -74,12 +75,6 @@
 			document.exitFullscreen();
 			isFullscreen = false;
 		}
-	}
-
-	function formatTime(seconds: number) {
-		const mins = Math.floor(seconds / 60);
-		const secs = Math.floor(seconds % 60);
-		return `${mins}:${secs.toString().padStart(2, '0')}`;
 	}
 
 	function handleMouseMove() {

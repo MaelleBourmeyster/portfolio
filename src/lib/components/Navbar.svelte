@@ -128,12 +128,7 @@
 		</div>
 
 		<!-- Language Toggle (Desktop - Right Aligned) -->
-		<Button
-			type="button"
-			size="compact"
-			class="ml-auto hidden md:block"
-			onclick={toggleLanguage}
-		>
+		<Button type="button" size="compact" class="ml-auto hidden md:block" onclick={toggleLanguage}>
 			{$language}
 		</Button>
 

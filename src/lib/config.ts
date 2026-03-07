@@ -14,8 +14,5 @@ export const siteConfig = {
 	},
 	locationDisplay: 'Lyon, France',
 	socialHandle: '@maellebourmeyster',
-	sameAs: [
-		'https://x.com/maellebourmeyster',
-		'https://www.instagram.com/maellebourmeyster'
-	]
+	sameAs: ['https://x.com/maellebourmeyster', 'https://www.instagram.com/maellebourmeyster']
 };

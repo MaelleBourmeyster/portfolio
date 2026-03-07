@@ -4,9 +4,20 @@ on:
   push:
     branches: 'main'
 
+concurrency:
+  group: deploy-pages
+  cancel-in-progress: false
+
 jobs:
-  build_site:
+  build:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    strategy:
+      fail-fast: true
+      matrix:
+        node-version: [20, 22]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -14,23 +25,34 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: ${{ matrix.node-version }}
           cache: 'npm'
 
       - name: Install dependencies
         run: npm install
 
+      - name: Lint
+        run: npm run lint
+
+      - name: Type check
+        run: npm run check
+
+      - name: Validate projects
+        run: npm run validate
+
       - name: Build
         run: npm run build
 
       - name: Upload Artifacts
+        if: matrix.node-version == '20'
         uses: actions/upload-pages-artifact@v3
         with:
           path: 'build/'
 
   deploy:
-    needs: build_site
+    needs: build
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     permissions:
       pages: write
       id-token: write

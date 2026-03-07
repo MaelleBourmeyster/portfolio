@@ -19,7 +19,7 @@
 <div class="space-y-8">
 	<div>
 		<div
-			class="mb-4 inline-block border-2 border-pk-ink bg-blue-600 px-3 py-1 text-sm font-bold uppercase text-white shadow-pk"
+			class="mb-4 inline-block border-2 border-pk-ink bg-blue-600 px-3 py-1 text-sm font-bold text-white uppercase shadow-pk"
 		>
 			{getStr(category, $language)}
 		</div>

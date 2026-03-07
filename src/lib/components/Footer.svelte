@@ -8,10 +8,7 @@
 		<p class="font-mono text-sm text-gray-500">
 			{$t.footer.copyright}
 		</p>
-		<a
-			href={resolve('/legal')}
-			class="font-mono text-sm text-gray-500 hover:text-pk-ink"
-		>
+		<a href={resolve('/legal')} class="font-mono text-sm text-gray-500 hover:text-pk-ink">
 			{$t.footer.legal}
 		</a>
 	</div>

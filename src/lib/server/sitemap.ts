@@ -1,4 +1,4 @@
-import { getAbsoluteUrl } from '$lib/url';
+import { getAbsoluteUrl, getAlternateUrls, getProjectPath } from '$lib/url';
 import type { Project } from './projects/schema';
 
 export interface SitemapUrlEntry {
@@ -10,14 +10,6 @@ export interface SitemapUrlEntry {
 
 function formatDate(date: Date): string {
 	return date.toISOString().split('T')[0];
-}
-
-function getAlternateUrls(loc: string): { en: string; fr: string } {
-	const separator = loc.includes('?') ? '&' : '?';
-	return {
-		en: `${loc}${separator}lang=en`,
-		fr: `${loc}${separator}lang=fr`
-	};
 }
 
 function yearToDate(year: string | undefined): Date {
@@ -60,11 +52,10 @@ export function buildSitemapUrls(projects: Project[]): SitemapUrlEntry[] {
 	}
 
 	for (const project of projects) {
-		addUrl(
-			`/${project.domainSlug}/${project.categorySlug}/${project.subCategory}/${project.slug}`,
-			yearToDate(project.year),
-			{ changefreq: 'monthly', priority: '0.6' }
-		);
+		addUrl(`/${getProjectPath(project)}`, yearToDate(project.year), {
+			changefreq: 'monthly',
+			priority: '0.6'
+		});
 	}
 
 	return urls;

@@ -33,7 +33,7 @@ export const translations = {
 		},
 		footer: {
 			legal: 'Legal Notice',
-			copyright: '© 2025 MAELLE BOURMEYSTER. All Rights Reserved.'
+			copyright: `© ${new Date().getFullYear()} MAELLE BOURMEYSTER. All Rights Reserved.`
 		},
 		error: {
 			title: '404',
@@ -184,7 +184,7 @@ export const translations = {
 		},
 		footer: {
 			legal: 'Mentions Légales',
-			copyright: '© 2025 MAELLE BOURMEYSTER. Tous droits réservés.'
+			copyright: `© ${new Date().getFullYear()} MAELLE BOURMEYSTER. Tous droits réservés.`
 		},
 		error: {
 			title: '404',

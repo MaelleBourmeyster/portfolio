@@ -5,6 +5,13 @@ export function getStr(val: string | { en: string; fr: string }, lang: 'en' | 'f
 	return val[lang];
 }
 
+/** Format seconds as M:SS (e.g. 125 -> "2:05") */
+export function formatTime(seconds: number): string {
+	const mins = Math.floor(seconds / 60);
+	const secs = Math.floor(seconds % 60);
+	return `${mins}:${secs.toString().padStart(2, '0')}`;
+}
+
 /** Format slug to title case (e.g. "visual-arts" -> "Visual Arts") */
 export function formatSlugToTitle(slug: string): string {
 	return slug
@@ -31,23 +38,31 @@ export function getTranslatedNavName(
 	return fallback;
 }
 
+function getTranslatedCategoryName(
+	t: (typeof translations)['en'],
+	slug: string,
+	translationKey?: string
+): string {
+	if (translationKey && isNavKey(translationKey)) {
+		return t.nav[translationKey];
+	}
+	const categories = t.categories as Record<string, string>;
+	if (categories[slug]) {
+		return categories[slug];
+	}
+	return formatSlugToTitle(slug);
+}
+
 /** Get category display name from slug and translation key */
 export function getCategoryName(
 	t: (typeof translations)['en'],
 	translationKey: string | undefined,
 	slug: string
 ): string {
-	if (translationKey && isNavKey(translationKey)) {
-		return t.nav[translationKey];
-	}
-	return formatSlugToTitle(slug);
+	return getTranslatedCategoryName(t, slug, translationKey);
 }
 
 /** Get subcategory display name from slug */
 export function getSubCategoryName(t: (typeof translations)['en'], slug: string): string {
-	const categories = t.categories as Record<string, string>;
-	if (categories[slug]) {
-		return categories[slug];
-	}
-	return formatSlugToTitle(slug);
+	return getTranslatedCategoryName(t, slug);
 }

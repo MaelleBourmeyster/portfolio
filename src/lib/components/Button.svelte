@@ -40,13 +40,14 @@
 </script>
 
 {#if href}
-	<a href={href} class={classes} {...rest}>
+	<!-- eslint-disable-next-line svelte/no-navigation-without-resolve -- href is pre-resolved by parent -->
+	<a {href} class={classes} {...rest}>
 		{#if children}
 			{@render children()}
 		{/if}
 	</a>
 {:else}
-	<button {type} class={classes} onclick={onclick} {...rest}>
+	<button {type} class={classes} {onclick} {...rest}>
 		{#if children}
 			{@render children()}
 		{/if}

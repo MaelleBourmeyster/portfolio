@@ -31,7 +31,11 @@ body {
 	font-family: var(--font-mono);
 	background-image:
 		linear-gradient(var(--color-pk-grid) var(--spacing-stroke), transparent var(--spacing-stroke)),
-		linear-gradient(90deg, var(--color-pk-grid) var(--spacing-stroke), transparent var(--spacing-stroke));
+		linear-gradient(
+			90deg,
+			var(--color-pk-grid) var(--spacing-stroke),
+			transparent var(--spacing-stroke)
+		);
 	background-size: var(--spacing-pk-grid) var(--spacing-pk-grid);
 	min-height: 100dvh;
 }

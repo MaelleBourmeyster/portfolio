@@ -3,7 +3,7 @@
 	import type { PageData } from './$types';
 	import { language } from '$lib/stores/language';
 	import { t } from '$lib/stores/translations';
-	import { getAbsoluteUrl } from '$lib/url';
+	import { getAbsoluteUrl, getProjectPath } from '$lib/url';
 	import { siteConfig } from '$lib/config';
 	import { getStr } from '$lib/utils';
 	import { buildCreativeWorkJsonLd } from '$lib/seo';
@@ -19,9 +19,7 @@
 
 	let projectTitle = $derived(getStr(project.title, $language));
 	let projectDescription = $derived(getStr(project.description, $language) || $t.project.noDesc);
-	let projectPath = $derived(
-		`${project.domainSlug}/${project.categorySlug}/${project.subCategory}/${project.slug}`
-	);
+	let projectPath = $derived(getProjectPath(project));
 	let projectImage = $derived(project.image || siteConfig.defaultImage);
 	let articleMeta = $derived({
 		'article:author': siteConfig.author,
