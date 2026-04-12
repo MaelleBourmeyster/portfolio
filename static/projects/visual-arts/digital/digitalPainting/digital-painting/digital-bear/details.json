@@ -1,0 +1,13 @@
+{
+    "slug": "digital-bear",
+    "description": {
+        "en": "A digital painting of a bear.",
+        "fr": "Une illustration sur tablette graphique d'un ours."
+    },
+    "year": "2026",
+    "title": {
+        "en": "Digital Bear",
+        "fr": "Ours en dessin numérique"
+    },
+    "thumbnail": "digital-bear.png"
+}

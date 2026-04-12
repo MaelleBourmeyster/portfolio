@@ -1,0 +1,13 @@
+{
+    "slug": "digital-lion",
+    "description": {
+        "en": "A digital painting of a lion.",
+        "fr": "Une illustration sur tablette graphique d'un lion."
+    },
+    "year": "2026",
+    "title": {
+        "en": "Digital Lion",
+        "fr": "Lion en dessin numérique"
+    },
+    "thumbnail": "digital-lion.png"
+}
