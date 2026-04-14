@@ -1,0 +1,13 @@
+{
+    "slug": "digital-knight-3",
+    "description": {
+        "en": "A digital painting of a knight.",
+        "fr": "Une illustration sur tablette graphique d'un chevalier."
+    },
+    "year": "2026",
+    "title": {
+        "en": "Digital Knight",
+        "fr": "Chevalier en dessin numérique"
+    },
+    "thumbnail": "knight-3.png"
+}

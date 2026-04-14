@@ -1,0 +1,13 @@
+{
+    "slug": "digital-falconry",
+    "description": {
+        "en": "A digital painting of a falconry.",
+        "fr": "Une illustration sur tablette graphique d'une fauconnière."
+    },
+    "year": "2026",
+    "title": {
+        "en": "Digital Falconry",
+        "fr": "Fauconnière en dessin numérique"
+    },
+    "thumbnail": "falconry.png"
+}
