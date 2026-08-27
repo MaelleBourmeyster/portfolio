@@ -1,0 +1,13 @@
+{
+    "slug": "engraving-owl",
+    "description": {
+        "en": "A woodcut and its print.",
+        "fr": "Une gravure sur bois et son estampe."
+    },
+    "year": "2026",
+    "title": {
+        "en": "Owl",
+        "fr": "Chouette"
+    },
+    "thumbnail": "owl.png"
+}
